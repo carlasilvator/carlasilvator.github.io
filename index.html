@@ -196,6 +196,28 @@ body::before {
       50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
       100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
     }
+
+    .nebula-smoke {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(140, 0, 255, 0.08), transparent 70%),
+              radial-gradient(ellipse at center, rgba(0, 190, 255, 0.06), transparent 80%),
+              radial-gradient(ellipse at 70% 30%, rgba(255, 0, 200, 0.03), transparent 70%);
+  animation: smoke-move 90s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@keyframes smoke-move {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+} 
+    
   </style>
 </head>
 
@@ -212,6 +234,8 @@ body::before {
       <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
     </nav>
   </header>
+
+  <div class="nebula-smoke"></div>
 
   <section>
     <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>
