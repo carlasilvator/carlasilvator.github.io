@@ -221,57 +221,41 @@ body::before {
 
   .title-container {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 40px;
   position: relative;
 }
 
 .main-title {
-  font-size: 54px;
-  font-weight: bold;
+  font-size: 48px;
+  font-family: 'Segoe Script', cursive;
   color: #ff66cc;
   text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66cc;
-  position: relative;
   z-index: 2;
+  position: relative;
 }
 
 .subtitle {
-  font-size: 24px;
+  font-size: 22px;
   color: #ff99cc;
-  margin-top: 10px;
-  text-shadow: 0 0 5px #ff99cc;
+  margin-top: 6px;
+  text-shadow: 0 0 6px #ff99cc;
 }
 
 .butterfly {
   position: absolute;
-  width: 40px;
-  opacity: 0.7;
-  animation: float 6s ease-in-out infinite;
+  width: 35px;
+  opacity: 0.75;
+  animation: float 5s ease-in-out infinite;
   z-index: 1;
 }
 
-.butterfly:nth-child(1) {
-  top: -30px;
-  left: 20%;
-  animation-delay: 0s;
-}
-
-.butterfly:nth-child(2) {
-  top: -40px;
-  left: 60%;
-  animation-delay: 2s;
-}
-
-.butterfly:nth-child(3) {
-  top: -50px;
-  left: 40%;
-  animation-delay: 4s;
-}
+.b1 { top: -20px; left: 20%; animation-delay: 0s; }
+.b2 { top: -25px; right: 20%; animation-delay: 2s; }
 
 @keyframes float {
   0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(20px) rotate(10deg); }
+  50% { transform: translateY(12px) rotate(10deg); }
   100% { transform: translateY(0) rotate(0deg); }
-} 
 } 
 
 
@@ -282,11 +266,12 @@ body::before {
 
   <header>
   <div class="title-container">
-    <img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Butterflies-PNG/Pink_Butterfly_PNG_Transparent_Clipart.png?m=1643801028" class="butterfly" alt="butterfly">
-<img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Butterflies-PNG/Pink_Butterfly_PNG_Transparent_Clipart.png?m=1643801028" class="butterfly" alt="butterfly">
-<img src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Butterflies-PNG/Pink_Butterfly_PNG_Transparent_Clipart.png?m=1643801028" class="butterfly" alt="butterfly">
-
-    <div class="main-title">carlasilvator</div>
+    <!-- فراشات صغيرة وناعمة -->
+    <img src="https://i.ibb.co/5R6spn0/butterfly1.png" class="butterfly b1" alt="butterfly">
+    <img src="https://i.ibb.co/5R6spn0/butterfly1.png" class="butterfly b2" alt="butterfly">
+    
+    <!-- العنوان -->
+    <h1 class="main-title">carlasilvator</h1>
     <div class="subtitle">آثيريات العنقاء</div>
   </div>
 
