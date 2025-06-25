@@ -197,27 +197,30 @@ body::before {
       100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
     }
 
-    .nebula-smoke {
+    .nebula-glow {
   position: fixed;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(ellipse at center, rgba(140, 0, 255, 0.08), transparent 70%),
-              radial-gradient(ellipse at center, rgba(0, 190, 255, 0.06), transparent 80%),
-              radial-gradient(ellipse at 70% 30%, rgba(255, 0, 200, 0.03), transparent 70%);
-  animation: smoke-move 90s linear infinite;
-  z-index: 0;
-  pointer-events: none;
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(180, 0, 255, 0.2), transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(0, 200, 255, 0.15), transparent 65%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 0, 150, 0.1), transparent 70%);
+  animation: cosmic-drift 80s linear infinite;
   mix-blend-mode: screen;
+  filter: blur(25px) brightness(1.5) saturate(2);
+  pointer-events: none;
+  z-index: 1;
 }
 
-@keyframes smoke-move {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.1); }
+@keyframes cosmic-drift {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.05); }
   100% { transform: rotate(360deg) scale(1); }
 } 
-    
+
+
   </style>
 </head>
 
