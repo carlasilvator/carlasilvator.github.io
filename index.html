@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>آثيريات العنقاء - روايات سوداوية وعميقة بخط عربي فاخر</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --space-bg-dark: linear-gradient(135deg, #0a0f2c, #1a1747, #39275b);
+      --star-color: rgba(255, 255, 255, 0.15);
+      --text-primary: #a1c4fd;
+      --text-secondary: #b084cc;
+      --text-accent: #39ff14;
+      --link-color: #8a2be2;
+      --link-hover-color: #ff70a6;
+      --button-bg: #39275b;
+      --button-hover-bg: #5f3b8b;
+      --glow-color: #8a2be2;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background: var(--space-bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, var(--star-color) 2px, transparent 3px),
+        radial-gradient(circle at 50% 60%, var(--star-color) 1.5px, transparent 2px),
+        radial-gradient(circle at 80% 40%, var(--star-color) 2.5px, transparent 3px),
+        radial-gradient(circle at 70% 80%, var(--star-color) 1.8px, transparent 2px);
+      background-repeat: repeat;
+      background-size: 200px 200px;
+      animation: star-move 60s linear infinite;
+    }
+
+    @keyframes star-move {
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }
+    }
+
+    header {
+      background: rgba(25, 18, 61, 0.9);
+      z-index: 10000;
+      box-shadow: 0 0 15px var(--glow-color);
+      border-bottom: 2px solid var(--glow-color);
+      backdrop-filter: blur(6px);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+      color: var(--link-color);
+      text-shadow: 0 0 8px var(--glow-color);
+      padding: 10px 5px 8px;
+      text-align: center;
+    }
+
+    header nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 14px;
+      border-top: 1px solid var(--glow-color);
+      background: rgba(25, 18, 61, 0.9);
+    }
+
+    header nav a {
+      color: var(--link-color);
+      padding: 10px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    header nav a:hover {
+      color: var(--link-hover-color);
+      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 25px 18px;
+      max-width: 850px;
+      margin: 30px auto;
+      background: rgba(25, 18, 61, 0.55);
+      border-radius: 12px;
+      box-shadow: 0 0 15px var(--glow-color);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      text-shadow: 0 0 7px var(--text-secondary);
+    }
+
+    .stories a {
+      display: block;
+      padding: 10px 14px;
+      margin: 10px 0;
+      background: rgba(57, 39, 91, 0.85);
+      color: var(--text-accent);
+      text-decoration: none;
+      border-right: 5px solid var(--link-color);
+      font-size: 17px;
+      font-weight: 600;
+      text-shadow: 0 0 7px var(--text-accent);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-family: 'Amiri', serif;
+      font-size: 15px;
+      background: rgba(57, 39, 91, 0.85);
+      color: var(--text-accent);
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background: var(--button-bg);
+      color: var(--text-accent);
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--button-hover-bg);
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      border-top: 1px solid var(--glow-color);
+      color: var(--text-secondary);
+      background: rgba(10, 15, 44, 0.75);
+    }
+
+    .click-star {
+      position: fixed;
+      font-size: 20px;
+      pointer-events: none;
+      animation: star-pop 1s forwards ease-out;
+      user-select: none;
+      z-index: 11000;
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    }
+
+    @keyframes star-pop {
+      0% { transform: scale(1) translateY(0); opacity: 1; }
+      50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
+      100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🖤🕯️ آثيريات العنقاء 🔮🕯️</h1>
+    <nav>
+      <a href="#">🏠 الرئيسية</a>
+      <a href="#stories">📖 الروايات</a>
+      <a href="#chat">💬 غرفة الدردشة</a>
+      <a href="#">تابعني</a>
+      <a href="#complaints">✉️ الشكاوى</a>
+      <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>
+    <p>
+      يا أهلاً وسهلاً… وهلاكاً عظيماً بمن قرر الضياع في مجرّتي.
+      هنا لا تقرأ لتفهم، بل لتتبعثر 
+العقل يُستأصل برقّة أنامل الأنثى،  
+والهوى يُصفّى، لا لشيء سوى لأننا تخلّينا عن العاطفة اللطيفة.  
+والموت؟    
+مجرّد افتتاحية مهذّبة لحكايةٍ لن تخرج منها كما دخلت.  
+فلتجلس... أو ابقَ واقفاً، لا يهم.  
+لكن استعد لإشعال الجنون في عروقك،    
+قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.  
+أنا آثير، عنقاء الموت...    
+التي ستجعلك مهووساً.
+
+    </p>
+  </section>
+
+  <section id="chat">
+    <h2 class="section-title">💬 غرفة الدردشة 💬</h2>
+    <div class="chat-box">
+      <iframe src="https://grouptwilight.chatango.com/" title="غرفة الدردشة"
+        style="width: 100%; height: 300px; border: none; border-radius: 12px; box-shadow: 0 0 15px #ff00ff50;"></iframe>
+    </div>
+  </section>
+
+  <section id="stories">
+    <h2 class="section-title">📖 الروايات 📖</h2>
+    <div class="stories">
+      <a href="https://carllasilvator.blogspot.com/p/a-toxic-rose-root-space-bg-dark-linear.html">📖 A Toxic Rose</a>
+      <a href="/p/ترتيلات-آمان.html">📖 ترتيلات آمان</a>
+      <a href="/p/هكذا-ينتقم-الأشرار.html">📖 هكذا ينتقم الأشرار</a>
+    </div>
+  </section>
+
+  <section id="complaints">
+    <h2 class="section-title">📬 صندوق الشكاوى 📬</h2>
+    <form action="https://formspree.io/f/mgvyllwn" method="POST">
+      <input type="text" name="name" placeholder="اسمك..." required />
+      <input type="email" name="email" placeholder="بريدك الإلكتروني..." required />
+      <textarea name="message" rows="5" placeholder="اكتب شكواك أو اقتراحك..." required></textarea>
+      <button type="submit">إرسال</button>
+    </form>
+  </section>
+
+  <footer>
+    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
+  </footer>
+
+  <script>
+    document.addEventListener("click", function (e) {
+      const star = document.createElement("div");
+      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
+      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
+      star.textContent = emoji;
+      star.className = "click-star";
+      star.style.color = colors[Math.floor(Math.random() * colors.length)];
+      star.style.left = e.clientX + "px";
+      star.style.top = e.clientY + "px";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    });
+  </script>
+
+</body>
+</html>
