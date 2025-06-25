@@ -217,15 +217,69 @@ body::before {
   0%   { transform: rotate(0deg) scale(1); }
   50%  { transform: rotate(180deg) scale(1.05); }
   100% { transform: rotate(360deg) scale(1); }
+
+  .hero-header {
+  text-align: center;
+  padding: 40px 10px 30px;
+  background: transparent;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-header h1 {
+  font-size: 28px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ffb6c1, 0 0 20px #d8b4fe;
+}
+
+.logo-en {
+  font-family: 'Segoe Script', cursive;
+  color: #ffb6c1;
+  text-shadow: 0 0 5px #ffb6c1, 0 0 15px #ffc0cb;
+  font-size: 30px;
+  display: inline-block;
+}
+
+.logo-ar {
+  font-family: 'Amiri', serif;
+  color: #c084fc;
+  font-size: 24px;
+  text-shadow: 0 0 7px #c084fc, 0 0 14px #a855f7;
+  display: inline-block;
+}
+
+.butterfly {
+  position: absolute;
+  top: 0;
+  right: 20%;
+  font-size: 22px;
+  animation: flutter 6s ease-in-out infinite;
+  pointer-events: none;
+  text-shadow: 0 0 5px #ffb6c1, 0 0 12px #ffffff;
+}
+
+@keyframes flutter {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(10deg); }
+  50% { transform: translateY(0) rotate(-10deg); }
+  75% { transform: translateY(-8px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+} 
   
   </style>
 </head>
 
 <body>
 
-  <header>
-  <h1>  🔮carlasilvator🔮</h1>
-  </h1> 🖤🕯️ آثيريات العنقاء 🔮🕯️</h1>
+  <header class="hero-header">
+  <h1>
+    <span class="logo-en">🔮𝓬𝓪𝓻𝓵𝓪𝓼𝓲𝓵𝓿𝓪𝓽𝓸𝓻🔮</span><br>
+    <span class="logo-ar">🖤🕯️ آثيريات العنقاء 🔮🕯️</span>
+  </h1>
+  <div class="butterfly">🦋</div> 
+  
   <nav>
     <a href="#">🏠 الرئيسية</a>
     <a href="#stories">📖 الروايات</a>
