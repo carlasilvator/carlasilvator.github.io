@@ -1,87 +1,71 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>آثيريات العنقاء - روايات سوداوية وعميقة بخط عربي فاخر</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+
+  <style>
     :root {
-      --space-bg-dark: radial-gradient(ellipse at bottom, #0a0f2c, #140e2e, #0b001a);
-      --star-color: rgba(255, 255, 255, 0.18);
-      --text-primary: #b3e5ff;
-      --text-secondary: #c084fc;
-      --text-accent: #84ffff;
-      --link-color: #9d4edd;
-      --link-hover-color: #e0aaff;
-      --button-bg: #2a124d;
-      --button-hover-bg: #3c1e68;
-      --glow-color: #a855f7;
-    }
+  --space-bg-dark: radial-gradient(ellipse at bottom, #0a0f2c, #140e2e, #0b001a);
+  --star-color: rgba(255, 255, 255, 0.18);
+  --text-primary: #b3e5ff;
+  --text-secondary: #c084fc;
+  --text-accent: #84ffff;
+  --link-color: #9d4edd;
+  --link-hover-color: #e0aaff;
+  --button-bg: #2a124d;
+  --button-hover-bg: #3c1e68;
+  --glow-color: #a855f7;
+} 
 
     html {
       scroll-behavior: smooth;
-    }
+  } 
 
     body {
-      margin: 0;
-      font-family: 'Amiri', serif;
-      background: radial-gradient(ellipse at bottom, #0a0f2c 0%, #140e2e 35%, #0b001a 100%);
-      background-size: 400% 400%;
-      animation: spaceWave 60s ease infinite;
-      color: var(--text-primary);
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
-    }
+  margin: 0;
+  font-family: 'Amiri', serif;
+  background: radial-gradient(ellipse at bottom, #0a0f2c 0%, #140e2e 35%, #0b001a 100%);
+  background-size: 400% 400%;
+  animation: spaceWave 60s ease infinite;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.25) 2px, transparent 3px),
-        radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.18) 1.5px, transparent 2px),
-        radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.3) 2.5px, transparent 3px),
-        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.2) 1.8px, transparent 2px);
-      background-size: 250px 250px;
-      animation: starsGlitter 10s ease-in-out infinite alternate;
-      mix-blend-mode: screen;
-      filter: drop-shadow(0 0 6px #ffffff60);
-    }
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 2px, transparent 3px),
+    radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.12) 1.5px, transparent 2px),
+    radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.25) 2.5px, transparent 3px),
+    radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.18) 1.8px, transparent 2px);
+  background-size: 250px 250px;
+  animation: starsGlitter 120s linear infinite;
+}
 
-    @keyframes spaceWave {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+@keyframes spaceWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    @keyframes starsGlitter {
-      0%, 100% { opacity: 0.6; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
-    }
-
-    .nebula-glow {
-      position: fixed;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background:
-        radial-gradient(ellipse at 30% 40%, rgba(180, 0, 255, 0.2), transparent 60%),
-        radial-gradient(ellipse at 70% 60%, rgba(0, 200, 255, 0.15), transparent 65%),
-        radial-gradient(ellipse at 50% 50%, rgba(255, 0, 150, 0.1), transparent 70%);
-      animation: cosmic-drift 80s linear infinite;
-      mix-blend-mode: screen;
-      filter: blur(25px) brightness(1.5) saturate(2);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes cosmic-drift {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.05); }
-      100% { transform: rotate(360deg) scale(1); }
+@keyframes starsGlitter {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
+}
+  
+      
+    @keyframes star-move {
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }
     }
 
     header {
@@ -132,7 +116,7 @@
       border-radius: 12px;
       box-shadow: 0 0 15px var(--glow-color);
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
 
     .section-title {
@@ -161,7 +145,9 @@
       gap: 10px;
     }
 
-    input[type="email"], input[type="text"], textarea {
+    input[type="email"],
+    input[type="text"],
+    textarea {
       padding: 10px;
       border-radius: 6px;
       border: none;
@@ -194,41 +180,101 @@
       color: var(--text-secondary);
       background: rgba(10, 15, 44, 0.75);
     }
-  </style></head><body>
-  <div class="nebula-glow"></div>  <header>
-    <h1>🖤🕯️ آثيريات العنقاء 🔮🕯️</h1>
-    <nav>
-      <a href="#">🏠 الرئيسية</a>
-      <a href="#stories">📖 الروايات</a>
-      <a href="#chat">💬 غرفة الدردشة</a>
-      <a href="#">تابعني</a>
-      <a href="#complaints">✉️ الشكاوى</a>
-      <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
-    </nav>
-  </header>  <section>
+
+    .click-star {
+      position: fixed;
+      font-size: 20px;
+      pointer-events: none;
+      animation: star-pop 1s forwards ease-out;
+      user-select: none;
+      z-index: 11000;
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    }
+
+    @keyframes star-pop {
+      0% { transform: scale(1) translateY(0); opacity: 1; }
+      50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
+      100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
+    }
+
+    .nebula-glow {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(180, 0, 255, 0.2), transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(0, 200, 255, 0.15), transparent 65%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 0, 150, 0.1), transparent 70%);
+  animation: cosmic-drift 80s linear infinite;
+  mix-blend-mode: screen;
+  filter: blur(25px) brightness(1.5) saturate(2);
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes cosmic-drift {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+  
+  </style>
+</head>
+
+<body>
+
+  <header>
+  <h1>🖤🕯️ آثيريات العنقاء 🔮🕯️</h1>
+  <nav>
+    <a href="#">🏠 الرئيسية</a>
+    <a href="#stories">📖 الروايات</a>
+    <a href="#chat">💬 غرفة الدردشة</a>
+    <a href="#">تابعني</a>
+    <a href="#complaints">✉️ الشكاوى</a>
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
+
+  </nav>
+  </header>
+
+  <div class="nebula-glow"></div>
+
+  <section>
     <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>
     <p>
-      يا أهلاً وسهلاً… وهلاكاً عظيماً بمن قرر الضياع في مجرّتي.<br>
-      هنا لا تقرأ لتفهم، بل لتتبعثر.<br>
-      العقل يُستأصل برقّة أنامل الأنثى، والهوى يُصفّى، لا لشيء سوى لأننا تخلّينا عن العاطفة اللطيفة.<br>
-      والموت؟ مجرّد افتتاحية مهذّبة لحكايةٍ لن تخرج منها كما دخلت.<br>
-      فلتجلس... أو ابقَ واقفاً، لا يهم.<br>
-      لكن استعد لإشعال الجنون في عروقك، قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.<br>
-      أنا آثير، عنقاء الموت... التي ستجعلك مهووساً.
+      يا أهلاً وسهلاً… وهلاكاً عظيماً بمن قرر الضياع في مجرّتي.
+      هنا لا تقرأ لتفهم، بل لتتبعثر 
+العقل يُستأصل برقّة أنامل الأنثى،  
+والهوى يُصفّى، لا لشيء سوى لأننا تخلّينا عن العاطفة اللطيفة.  
+والموت؟    
+مجرّد افتتاحية مهذّبة لحكايةٍ لن تخرج منها كما دخلت.  
+فلتجلس... أو ابقَ واقفاً، لا يهم.  
+لكن استعد لإشعال الجنون في عروقك،    
+قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.  
+أنا آثير، عنقاء الموت...    
+التي ستجعلك مهووساً.
+
     </p>
-  </section>  <section id="chat">
+  </section>
+
+  <section id="chat">
     <h2 class="section-title">💬 غرفة الدردشة 💬</h2>
     <div class="chat-box">
-      <iframe src="https://grouptwilight.chatango.com/" title="غرفة الدردشة" style="width: 100%; height: 300px; border: none; border-radius: 12px; box-shadow: 0 0 15px #ff00ff50;"></iframe>
+      <iframe src="https://grouptwilight.chatango.com/" title="غرفة الدردشة"
+        style="width: 100%; height: 300px; border: none; border-radius: 12px; box-shadow: 0 0 15px #ff00ff50;"></iframe>
     </div>
-  </section>  <section id="stories">
+  </section>
+
+  <section id="stories">
     <h2 class="section-title">📖 الروايات 📖</h2>
     <div class="stories">
       <a href="https://carllasilvator.blogspot.com/p/a-toxic-rose-root-space-bg-dark-linear.html">📖 A Toxic Rose</a>
       <a href="/p/ترتيلات-آمان.html">📖 ترتيلات آمان</a>
       <a href="/p/هكذا-ينتقم-الأشرار.html">📖 هكذا ينتقم الأشرار</a>
     </div>
-  </section>  <section id="complaints">
+  </section>
+
+  <section id="complaints">
     <h2 class="section-title">📬 صندوق الشكاوى 📬</h2>
     <form action="https://formspree.io/f/mgvyllwn" method="POST">
       <input type="text" name="name" placeholder="اسمك..." required />
@@ -236,8 +282,26 @@
       <textarea name="message" rows="5" placeholder="اكتب شكواك أو اقتراحك..." required></textarea>
       <button type="submit">إرسال</button>
     </form>
-  </section>  <footer>
+  </section>
+
+  <footer>
     حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
   </footer>
+
+  <script>
+    document.addEventListener("click", function (e) {
+      const star = document.createElement("div");
+      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
+      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
+      star.textContent = emoji;
+      star.className = "click-star";
+      star.style.color = colors[Math.floor(Math.random() * colors.length)];
+      star.style.left = e.clientX + "px";
+      star.style.top = e.clientY + "px";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1000);
+    });
+  </script>
+
 </body>
-                </html>
+</html>
