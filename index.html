@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>carlasilvator</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cairo&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- الشعاع الوردي الخلفي -->
+<div class="pink-ray"></div>
+
+<!-- الشريط العلوي -->
+<div class="navbar">
+  <a href="#">الرئيسية</a>
+  <a href="#">أنستغرامي</a>
+  <a href="#">تابعني</a>
+  <div class="search-container">
+    <form onsubmit="return searchInPage()">
+      <input type="text" id="searchInput" placeholder="ابحث هنا...">
+      <button type="submit">بحث</button>
+    </form>
+  </div>
+</div>
+
+<!-- الشعار -->
+<div class="header-logo">
+  <div class="halo"></div>
+  <img class="skull" src="https://i.imgur.com/B3F5gxr.png" alt="Skull Logo">
+  <h1>carlasilvator</h1>
+  <p>آثيريات العنقاء</p>
+</div>
+
+<!-- نص ترحيبي مؤقت -->
+<p style="text-align:center; margin-top: 200px;">مرحباً بكِ في عالم آثيريات العنقاء...</p>
+
+<!-- سكريبت البحث -->
+<script>
+  function searchInPage() {
+    let query = document.getElementById("searchInput").value.toLowerCase();
+    if (!query) return false;
+    let found = window.find(query);
+    if (!found) alert("لم يتم العثور على: " + query);
+    return false;
+  }
+</script>
+
+</body>
+  </html>
