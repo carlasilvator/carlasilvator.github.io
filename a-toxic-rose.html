@@ -106,9 +106,9 @@ html {
   
       to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }  
   
-    }  
-
-    header {
+    }
+    
+header {
   padding: 10px 15px;
   background: rgba(25, 18, 61, 0.9);
   z-index: 10000;
@@ -120,12 +120,14 @@ html {
 
 header a img {
   width: 100%;
-  height: auto;
+  height: 100px; /* ارتفاع ثابت */
   display: block;
-  object-fit: contain;
-  max-height: 140px; /* زيدي أو نقصي حسب ما بدك حجم الشعار */
+  object-fit: cover;
   margin: 0 auto;
-}
+  border-radius: 6px;
+                        }
+    
+
 
 header nav {
   display: flex;
