@@ -61,142 +61,142 @@ body::before {
   100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
 }
   
-      
-    @keyframes star-move {
-      from { background-position: 0 0, 0 0, 0 0, 0 0; }
-      to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }
-    }
+@keyframes star-move {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }
+}
 
-    header {
-      background: rgba(25, 18, 61, 0.9);
-      z-index: 10000;
-      box-shadow: 0 0 15px var(--glow-color);
-      border-bottom: 2px solid var(--glow-color);
-      backdrop-filter: blur(6px);
-    }
+header {
+  background: rgba(25, 18, 61, 0.9);
+  z-index: 10000;
+  box-shadow: 0 0 15px var(--glow-color);
+  border-bottom: 2px solid var(--glow-color);
+  backdrop-filter: blur(6px);
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-      color: var(--link-color);
-      text-shadow: 0 0 8px var(--glow-color);
-      padding: 10px 5px 8px;
-      text-align: center;
-    }
+header h1 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--link-color);
+  text-shadow: 0 0 8px var(--glow-color);
+  padding: 10px 5px 8px;
+  text-align: center;
+}
 
-    header nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      font-size: 14px;
-      border-top: 1px solid var(--glow-color);
-      background: rgba(25, 18, 61, 0.9);
-    }
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 14px;
+  border-top: 1px solid var(--glow-color);
+  background: rgba(25, 18, 61, 0.9);
+}
 
-    header nav a {
-      color: var(--link-color);
-      padding: 10px 14px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
+header nav a {
+  color: var(--link-color);
+  padding: 10px 14px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s, text-shadow 0.3s;
+}
 
-    header nav a:hover {
-      color: var(--link-hover-color);
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
-      text-decoration: underline;
-    }
+header nav a:hover {
+  color: var(--link-hover-color);
+  text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+  text-decoration: underline;
+}
 
-    section {
-  padding: 18px 14px; /* صغّرنا البادينغ */
-  max-width: 750px;   /* صغّرنا العرض */
+section {
+  padding: 18px 5vw;
+  width: 100%;
+  max-width: 750px;
   margin: 20px auto;
   background: rgba(25, 18, 61, 0.5);
   border-radius: 10px;
   box-shadow: 0 0 12px var(--glow-color);
   position: relative;
   z-index: 1;
-    }
-    
-    .section-title {
-      font-size: 24px;
-      color: var(--text-secondary);
-      margin-bottom: 18px;
-      text-shadow: 0 0 7px var(--text-secondary);
-    }
+}
+  
+.section-title {
+  font-size: 24px;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  text-shadow: 0 0 7px var(--text-secondary);
+}
 
-    .stories a {
-      display: block;
-      padding: 10px 14px;
-      margin: 10px 0;
-      background: rgba(57, 39, 91, 0.85);
-      color: var(--text-accent);
-      text-decoration: none;
-      border-right: 5px solid var(--link-color);
-      font-size: 17px;
-      font-weight: 600;
-      text-shadow: 0 0 7px var(--text-accent);
-    }
+.stories a {
+  display: block;
+  padding: 10px 14px;
+  margin: 10px 0;
+  background: rgba(57, 39, 91, 0.85);
+  color: var(--text-accent);
+  text-decoration: none;
+  border-right: 5px solid var(--link-color);
+  font-size: 17px;
+  font-weight: 600;
+  text-shadow: 0 0 7px var(--text-accent);
+}
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    input[type="email"],
-    input[type="text"],
-    textarea {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-family: 'Amiri', serif;
-      font-size: 15px;
-      background: rgba(57, 39, 91, 0.85);
-      color: var(--text-accent);
-    }
+input[type="email"],
+input[type="text"],
+textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-family: 'Amiri', serif;
+  font-size: 15px;
+  background: rgba(57, 39, 91, 0.85);
+  color: var(--text-accent);
+}
 
-    button[type="submit"] {
-      padding: 10px 20px;
-      background: var(--button-bg);
-      color: var(--text-accent);
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+button[type="submit"] {
+  padding: 10px 20px;
+  background: var(--button-bg);
+  color: var(--text-accent);
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    button[type="submit"]:hover {
-      background: var(--button-hover-bg);
-    }
+button[type="submit"]:hover {
+  background: var(--button-hover-bg);
+}
 
-    footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 13px;
-      border-top: 1px solid var(--glow-color);
-      color: var(--text-secondary);
-      background: rgba(10, 15, 44, 0.75);
-    }
+footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  border-top: 1px solid var(--glow-color);
+  color: var(--text-secondary);
+  background: rgba(10, 15, 44, 0.75);
+}
 
-    .click-star {
-      position: fixed;
-      font-size: 20px;
-      pointer-events: none;
-      animation: star-pop 1s forwards ease-out;
-      user-select: none;
-      z-index: 11000;
-      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-    }
+.click-star {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  animation: star-pop 1s forwards ease-out;
+  user-select: none;
+  z-index: 11000;
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
 
-    @keyframes star-pop {
-      0% { transform: scale(1) translateY(0); opacity: 1; }
-      50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
-      100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
-    }
+@keyframes star-pop {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
+  100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
+}
 
-    .nebula-glow {
+.nebula-glow {
   position: fixed;
   top: -50%;
   left: -50%;
@@ -212,33 +212,32 @@ body::before {
   pointer-events: none;
   z-index: 1;
 } 
-    
+  
 @keyframes cosmic-drift {
   0%   { transform: rotate(0deg) scale(1); }
   50%  { transform: rotate(180deg) scale(1.05); }
-  100% { transform: rotate(360deg) scale(1); 
-        
+  100% { transform: rotate(360deg) scale(1); }
+}
   </style>
 </head>
 
 <body>
 
   <header>
-<header style="padding: 0; margin: 0; border-bottom: 2px solid var(--glow-color); box-shadow: 0 0 15px var(--glow-color); background: none;">
-  <a href="https://ibb.co/60C1GRPD" target="_blank">
-    <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء"
+    <a href="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" target="_blank">
+      <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء"
          style="width: 100%; height: auto; display: block;" />
-  </a>
+    </a>
 
-  <nav style="background: rgba(25, 18, 61, 0.9); border-top: 1px solid var(--glow-color); display: flex; justify-content: center; flex-wrap: wrap;">
-    <a href="home-btn">🏠 الرئيسية</a>
-    <a href="#stories">📖 الروايات</a>
-    <a href="#chat">💬 غرفة الدردشة</a>
-    <a href="#">تابعني</a>
-    <a href="#complaints">✉️ الشكاوى</a>
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
-  </nav>
-</header>
+    <nav style="background: rgba(25, 18, 61, 0.9); border-top: 1px solid var(--glow-color); display: flex; justify-content: center; flex-wrap: wrap;">
+      <a href="index.html">🏠 الرئيسية</a>
+      <a href="#stories">📖 الروايات</a>
+      <a href="#chat">💬 غرفة الدردشة</a>
+      <a href="#">تابعني</a>
+      <a href="#complaints">✉️ الشكاوى</a>
+      <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
+    </nav>
+  </header>
 
   <div class="nebula-glow"></div>
 
@@ -256,7 +255,6 @@ body::before {
 قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.  
 أنا آثير، عنقاء الموت...    
 التي ستجعلك مهووساً.
-
     </p>
   </section>
 
@@ -269,19 +267,19 @@ body::before {
   </section>
 
   <section id="forum-registration">
-  <h2 class="section-title">🌀 كيفية التسجيل في المنتدى</h2>
-  <p>يمكنك معرفة خطوات التسجيل من خلال <a href="#" target="_blank">هذه الصفحة</a>. سنقوم بإضافة الرابط قريباً.</p>
-</section>
+    <h2 class="section-title">🌀 كيفية التسجيل في المنتدى</h2>
+    <p>يمكنك معرفة خطوات التسجيل من خلال <a href="#" target="_blank">هذه الصفحة</a>. سنقوم بإضافة الرابط قريباً.</p>
+  </section>
 
-<section id="forum-rules">
-  <h2 class="section-title">📜 قوانين المنتدى</h2>
-  <p>نرجو منك الاطلاع على القوانين العامة لضمان تجربة محترمة وآمنة لجميع الأعضاء. سيتم إضافة رابط الصفحة قريباً.</p>
-</section>
+  <section id="forum-rules">
+    <h2 class="section-title">📜 قوانين المنتدى</h2>
+    <p>نرجو منك الاطلاع على القوانين العامة لضمان تجربة محترمة وآمنة لجميع الأعضاء. سيتم إضافة رابط الصفحة قريباً.</p>
+  </section>
 
-<section id="forum-updates">
-  <h2 class="section-title">🛠️ جديد التحديث</h2>
-  <p>في هذا القسم نعرض لك آخر تحديثات الفصول في المنتدى. رابط التفاصيل سيُضاف لاحقاً.</p>
-</section>
+  <section id="forum-updates">
+    <h2 class="section-title">🛠️ جديد التحديث</h2>
+    <p>في هذا القسم نعرض لك آخر تحديثات الفصول في المنتدى. رابط التفاصيل سيُضاف لاحقاً.</p>
+  </section>
 
   <section id="stories">
     <h2 class="section-title">📖 الروايات 📖</h2>
@@ -322,4 +320,4 @@ body::before {
   </script>
 
 </body>
-</html>
+        </html>
