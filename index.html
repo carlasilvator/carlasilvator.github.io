@@ -117,6 +117,14 @@ section {
   position: relative;
   z-index: 1;
 }
+
+    .container {
+  padding: 18px 5vw;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  box-sizing: border-box;
+} 
   
 .section-title {
   font-size: 24px;
@@ -223,7 +231,7 @@ footer {
 
 <body>
 
-  <header style="
+<header style="
   width: 100%;
   padding: 0;
   margin: 0;
@@ -232,21 +240,23 @@ footer {
   background: none;
   box-sizing: border-box;
 ">
-  <a href="https://ibb.co/60C1GRPD" target="_blank">
-    <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء"
-         style="width: 100%; height: auto; display: block;" />
-  </a>
+  <div class="container">
+    <a href="https://ibb.co/60C1GRPD" target="_blank">
+      <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء"
+           style="width: 100%; height: auto; display: block;" />
+    </a>
 
-  <nav style="background: rgba(25, 18, 61, 0.9); border-top: 1px solid var(--glow-color); display: flex; justify-content: center; flex-wrap: wrap;">
-    <a href="index.html">🏠 الرئيسية</a>
-    <a href="#stories">📖 الروايات</a>
-    <a href="#chat">💬 غرفة الدردشة</a>
-    <a href="#">تابعني</a>
-    <a href="#complaints">✉️ الشكاوى</a>
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
-  </nav>
-  </header>
-
+    <nav style="background: rgba(25, 18, 61, 0.9); border-top: 1px solid var(--glow-color); display: flex; justify-content: center; flex-wrap: wrap;">
+      <a href="index.html">🏠 الرئيسية</a>
+      <a href="#stories">📖 الروايات</a>
+      <a href="#chat">💬 غرفة الدردشة</a>
+      <a href="#">تابعني</a>
+      <a href="#complaints">✉️ الشكاوى</a>
+      <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
+    </nav>
+  </div>
+</header>  
+  
   <section>
     <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>
     <p>
@@ -307,7 +317,9 @@ footer {
   </section>
 
   <footer>
+  <div class="container">
     حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
+  </div>
   </footer>
 
   <script>
