@@ -107,76 +107,49 @@ html {
       to { background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px; }  
   
     }  
-  
-    header {  
-  
-      background: rgba(25, 18, 61, 0.9);  
-  
-z-index: 10000;  
-  
-      box-shadow: 0 0 15px var(--glow-color);  
-  
-      border-bottom: 2px solid var(--glow-color);  
-  
-      backdrop-filter: blur(6px);  
-  
-    }  
-  
-    header h1 {  
-  
-      margin: 0;  
-  
-      font-size: 28px;  
-  
-      color: var(--link-color);  
-  
-      text-shadow: 0 0 8px var(--glow-color);  
-  
-      padding: 15px 10px 10px;  
-  
-      text-align: center;  
-  
-    }  
-  
-    header nav {  
-  
-      display: flex;  
-  
-      flex-wrap: wrap;  
-  
-      justify-content: center;  
-  
-      font-size: 14px;  
-  
-      border-top: 1px solid var(--glow-color);  
-  
-      background: rgba(25, 18, 61, 0.9);  
-  
-    }  
-  
-header nav a {  
-  
-      color: var(--link-color);  
-  
-      padding: 10px 14px;  
-  
-      text-decoration: none;  
-  
-      font-weight: bold;  
-  
-      transition: color 0.3s, text-shadow 0.3s;  
-  
-    }  
-  
-    header nav a:hover {  
-  
-      color: var(--link-hover-color);  
-  
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);  
-  
-      text-decoration: underline;  
-  
-    }  
+
+    header {
+  padding: 10px 15px;
+  background: rgba(25, 18, 61, 0.9);
+  z-index: 10000;
+  box-shadow: 0 0 15px var(--glow-color);
+  border-bottom: 2px solid var(--glow-color);
+  backdrop-filter: blur(6px);
+  box-sizing: border-box;
+}
+
+header a img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  max-height: 140px; /* زيدي أو نقصي حسب ما بدك حجم الشعار */
+  margin: 0 auto;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 14px;
+  border-top: 1px solid var(--glow-color);
+  background: rgba(25, 18, 61, 0.9);
+}
+
+header nav a {
+  color: var(--link-color);
+  padding: 10px 14px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+header nav a:hover {
+  color: var(--link-hover-color);
+  text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+  text-decoration: underline;
+             }
+    
   
     section {
   padding: 18px 12px;
@@ -285,12 +258,10 @@ font-weight: 600;
   
 <body>  
   
-  <header class="hero-header">
-  <h1>
-    <span class="logo-en">🔮𝖈𝖆𝖗𝖑𝖆𝖘𝖎𝖑𝖛𝖆𝖙𝖔𝖗🔮</span><br>
-    <span class="logo-ar">🕯️ آثيريات العنقاء 🔮🕯️</span>
-  </h1>
-  <div class="butterfly">🦋</div> 
+   <header>
+      <a href="https://ibb.co/60C1GRPD" target="_blank">
+        <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
+      </a>
   
     <nav>  
   
