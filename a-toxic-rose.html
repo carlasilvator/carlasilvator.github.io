@@ -15,8 +15,6 @@
       --text-accent: #39ff14;
       --link-color: #8a2be2;
       --link-hover-color: #ff70a6;
-      --button-bg: #39275b;
-      --button-hover-bg: #5f3b8b;
       --glow-color: #8a2be2;
     }
 
@@ -31,7 +29,6 @@
       color: var(--text-primary);
       overflow-x: hidden;
       min-height: 100vh;
-      transition: background 0.7s ease, color 0.7s ease;
       position: relative;
     }
 
@@ -55,50 +52,44 @@
     }
 
     @keyframes star-move {
-      from {
-        background-position: 0 0, 0 0, 0 0, 0 0;
-      }
-
       to {
         background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px;
       }
     }
 
     header {
-      padding: 0;
-      background: rgba(25, 18, 61, 0.9);
-      z-index: 10000;
+      position: relative;
+      height: 110px;
+      overflow: hidden;
       box-shadow: 0 0 15px var(--glow-color);
       border-bottom: 2px solid var(--glow-color);
-      backdrop-filter: blur(6px);
-      box-sizing: border-box;
-      height: 100px;
-      position: relative;
-      overflow: hidden;
+      z-index: 10000;
     }
 
-    header a img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      border-radius: 0;
-      margin: 0;
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.95;
+      z-index: 1;
     }
 
     header nav {
+      position: relative;
+      z-index: 2;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      height: 100%;
       font-size: 14px;
-      border-top: 1px solid var(--glow-color);
-      background: rgba(25, 18, 61, 0.9);
-      padding: 6px 0;
+      background: transparent;
     }
 
     header nav a {
       color: var(--link-color);
-      padding: 8px 12px;
+      padding: 10px 16px;
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s, text-shadow 0.3s;
@@ -117,10 +108,8 @@
       background: rgba(25, 18, 61, 0.45);
       border-radius: 8px;
       box-shadow: 0 0 10px var(--glow-color);
-      position: relative;
-      z-index: 1;
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .section-title {
@@ -130,10 +119,13 @@
       text-shadow: 0 0 5px var(--text-secondary);
     }
 
-    section p {
-      font-size: 14px;
-      line-height: 1.7;
-      margin: 0;
+    .cover-img {
+      max-width: 85%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #8a2be2;
+      margin: 0 auto 15px;
+      display: block;
     }
 
     .stories a {
@@ -153,18 +145,6 @@
 
     .stories a:hover {
       background: rgba(72, 49, 118, 1);
-    }
-
-    /* تصغير صورة الغلاف */
-    .cover-img {
-      max-width: 90%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #8a2be2;
-      margin-bottom: 15px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     footer {
@@ -201,15 +181,10 @@
       }
     }
 
-    /* Responsive - موبايل */
     @media (max-width: 480px) {
       section {
         max-width: 90%;
         font-size: 13px;
-      }
-
-      header nav {
-        font-size: 12px;
       }
 
       .stories a {
@@ -219,26 +194,23 @@
       footer {
         max-width: 90%;
         font-size: 11px;
-        padding: 10px 8px;
+      }
+
+      header nav {
+        font-size: 12px;
       }
     }
   </style>
 </head>
 
 <body>
-
   <header>
-    <a href="https://ibb.co/60C1GRPD" target="_blank">
-      <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
-    </a>
-
+    <div class="header-bg"></div>
     <nav>
       <a href="index.html">🏠 الرئيسية</a>
       <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
     </nav>
   </header>
-
-  <!-- 🌹 A Toxic Rose 🌹 -->
 
   <section>
     <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>
@@ -246,8 +218,6 @@
       <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />
     </a>
   </section>
-
-  <!-- 🕯️ لمحة عن الرواية 🖤 -->
 
   <section>
     <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>
@@ -263,8 +233,6 @@
     </p>
   </section>
 
-  <!-- 📖 فصول الرواية -->
-
   <section>
     <h2 class="section-title">📖 فصول الرواية 📖</h2>
     <div class="stories">
@@ -273,8 +241,6 @@
       <a href="PUT-LINK-HERE">🌓 البارت الثالث</a>
     </div>
   </section>
-
-  <!-- 👥 شخصيات الرواية -->
 
   <section>
     <h2 class="section-title">👥 شخصيات الرواية 👥</h2>
@@ -286,14 +252,10 @@
     </p>
   </section>
 
-  <!-- ⚖️ التذييل والتحذير -->
-
   <footer>
     جميع الحقوق محفوظة للكاتبة روان. <br />
     كل استخدام غير مرخّص للمحتوى يُعتبر انتهاكًا قانونيًا، ويُعرّض صاحبه للمساءلة — &copy; 2025
   </footer>
-
-  <!-- ⭐ تأثير النجوم عند النقر -->
 
   <script>
     document.addEventListener("click", function (e) {
@@ -309,7 +271,6 @@
       setTimeout(() => star.remove(), 1000);
     });
   </script>
-
 </body>
 
 </html>
