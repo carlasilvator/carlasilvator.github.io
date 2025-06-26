@@ -217,32 +217,27 @@ body::before {
   0%   { transform: rotate(0deg) scale(1); }
   50%  { transform: rotate(180deg) scale(1.05); }
   100% { transform: rotate(360deg) scale(1); 
-  
+
+        .site-logo {
+  display: block;
+  margin: 10px auto 0;
+  max-width: 260px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: none;
+  filter: none;
+} 
+        
   </style>
 </head>
 
 <body>
 
-  <header style="padding: 0; overflow: hidden;">
-  <a href="https://ibb.co/RGQBpjcQ" target="_blank">
-    <img src="https://i.ibb.co/7xrRJkKr/Picsart-25-06-26-13-46-12-868.jpg" alt="آثيريات العنقاء" style="
-      width: 100%;
-      height: auto;
-      display: block;
-      box-shadow: 0 0 15px var(--glow-color);
-      border-bottom: 2px solid var(--glow-color);
-    ">
-  </a>
-  <nav style="
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 14px;
-    border-top: 1px solid var(--glow-color);
-    background: rgba(25, 18, 61, 0.9);
-  ">
-    
-  
+  <header>
+  <div class="logo-container">
+    <img src="https://i.postimg.cc/SRNpDn3z/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثير" class="site-logo" />
+  </div>
+
   <nav>
     <a href="#">🏠 الرئيسية</a>
     <a href="#stories">📖 الروايات</a>
