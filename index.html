@@ -69,26 +69,27 @@
     }
 
     header {
-      width: 100%;
-      background: rgba(25, 18, 61, 0.9);
-      border-bottom: 2px solid var(--glow-color);
-      box-shadow: 0 0 15px var(--glow-color);
-      backdrop-filter: blur(6px);
-      padding: 10px 0;
-      box-sizing: border-box;
-      text-align: center;
-      position: relative;
-      z-index: 10000;
-    }
+  width: 100%;
+  background: rgba(25, 18, 61, 0.9);
+  border-bottom: 2px solid var(--glow-color);
+  box-shadow: 0 0 15px var(--glow-color);
+  backdrop-filter: blur(6px);
+  padding: 0; /* ولا فراغ جانبي */
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 10000;
+}
 
-    header a img {
-      width: 100%;
-      height: auto;
-      display: block;
-      max-height: 120px;
-      object-fit: contain;
-      margin: 0 auto;
-    }
+header a img {
+  width: 100%;     /* تملأ العرض */
+  height: auto;    /* تحافظ على النسبة */
+  display: block;
+  object-fit: cover; /* لتملأ الهيدر بالكامل بدون فراغ */
+  max-height: none; /* ترفع أي حد أقصى للارتفاع */
+  margin: 0;
+}
 
     nav {
       display: flex;
