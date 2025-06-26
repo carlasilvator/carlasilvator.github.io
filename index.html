@@ -220,12 +220,17 @@ body::before {
 
         .site-logo {
   display: block;
-  margin: 10px auto 0;
-  max-width: 260px;
+  margin: 15px auto 5px;
+  width: 140px;
   height: auto;
-  border-radius: 12px;
-  box-shadow: none;
-  filter: none;
+  border-radius: 10px;
+  filter: drop-shadow(0 0 6px #ff9ad6);
+  transition: transform 0.3s ease-in-out;
+}
+
+.site-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px #ffc0eb);
 } 
         
   </style>
