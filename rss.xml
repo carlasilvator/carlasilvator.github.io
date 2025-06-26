@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>آثيريات العنقاء - آخر التحديثات</title>
+    <link>https://carlasilvator.github.io/</link>
+    <description>تابع كل جديد من روايات الظلال والعنقاء 🕯️</description>
+    <language>ar</language>
+    <lastBuildDate>Thu, 27 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <ttl>1800</ttl>
+
+    <!-- عند نشر فصل جديد، أضيفي هنا عنصر جديد مثل هذا:
+    <item>
+      <title>عنوان الفصل أو التحديث</title>
+      <link>الرابط المباشر للمحتوى</link>
+      <description>شرح صغير أو جملة مشوّقة</description>
+      <pubDate>Thu, 27 Jun 2025 22:00:00 +0000</pubDate>
+      <guid>نفس الرابط</guid>
+    </item>
+    -->
+
+  </channel>
+</rss>
