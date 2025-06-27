@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>خلاصة RSS | آثيريات العنقاء</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+
+  :root {
+    --glow-color: #a855f7;
+    --bg-gradient: radial-gradient(ellipse at bottom, #1a001e 0%, #3c003f 35%, #0b001a 100%);
+    --text-primary: #b3e5ff;
+    --text-secondary: #c084fc;
+    --accent-color: #84ffff;
+  }
+
+  body {
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    font-family: 'Amiri', serif;
+    margin: 0; padding: 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    color: var(--text-secondary);
+    text-shadow: 0 0 10px var(--glow-color);
+    margin-bottom: 40px;
+  }
+
+  .rss-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .rss-item {
+    background: rgba(25, 18, 61, 0.6);
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px var(--glow-color);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .rss-item:hover {
+    box-shadow: 0 0 40px var(--glow-color);
+  }
+
+  .rss-item h2 {
+    margin: 0 0 10px;
+    color: var(--accent-color);
+    font-size: 22px;
+    text-shadow: 0 0 8px var(--glow-color);
+    cursor: pointer;
+  }
+
+  .rss-item p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+
+  .error-message {
+    text-align: center;
+    font-size: 18px;
+    color: #f55;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+  <h1>خلاصة آثيريات العنقاء</h1>
+  <div class="rss-container" id="rss-container">
+    <p>جارٍ تحميل المحتوى...</p>
+  </div>
+
+<script>
+  async function fetchRSS() {
+    try {
+      const response = await fetch('rss.xml');
+      if (!response.ok) throw new Error('تعذر تحميل ملف RSS');
+
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, 'application/xml');
+      
+      const items = xml.querySelectorAll('item');
+      const container = document.getElementById('rss-container');
+      container.innerHTML = '';
+
+      if (items.length === 0) {
+        container.innerHTML = '<p class="error-message">لا توجد مشاركات في الخلاصة.</p>';
+        return;
+      }
+
+      items.forEach(item => {
+        const title = item.querySelector('title')?.textContent || 'بدون عنوان';
+        const description = item.querySelector('description')?.textContent || '';
+        const link = item.querySelector('link')?.textContent || '#';
+
+        const div = document.createElement('div');
+        div.className = 'rss-item';
+
+        div.innerHTML = `
+          <h2 onclick="window.open('${link}', '_blank')">${title}</h2>
+          <p>${description}</p>
+        `;
+
+        container.appendChild(div);
+      });
+
+    } catch (error) {
+      document.getElementById('rss-container').innerHTML = `<p class="error-message">${error.message}</p>`;
+    }
+  }
+
+  fetchRSS();
+</script>
+
+</body>
+</html>
