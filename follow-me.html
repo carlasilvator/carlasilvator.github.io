@@ -83,26 +83,46 @@
   object-fit: cover;
 } 
 
-    nav {
-      background: rgba(25, 18, 61, 0.9);
-      padding: 10px 0;
-      text-align: center;
-      border-top: 1px solid var(--glow-color);
-    }
+    .main-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 8px 10px;
+  background: rgba(25, 18, 61, 0.9);
+  border-top: 1px solid var(--glow-color);
+  border-bottom: 2px solid var(--glow-color);
+  box-shadow: 0 0 10px var(--glow-color);
+  scrollbar-width: thin;
+  scrollbar-color: var(--glow-color) transparent;
+}
 
-    nav a {
-      color: var(--link-color);
-      padding: 10px 14px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
+.main-nav::-webkit-scrollbar {
+  height: 6px;
+}
 
-    nav a:hover {
-      color: var(--link-hover-color);
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
-    }
+.main-nav::-webkit-scrollbar-thumb {
+  background-color: var(--glow-color);
+  border-radius: 3px;
+}
+
+.main-nav a {
+  display: inline-block;
+  color: var(--link-color);
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+  white-space: nowrap;
+  transition: color 0.3s, text-shadow 0.3s;
+  flex-shrink: 0;
+}
+
+.main-nav a:hover {
+  color: var(--link-hover-color);
+  text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+  text-decoration: underline;
+} 
 
     main.follow-container {
       max-width: 420px;
@@ -243,9 +263,10 @@
     </a>
   </header>
 
-  <nav>
+  <nav class="main-nav">
     <a href="index.html">🏠 الرئيسية</a>
-    <a href="follow.html">تابعني</a>
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
+    <a href="follow-me.html" id="followBtn">أشترك</a>
   </nav>
 
   <main class="follow-container">
