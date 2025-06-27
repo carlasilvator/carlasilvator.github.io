@@ -7,15 +7,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --space-bg-dark: linear-gradient(135deg, #0a0f2c, #1a1747, #39275b);
-      --star-color: rgba(255, 255, 255, 0.15);
-      --text-primary: #a1c4fd;
-      --text-secondary: #b084cc;
-      --text-accent: #39ff14;
-      --link-color: #8a2be2;
-      --link-hover-color: #ff70a6;
-      --glow-color: #8a2be2;
-    }
+  --space-bg-dark: linear-gradient(135deg, #4b1535, #71557a, #f3c8dd); 
+  /* من البني الشوكولا إلى الليفندر الغامق، ثم لمسة بينك ملكي بتوهّج خفيف */
+
+  --star-color: rgba(255, 240, 250, 0.12); 
+  /* نجوم بلون وردي شفاف يعكس جو الغموض الأنثوي */
+
+  --text-primary: #f3c8dd;  /* Queen Pink - العنوان والنص الأساسي */
+  --text-secondary: #d183a9;  /* Middle Purple - للنصوص الثانوية أو الوصفية */
+  --text-accent: #ffffff;  /* أبيض للتسليط أو العبارات المهمة */
+
+  --link-color: #f3c8dd;  /* الروابط بلون بينك ناعم */
+  --link-hover-color: #ffffff;  /* أبيض عند المرور للتمييز بوضوح */
+
+  --glow-color: #f3c8dd;  
+  /* التوهج نفس لون الملكة، ليظهر بأزرار أو خطوط الإطار */
+
+  --btn-bg: #d183a9;  /* زر بخلفية بنفسجية ناعمة */
+  --btn-hover-bg: #f3c8dd;  /* عند المرور يصير وردي ملكي */
+  --btn-text-color: #4b1535;  /* النص داخل الزر بلون الشوكولا ليعطي تباين أنثوي ساحر */
+} 
 
     html {
       scroll-behavior: smooth;
@@ -23,32 +34,38 @@
 
     body {
       margin: 0;
-      font-family: 'Amiri', serif;
-      background: var(--space-bg-dark);
-      color: var(--text-primary);
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg,#4b1535, #71557a, #f3c8dd);
+      color: #f3c8dd;
       overflow-x: hidden;
       min-height: 100vh;
       position: relative;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(circle at 20% 30%, var(--star-color) 2px, transparent 3px),
-        radial-gradient(circle at 50% 60%, var(--star-color) 1.5px, transparent 2px),
-        radial-gradient(circle at 80% 40%, var(--star-color) 2.5px, transparent 3px),
-        radial-gradient(circle at 70% 80%, var(--star-color) 1.8px, transparent 2px);
-      background-repeat: repeat;
-      background-size: 200px 200px;
-      animation: star-move 60s linear infinite;
-    }
+ body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(209, 131, 169, 0.6) 2px, transparent 3px),
+    radial-gradient(circle at 50% 60%, rgba(209, 131, 169, 0.5) 1.5px, transparent 2px),
+    radial-gradient(circle at 80% 40%, rgba(209, 131, 169, 0.7) 2.5px, transparent 3px),
+    radial-gradient(circle at 70% 80%, rgba(209, 131, 169, 0.55) 1.8px, transparent 2px);
+
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: star-move 60s linear infinite;
+
+  /* ✨ التوهج السحري */
+  filter: drop-shadow(0 0 4px rgba(209, 131, 169, 0.8))
+          drop-shadow(0 0 6px rgba(209, 131, 169, 0.6));
+   }
 
     @keyframes star-move {
       to {
@@ -60,7 +77,7 @@
   position: relative;
   height: 110px;
   overflow: hidden;
-  background: rgba(25, 18, 61, 0.9);
+  background: linear-gradient(90deg, rgba(75,21,53,0.9), rgba(113,85,122,0.8));
   border-bottom: 2px solid var(--glow-color);
   box-shadow: 0 0 15px var(--glow-color);
   padding: 0;
@@ -91,7 +108,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: rgba(25, 18, 61, 0.9);
+      background: linear-gradient(90deg, rgba(75,21,53,0.85), rgba(113,85,122,0.8));
       border-top: 1px solid var(--glow-color);
       border-bottom: 2px solid var(--glow-color);
       padding: 10px 0;
@@ -117,7 +134,7 @@
       padding: 12px 10px;
       max-width: 600px;
       margin: 15px auto;
-      background: rgba(25, 18, 61, 0.45);
+      background: rgba(75, 21, 53, 0.5); /* Brown Chocolate شفاف */
       border-radius: 8px;
       box-shadow: 0 0 10px var(--glow-color);
       font-size: 14px;
@@ -135,7 +152,7 @@
       max-width: 85%;
       height: auto;
       border-radius: 12px;
-      box-shadow: 0 0 15px #8a2be2;
+      box-shadow: 0 0 20px rgba(243, 200, 221, 0.8), 0 0 30px rgba(209, 131, 169, 0.7);
       margin: 0 auto 15px;
       display: block;
     }
@@ -144,19 +161,19 @@
       display: block;
       padding: 8px 12px;
       margin: 8px 0;
-      background: rgba(57, 39, 91, 0.85);
-      color: var(--text-accent);
+      background: rgba(209, 131, 169, 0.85);
+      color: var(--text-primary);
       text-decoration: none;
       border-right: 4px solid var(--link-color);
       font-size: 16px;
       font-weight: 600;
-      text-shadow: 0 0 7px var(--text-accent);
+      text-shadow: 0 0 7px var(--text-primary);
       border-radius: 4px;
       transition: background 0.3s;
     }
 
     .stories a:hover {
-      background: rgba(72, 49, 118, 1);
+      background: rgba(243, 200, 221, 0.9); /* بدل rgba(72, 49, 118, 1) */
     }
 
     footer {
