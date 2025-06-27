@@ -6,9 +6,9 @@
   <title>تابعني - آثيريات العنقاء</title>
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
   <style>
-    /* هنا تحط CSS الشعار */
+    /* شعار */
     .logo-link {
-      display: block;
+      display: inline-block;
       width: 200px;
       max-width: 90vw;
     }
@@ -72,37 +72,38 @@
       100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
     }
 
-    /* الهيدر */
+    /* هيدر الشعار */
     header {
-      background: rgba(25, 18, 61, 0.9);
-      z-index: 10000;
-      box-shadow: 0 0 15px var(--glow-color);
-      border-bottom: 2px solid var(--glow-color);
-      backdrop-filter: blur(6px);
-      padding: 10px 20px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      font-weight: bold;
-      font-size: 18px;
-      color: var(--link-color);
-      text-shadow: 0 0 8px var(--glow-color);
-      box-sizing: border-box;
-      position: sticky;
-      top: 0;
+      text-align: center;
+      padding: 15px 0;
+      background: transparent;
     }
-    header a {
+
+    /* شريط التابعني */
+    nav {
+      background: rgba(25, 18, 61, 0.9);
+      padding: 10px 20px;
+      text-align: center;
+    }
+    nav a {
       color: var(--link-color);
       text-decoration: none;
-      padding: 8px 12px;
-      border: 1px solid transparent;
+      padding: 8px 16px;
       border-radius: 5px;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      border: 1px solid transparent;
+      font-weight: bold;
+      font-size: 18px;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
     }
-    header a:hover {
-      background-color: #3c1e68;
+    nav a:hover,
+    nav a:focus {
+      background-color: var(--button-hover-bg);
       border-color: var(--link-hover-color);
       color: var(--link-hover-color);
+      outline: none;
       text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
     }
 
@@ -270,9 +271,19 @@
   </style>
 </head>
 <body>
+
   <header>
-    <a href="index.html" aria-label="العودة للرئيسية">🏠 الرئيسية</a>
+    <a href="#" class="logo-link" aria-label="شعار آثيريات العنقاء">
+      <img
+        src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg"
+        alt="شعار آثيريات العنقاء"
+      />
+    </a>
   </header>
+
+  <nav>
+    <a href="follow.html" aria-label="زر تابعني">تابعني</a>
+  </nav>
 
   <main class="follow-container" role="main" aria-label="صندوق متابعة آثيريات العنقاء">
     <img
@@ -301,13 +312,13 @@
               type="email"
               name="email"
               required
-              placeholder="أدخل بريدك الإلكتروني"
+              placeholder="Enter your email"
               spellcheck="false"
               aria-label="ادخل بريدك الإلكتروني"
             />
           </div>
           <div class="preview-submit-button">
-            <button type="submit">اشترك</button>
+            <button type="submit">Subscribe</button>
           </div>
           <!-- عدد المتابعين مخفي -->
         </div>
@@ -327,8 +338,8 @@
     document.addEventListener("click", function (e) {
       const star = document.createElement("div");
       const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-      const emojis = ["✨", "🌟", "💫", "⭐"];
-      star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
+      star.textContent = emoji;
       star.className = "click-star";
       star.style.color = colors[Math.floor(Math.random() * colors.length)];
       star.style.left = e.clientX + "px";
@@ -338,4 +349,4 @@
     });
   </script>
 </body>
-        </html>
+</html>
