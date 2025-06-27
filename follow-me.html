@@ -299,6 +299,20 @@
   box-shadow: 0 0 35px var(--glow-color), 0 0 55px rgba(168, 85, 247, 0.5);
   transform: scale(1.015);
 } 
+
+    .custom-footer {
+  margin-top: 80px;
+  padding: 25px 15px;
+  text-align: center;
+  background: rgba(25, 18, 61, 0.85);
+  border-top: 1px solid var(--glow-color);
+  box-shadow: 0 -3px 15px var(--glow-color);
+  color: var(--text-accent);
+  font-size: 14px;
+  font-family: 'Amiri', serif;
+  text-shadow: 0 0 5px var(--glow-color);
+  line-height: 1.8;
+} 
   </style>
 </head>
 <body>
@@ -348,19 +362,22 @@
       <a href="https://follow.it" class="powered-by-line" target="_blank" rel="noopener noreferrer">
         Powered by <img src="https://follow.it/images/colored-logo.svg" alt="follow.it" />
       </a>
-      <div class="intro-card">
+      <hr class="section-divider" />
+
+<div class="intro-card">
   <div class="intro-content">
     ڤولا… يا روحي الشفقية.<br><br>
     دعني أخلع القناع للحظة، لا لأكون صادقة، بل لأزيد ارتباكك.<br><br>
     اسمي روان، لكنك ستعرفني تحت مسمى آخر… <strong>آثير</strong>.<br>
     كاتبة؟ مخرجة؟ مجرمة؟ جلادة؟ لا يهم.<br>
-    فأنا… انعكاس لما تخشاه، أو ما تحتاجه، قد أكون ما تهرب منه.<br><br>
-    لكن الشيء الأكيد هو سأكون لكل واحد منكم شيئًا مختلفًا.<br>
+    فأنا… انعكاس لما تخشاه، أو ما تحتاجه، أو ما تهرب منه.<br><br>
+    أكون لكل واحد منكم شيئًا مختلفًا.<br>
     قد أكون منقذك، وقد أكون نهايتك.<br><br>
     أنا أراك… أرعَاك… أراقب كل حرف ينبض فيك حين تقرأ كلماتي.<br><br>
     أنتم لستم قرّائي.<br>
     أنتم <em>أرواحي الشفقية</em>، وقود ناري، وصدى صوتي في هذه المتاهة التي تسمّونها "رواية".
   </div>
+</div>
         
 </div>
   </main>
@@ -379,6 +396,11 @@
       setTimeout(() => star.remove(), 1000);
     });
   </script>
-
+<footer class="custom-footer">
+  <p>
+    © جميع الحقوق محفوظة | جميع الحقوق محفوظة و أي استخدام غير مرخّص للمحتوى سيعرّضك للمساءلة القانونية.
+  </p>
+</footer>
+  
 </body>
 </html>
