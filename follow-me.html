@@ -300,24 +300,33 @@
   transform: scale(1.015);
 } 
 
-    .legal-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+   .my-container {
+  margin: 20px 0;
+  background: rgba(25, 18, 61, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 0 12px var(--glow-color);
+  padding: 18px 15px;
+  box-sizing: border-box;
   width: 100%;
-  background: rgba(25, 18, 61, 0.95);
-  color: #b3b3b3;
-  font-family: 'Amiri', serif;
+}
+
+.section-title {
+  font-size: 24px;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  text-shadow: 0 0 7px var(--text-secondary);
+                         } 
+
+.footer-section {
+  padding: 15px;
   font-size: 13px;
-  text-align: center;
-  padding: 12px 10px;
   border-top: 1px solid var(--glow-color);
-  box-shadow: 0 -2px 15px var(--glow-color);
-  z-index: 20000;
-  user-select: none;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 6px var(--glow-color);
-} 
+  color: var(--text-secondary);
+  background: rgba(10, 15, 44, 0.75);
+  box-sizing: border-box;
+  margin-top: 40px;
+                            }
+    
 
   </style>
 </head>
@@ -390,6 +399,10 @@
         
   </main>
 
+  <footer>
+  حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
+  </footer>
+
   <script>
     document.addEventListener("click", function (e) {
       const star = document.createElement("div");
@@ -405,10 +418,6 @@
     });
     
   </script>
-<footer class="legal-footer">
-  <p>جميع الحقوق محفوظة للكاتبة روان.  
-  أي استخدام غير مرخص لهذا المحتوى سيعرضك للمسائلة القانونية.</p>
-</footer>
   
 </body>
 </html>
