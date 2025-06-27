@@ -300,19 +300,25 @@
   transform: scale(1.015);
 } 
 
-    .custom-footer {
-  margin-top: 80px;
-  padding: 25px 15px;
-  text-align: center;
-  background: rgba(25, 18, 61, 0.85);
-  border-top: 1px solid var(--glow-color);
-  box-shadow: 0 -3px 15px var(--glow-color);
-  color: var(--text-accent);
-  font-size: 14px;
+    .legal-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(25, 18, 61, 0.95);
+  color: #b3b3b3;
   font-family: 'Amiri', serif;
-  text-shadow: 0 0 5px var(--glow-color);
-  line-height: 1.8;
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 10px;
+  border-top: 1px solid var(--glow-color);
+  box-shadow: 0 -2px 15px var(--glow-color);
+  z-index: 20000;
+  user-select: none;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px var(--glow-color);
 } 
+
   </style>
 </head>
 <body>
@@ -364,6 +370,9 @@
       </a>
       <hr class="section-divider" />
 
+      
+
+<!-- بطاقة النص الخاص فيك (مستقلة) -->
 <div class="intro-card">
   <div class="intro-content">
     ڤولا… يا روحي الشفقية.<br><br>
@@ -379,7 +388,6 @@
   </div>
 </div>
         
-</div>
   </main>
 
   <script>
@@ -395,11 +403,11 @@
       document.body.appendChild(star);
       setTimeout(() => star.remove(), 1000);
     });
+    
   </script>
-<footer class="custom-footer">
-  <p>
-    © جميع الحقوق محفوظة | جميع الحقوق محفوظة و أي استخدام غير مرخّص للمحتوى سيعرّضك للمساءلة القانونية.
-  </p>
+<footer class="legal-footer">
+  <p>جميع الحقوق محفوظة للكاتبة روان.  
+  أي استخدام غير مرخص لهذا المحتوى سيعرضك للمسائلة القانونية.</p>
 </footer>
   
 </body>
