@@ -91,29 +91,46 @@ header a img {
   margin: 0;
 }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      font-size: 14px;
-      border-top: 1px solid var(--glow-color);
-      background: rgba(25, 18, 61, 0.9);
-      padding: 10px 0;
-    }
+    .main-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 8px 10px;
+  background: rgba(25, 18, 61, 0.9);
+  border-top: 1px solid var(--glow-color);
+  border-bottom: 2px solid var(--glow-color);
+  box-shadow: 0 0 10px var(--glow-color);
+  scrollbar-width: thin;
+  scrollbar-color: var(--glow-color) transparent;
+}
 
-    nav a {
-      color: var(--link-color);
-      padding: 10px 14px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
+.main-nav::-webkit-scrollbar {
+  height: 6px;
+}
 
-    nav a:hover {
-      color: var(--link-hover-color);
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
-      text-decoration: underline;
-    }
+.main-nav::-webkit-scrollbar-thumb {
+  background-color: var(--glow-color);
+  border-radius: 3px;
+}
+
+.main-nav a {
+  display: inline-block;
+  color: var(--link-color);
+  padding: 8px 14px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+  white-space: nowrap;
+  transition: color 0.3s, text-shadow 0.3s;
+  flex-shrink: 0;
+}
+
+.main-nav a:hover {
+  color: var(--link-hover-color);
+  text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+  text-decoration: underline;
+} 
 
     section {
       margin: 20px 0;
@@ -218,14 +235,22 @@ header a img {
       <a href="https://ibb.co/60C1GRPD" target="_blank">
         <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
       </a>
-      <nav>
+      
+      <nav class="main-nav">
         <a href="index.html">🏠 الرئيسية</a>
         <a href="#stories">📖 الروايات</a>
         <a href="#chat">💬 غرفة الدردشة</a>
         <a href="follow-me.html" id="followBtn">تابعني</a>
         <a href="#complaints">✉️ الشكاوى</a>
         <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
+        
+
+  <!-- أزرار جديدة توصّل للأقسام اللي طلبتهم -->
+  <a href="#forum-registration">🌀 كيف أسجل بالمنتدى</a>
+  <a href="#forum-rules">📜 قوانين المنتدى</a>
+  <a href="#forum-updates">🛠️ جديد التحديث</a>
       </nav>
+        
     </header>
 
     <section>
