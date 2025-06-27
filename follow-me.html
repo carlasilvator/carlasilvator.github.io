@@ -72,12 +72,28 @@
       100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
     }
 
-    /* هيدر الشعار */
     header {
-      text-align: center;
-      padding: 15px 0;
-      background: transparent;
-    }
+  width: 100%; /* الهيدر بياخد كامل عرض الشاشة */
+  background: rgba(25, 18, 61, 0.9); /* خلفية شفافة بلون غامق */
+  border-bottom: 2px solid var(--glow-color); /* خط سفلي بلون التوهج */
+  box-shadow: 0 0 15px var(--glow-color); /* ظل ضوئي حول الهيدر */
+  backdrop-filter: blur(6px); /* بلور للخلفية تحت الهيدر */
+  padding: 0; /* إزالة الفراغ الداخلي */
+  margin: 0; /* إزالة الهامش الخارجي */
+  box-sizing: border-box; /* يضمن أن الحشوة والحدود تحسب ضمن العرض */
+  text-align: center; /* النصوص (الشعار) بتكون مركزة */
+  position: relative; /* وضع نسبي للعنصر */
+  z-index: 10000; /* يضمن الهيدر فوق باقي العناصر */
+}
+
+header a img {
+  width: 100%; /* صورة الشعار تمتد لتملأ عرض الرابط */
+  height: auto; /* تحافظ على تناسب الصورة */
+  display: block; /* تمنع وجود فراغات تحت الصورة */
+  object-fit: cover; /* الصورة تغطي مساحة الهيدر بدون فراغات */
+  max-height: none; /* تلغي أي حد أقصى للارتفاع */
+  margin: 0; /* إزالة أي هامش */
+}
 
     /* شريط التابعني */
     nav {
