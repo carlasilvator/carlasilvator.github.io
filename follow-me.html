@@ -102,18 +102,24 @@
       position: relative;
       z-index: 10;
     }
-    /* صورة المستخدم أكبر + منع الضغط */
+    /* صورة المستخدم أكبر بدون رابط وكليك معطل */
     .profile-pic {
-      width: 180px;
-      height: 180px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
       border: 3px solid var(--glow-color);
-      margin: 0 auto 25px;
-      box-shadow: 0 0 30px var(--glow-color);
-      transition: transform 0.3s ease;
-      pointer-events: none; /* يمنع الضغط */
+      margin: 0 auto 35px;
+      box-shadow: 0 0 20px var(--glow-color);
+      pointer-events: none;
       user-select: none;
       display: block;
+      object-fit: cover;
+      cursor: default;
+      transition: transform 0.3s ease;
+    }
+    .profile-pic:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px #e0aaff;
     }
 
     main.follow-container h1 {
@@ -200,26 +206,6 @@
       background-color: var(--button-hover-bg) !important;
     }
 
-    /* عداد المتابعين رقمي فقط */
-    .follow-count {
-      margin-top: 12px;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: #222;
-      background: #bb86fc33;
-      border-radius: 12px;
-      padding: 5px 15px;
-      display: inline-block;
-      user-select: none;
-      box-shadow: 0 0 12px #bb86fcaa;
-      transition: background-color 0.3s ease;
-    }
-    .follow-count:hover {
-      background-color: #bb86fc66;
-      box-shadow: 0 0 18px #bb86fcdd;
-    }
-
     /* رابط Powered by */
     .powered-by-line {
       color: #ccc !important;
@@ -275,11 +261,10 @@
   <main class="follow-container" role="main" aria-label="صندوق متابعة آثيريات العنقاء">
     <img
       src="https://i.ibb.co/zWRM2b7m/1de6ccc21de5e0914dac28ab320d17cd.jpg"
-      alt="1de6ccc21de5e0914dac28ab320d17cd"
+      alt="صورة آثير"
       class="profile-pic"
       loading="lazy"
       aria-hidden="true"
-      draggable="false"
     />
 
     <h1>آثيريات العنقاء</h1>
@@ -308,9 +293,7 @@
           <div class="preview-submit-button">
             <button type="submit">Subscribe</button>
           </div>
-          <div class="follow-count" aria-live="polite" aria-atomic="true" aria-label="عدد المتابعين">
-            1,234
-          </div>
+          <!-- عدد المتابعين مخفي -->
         </div>
       </form>
       <a
@@ -339,4 +322,4 @@
     });
   </script>
 </body>
-  </html>
+        </html>
