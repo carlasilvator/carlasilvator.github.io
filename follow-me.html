@@ -102,21 +102,18 @@
       position: relative;
       z-index: 10;
     }
-    /* صورة المستخدم فوق الصندوق */
+    /* صورة المستخدم أكبر + منع الضغط */
     .profile-pic {
-      width: 120px;
-      height: 120px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       border: 3px solid var(--glow-color);
       margin: 0 auto 25px;
-      box-shadow: 0 0 20px var(--glow-color);
+      box-shadow: 0 0 30px var(--glow-color);
       transition: transform 0.3s ease;
-      cursor: pointer;
+      pointer-events: none; /* يمنع الضغط */
+      user-select: none;
       display: block;
-    }
-    .profile-pic:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 0 30px #e0aaff;
     }
 
     main.follow-container h1 {
@@ -203,21 +200,24 @@
       background-color: var(--button-hover-bg) !important;
     }
 
-    /* عداد المتابعين */
+    /* عداد المتابعين رقمي فقط */
     .follow-count {
       margin-top: 12px;
-      text-align: center;
-    }
-    .follow-count a {
-      text-decoration: none;
-      color: #000;
       font-family: "Montserrat", Arial, sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #222;
+      background: #bb86fc33;
+      border-radius: 12px;
+      padding: 5px 15px;
+      display: inline-block;
+      user-select: none;
+      box-shadow: 0 0 12px #bb86fcaa;
+      transition: background-color 0.3s ease;
+    }
+    .follow-count:hover {
+      background-color: #bb86fc66;
+      box-shadow: 0 0 18px #bb86fcdd;
     }
 
     /* رابط Powered by */
@@ -273,14 +273,14 @@
   </header>
 
   <main class="follow-container" role="main" aria-label="صندوق متابعة آثيريات العنقاء">
-    <a href="https://ibb.co/FkwrYJ0h" target="_blank" rel="noopener noreferrer" aria-label="صورة آثير">
-      <img
-        src="https://i.ibb.co/zWRM2b7m/1de6ccc21de5e0914dac28ab320d17cd.jpg"
-        alt="1de6ccc21de5e0914dac28ab320d17cd"
-        class="profile-pic"
-        loading="lazy"
-      />
-    </a>
+    <img
+      src="https://i.ibb.co/zWRM2b7m/1de6ccc21de5e0914dac28ab320d17cd.jpg"
+      alt="1de6ccc21de5e0914dac28ab320d17cd"
+      class="profile-pic"
+      loading="lazy"
+      aria-hidden="true"
+      draggable="false"
+    />
 
     <h1>آثيريات العنقاء</h1>
     <p class="description">انضمي إلى أرواح الشفقية لتصلك آخر التحديثات مباشرةً إلى بريدك الإلكتروني.</p>
@@ -308,18 +308,8 @@
           <div class="preview-submit-button">
             <button type="submit">Subscribe</button>
           </div>
-          <div class="follow-count" aria-live="polite" aria-atomic="true">
-            <a
-              href="https://follow.it/2rslvt"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="تابع آثيريات العنقاء"
-            >
-              <img
-                src="https://follow.it/images/follow/us.png?variant=standard&label=تابع&count=1"
-                alt="عدد المتابعين"
-              />
-            </a>
+          <div class="follow-count" aria-live="polite" aria-atomic="true" aria-label="عدد المتابعين">
+            1,234
           </div>
         </div>
       </form>
@@ -349,4 +339,4 @@
     });
   </script>
 </body>
-        </html>
+  </html>
