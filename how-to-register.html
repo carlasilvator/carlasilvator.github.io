@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>كيف أسجل في المنتدى</title>
+  <style>
+    :root {
+      --space-bg-dark: radial-gradient(ellipse at bottom, #0a0f2c, #140e2e, #0b001a);
+      --star-color: rgba(255, 255, 255, 0.18);
+      --text-primary: #f3c8dd;
+      --text-secondary: #d183a9;
+      --text-accent: #84ffff;
+      --link-color: #d183a9;
+      --link-hover-color: #ffffff;
+      --glow-color: #d183a9;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: radial-gradient(ellipse at bottom, #1a001e 0%, #3c003f 35%, #0b001a 100%);
+      background-size: 400% 400%;
+      animation: spaceWave 60s ease infinite;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      line-height: 1.9;
+      letter-spacing: 0.3px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),
+        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),
+        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),
+        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);
+      background-size: 250px 250px;
+      animation: starsGlitter 120s linear infinite;
+    }
+
+    @keyframes spaceWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes starsGlitter {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
+    }
+
+    header {
+      width: 100%;
+      background: rgba(75, 21, 53, 0.85);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 15px var(--glow-color);
+      backdrop-filter: blur(6px);
+      text-align: center;
+      position: relative;
+      z-index: 10000;
+    }
+
+    .logo-link {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .logo-link img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .main-nav {
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 8px 10px;
+      background: rgba(75, 21, 53, 0.85);
+      border-top: 1px solid var(--glow-color);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 10px var(--glow-color);
+      scrollbar-width: thin;
+      scrollbar-color: var(--glow-color) transparent;
+    }
+
+    .main-nav::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .main-nav::-webkit-scrollbar-thumb {
+      background-color: var(--glow-color);
+      border-radius: 3px;
+    }
+
+    .main-nav a {
+      display: inline-block;
+      color: var(--link-color);
+      padding: 8px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      margin-right: 10px;
+      white-space: nowrap;
+      transition: color 0.3s, text-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .main-nav a:hover {
+      color: var(--link-hover-color);
+      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    .rules {
+      max-width: 700px;
+      margin: 50px auto;
+      background: rgba(75, 21, 53, 0.5);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--glow-color);
+      text-align: right;
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      text-align: center;
+      text-shadow: 0 0 10px var(--text-secondary);
+      animation: pulseGlow 4s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 8px var(--text-secondary); }
+      50% { text-shadow: 0 0 20px var(--text-secondary); }
+    }
+
+    .rules-content {
+      font-size: 17px;
+      color: var(--text-secondary);
+      text-shadow: 0 0 5px rgba(168, 85, 247, 0.4);
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    .rules-content hr {
+      border: none;
+      height: 1px;
+      background: var(--glow-color);
+      opacity: 0.3;
+      margin: 30px 0;
+    }
+
+    .img-block {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .img-block img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px var(--glow-color);
+    }
+
+    .footer-section {
+      padding: 15px;
+      font-size: 13px;
+      text-align: center;
+      border-top: 1px solid var(--glow-color);
+      color: var(--text-secondary);
+      background: rgba(10, 15, 44, 0.75);
+      box-sizing: border-box;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-link" aria-label="شعار آثيريات العنقاء">
+      <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
+    </a>
+  </header>
+
+  <nav class="main-nav">
+    <a href="index.html">🏠 الرئيسية</a>
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
+    <a href="follow-me.html">🧭 أشترك</a>
+  </nav>
+
+  <main class="rules">
+    <h2 class="section-title">💡 كيف أسجل في المنتدى؟</h2>
+
+    <p>📣 أرجو دقيقة من وقتك...<br>
+    حتى تفعّل إشعارات المتابعة أول بأول<br>
+    أكيد ما بدك تكون "ذاك القارئ البائس" يلي دايمًا بيوصل متأخر، صح؟</p>
+
+    <div class="rules-content">
+      <p>1. توجّه إلى صفحة <strong>🧭 "أشترك"</strong> من القائمة العلوية أو اضغط <a href="follow-me.html" style="color: var(--link-color); text-decoration: underline;">من هنا</a>.</p>
+      <hr />
+      <div class="img-block">
+        <img src="https://i.ibb.co/3yMZjJZb/IMG-20250627-212420-738.jpg" alt="خطوة الاشتراك 1">
+      </div>
+
+      <p>رح يعطوك صور و يقلولك اختاري إشارات المرور مثلاً..</p>
+
+      <div class="img-block">
+        <img src="https://i.ibb.co/fV96bL7w/IMG-20250627-212605-021.jpg" alt="خطوة الاشتراك 2">
+      </div>
+
+      <p>الخطوة الأخيرة:</p>
+
+      <div class="img-block">
+        <img src="https://i.ibb.co/HTMqkpRk/IMG-20250627-212709-099.jpg" alt="خطوة الاشتراك 3">
+      </div>
+
+      <p>و بعد كذا رح يوصلك كلشي على البريد الإلكتروني<br>شكراً على وقتك 🌹</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="index.html" style="color: var(--link-color); text-decoration: none; font-weight: bold; font-size: 18px;">⬅️ العودة للرئيسية</a>
+    </div>
+  </main>
+
+  <footer class="footer-section">
+    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
+  </footer>
+</body>
+</html>
