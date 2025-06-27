@@ -54,24 +54,38 @@
       to {
         background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px;
       }
-    }
+    } 
 
     header {
-      position: relative;
-      height: 110px;
-      overflow: hidden;
-      box-shadow: 0 0 15px var(--glow-color);
-      z-index: 10000;
-    }
+  position: relative;
+  height: 110px;
+  overflow: hidden;
+  background: rgba(25, 18, 61, 0.9);
+  border-bottom: 2px solid var(--glow-color);
+  box-shadow: 0 0 15px var(--glow-color);
+  padding: 0;
+  text-align: center;
+  z-index: 10000;
+}
 
-    .header-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url('https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.95;
-    }
+.logo-link {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.logo-link img {
+  pointer-events: none; /* تمنع التفاعل مع الصورة */
+  user-select: none;    /* تمنع تحديد الصورة */
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 130px; /* أو أي ارتفاع مناسب للهيدر */
+  box-shadow: 0 0 25px var(--glow-color);
+}
+    
 
     .main-nav {
       display: flex;
@@ -203,7 +217,9 @@
 <body>
 
   <header>
-    <div class="header-bg"></div>
+  <div class="logo-link">
+    <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
+  </div>
   </header>
 
   <nav class="main-nav">
