@@ -19,23 +19,7 @@
       user-select: none;
       pointer-events: none;
     }
-  </style>
-</head>
 
-<body>
-  <header>
-    <a href="https://ibb.co/60C1GRPD" target="_blank" class="logo-link" aria-label="شعار آثيريات العنقاء">
-      <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
-    </a>
-    <!-- باقي عناصر الهيدر أو الصفحة -->
-  </header>
-
-  <!-- باقي محتوى الصفحة -->
-</body>
-  
-  
-  
-  <style>
     :root {
       --space-bg-dark: radial-gradient(ellipse at bottom, #0a0f2c, #140e2e, #0b001a);
       --star-color: rgba(255, 255, 255, 0.18);
@@ -104,6 +88,8 @@
       color: var(--link-color);
       text-shadow: 0 0 8px var(--glow-color);
       box-sizing: border-box;
+      position: sticky;
+      top: 0;
     }
     header a {
       color: var(--link-color);
@@ -315,13 +301,13 @@
               type="email"
               name="email"
               required
-              placeholder="Enter your email"
+              placeholder="أدخل بريدك الإلكتروني"
               spellcheck="false"
               aria-label="ادخل بريدك الإلكتروني"
             />
           </div>
           <div class="preview-submit-button">
-            <button type="submit">Subscribe</button>
+            <button type="submit">اشترك</button>
           </div>
           <!-- عدد المتابعين مخفي -->
         </div>
@@ -341,8 +327,8 @@
     document.addEventListener("click", function (e) {
       const star = document.createElement("div");
       const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
-      star.textContent = emoji;
+      const emojis = ["✨", "🌟", "💫", "⭐"];
+      star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
       star.className = "click-star";
       star.style.color = colors[Math.floor(Math.random() * colors.length)];
       star.style.left = e.clientX + "px";
