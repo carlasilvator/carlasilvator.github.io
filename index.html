@@ -1,352 +1,352 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>آثيريات العنقاء - روايات سوداوية وعميقة بخط عربي فاخر</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --space-bg-dark: radial-gradient(ellipse at bottom, #0a0f2c, #140e2e, #0b001a);
-      --star-color: rgba(255, 255, 255, 0.18);
-      --text-primary: #b3e5ff;
-      --text-secondary: #c084fc;
-      --text-accent: #84ffff;
-      --link-color: #9d4edd;
-      --link-hover-color: #e0aaff;
-      --button-bg: #2a124d;
-      --button-hover-bg: #3c1e68;
-      --glow-color: #a855f7;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Amiri', serif;
-      background: radial-gradient(ellipse at bottom, #1a001e 0%, #3c003f 35%, #0b001a 100%);
-      background-size: 400% 400%;
-      animation: spaceWave 60s ease infinite;
-      color: var(--text-primary);
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),
-        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),
-        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),
-        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);
-      background-size: 250px 250px;
-      animation: starsGlitter 120s linear infinite;
-    }
-
-    @keyframes spaceWave {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes starsGlitter {
-      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
-      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
-    }
-
-    .container {
-      max-width: 750px;
-      margin: 0 auto;
-      padding: 0 15px;
-      box-sizing: border-box;
-    }
-
-    header {
-  width: 100%;
-  background: rgba(25, 18, 61, 0.9);
-  border-bottom: 2px solid var(--glow-color);
-  box-shadow: 0 0 15px var(--glow-color);
-  backdrop-filter: blur(6px);
-  padding: 0; /* ولا فراغ جانبي */
-  margin: 0;
-  box-sizing: border-box;
-  text-align: center;
-  position: relative;
-  z-index: 10000;
-}
-
-header a img {
-  width: 100%;     /* تملأ العرض */
-  height: auto;    /* تحافظ على النسبة */
-  display: block;
-  object-fit: cover; /* لتملأ الهيدر بالكامل بدون فراغ */
-  max-height: none; /* ترفع أي حد أقصى للارتفاع */
-  margin: 0;
-}
-
-    .main-nav {
-  display: flex;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding: 8px 10px;
-  background: rgba(25, 18, 61, 0.9);
-  border-top: 1px solid var(--glow-color);
-  border-bottom: 2px solid var(--glow-color);
-  box-shadow: 0 0 10px var(--glow-color);
-  scrollbar-width: thin;
-  scrollbar-color: var(--glow-color) transparent;
-}
-
-.main-nav::-webkit-scrollbar {
-  height: 6px;
-}
-
-.main-nav::-webkit-scrollbar-thumb {
-  background-color: var(--glow-color);
-  border-radius: 3px;
-}
-
-.main-nav a {
-  display: inline-block;
-  color: var(--link-color);
-  padding: 8px 14px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  margin-right: 10px;
-  white-space: nowrap;
-  transition: color 0.3s, text-shadow 0.3s;
-  flex-shrink: 0;
-}
-
-.main-nav a:hover {
-  color: var(--link-hover-color);
-  text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
-  text-decoration: underline;
-} 
-
-    section {
-      margin: 20px 0;
-      background: rgba(25, 18, 61, 0.5);
-      border-radius: 10px;
-      box-shadow: 0 0 12px var(--glow-color);
-      padding: 18px 15px;
-      box-sizing: border-box;
-      width: 100%;
-    }
-
-    .section-title {
-      font-size: 24px;
-      color: var(--text-secondary);
-      margin-bottom: 18px;
-      text-shadow: 0 0 7px var(--text-secondary);
-    }
-
-    .stories a {
-      display: block;
-      padding: 10px 14px;
-      margin: 10px 0;
-      background: rgba(57, 39, 91, 0.85);
-      color: var(--text-accent);
-      text-decoration: none;
-      border-right: 5px solid var(--link-color);
-      font-size: 17px;
-      font-weight: 600;
-      text-shadow: 0 0 7px var(--text-accent);
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    input[type="email"],
-    input[type="text"],
-    textarea {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-family: 'Amiri', serif;
-      font-size: 15px;
-      background: rgba(57, 39, 91, 0.85);
-      color: var(--text-accent);
-    }
-
-    button[type="submit"] {
-      padding: 10px 20px;
-      background: var(--button-bg);
-      color: var(--text-accent);
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-      align-self: flex-start;
-    }
-
-    button[type="submit"]:hover {
-      background: var(--button-hover-bg);
-    }
-
-    footer {
-      width: 100%;
-      text-align: center;
-      padding: 15px;
-      font-size: 13px;
-      border-top: 1px solid var(--glow-color);
-      color: var(--text-secondary);
-      background: rgba(10, 15, 44, 0.75);
-      box-sizing: border-box;
-      margin-top: 40px;
-    }
-
-    .click-star {
-      position: fixed;
-      font-size: 20px;
-      pointer-events: none;
-      animation: star-pop 1s forwards ease-out;
-      user-select: none;
-      z-index: 11000;
-      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-    }
-
-    @keyframes star-pop {
-      0% { transform: scale(1) translateY(0); opacity: 1; }
-      50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }
-      100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }
-    }
-
-  </style>
-</head>
-
-<body>
-
-  <div class="container">
-
-    <header>
-      <a href="https://ibb.co/60C1GRPD" target="_blank">
-        <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
-      </a>
-      
-      <nav class="main-nav">
-        <a href="index.html">🏠 الرئيسية</a>
-        <a href="#stories">📖 الروايات</a>
-        <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>
-        <a href="follow-me.html" id="followBtn">تابعني</a>
-        <a href="#chat">💬 غرفة الدردشة</a>
-        <a href="#forum-updates">🛠️ جديد التحديث</a>
-  <!-- أزرار جديدة توصّل للأقسام اللي طلبتهم -->
-  <a href="#forum-registration">🌀 كيف أسجل بالمنتدى</a>
-  <a href="#forum-rules">📜 قوانين المنتدى</a>
-        <a href="#complaints">✉️ الشكاوى</a>
-      </nav>
-        
-    </header>
-
-    <section>
-      <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>
-      <p>
-        يا أهلاً وسهلاً… وهلاكاً عظيماً بمن قرر الضياع في مجرّتي.<br />
-        هنا لا تقرأ لتفهم، بل لتتبعثر<br />
-        العقل يُستأصل برقّة أنامل الأنثى،<br />
-        والهوى يُصفّى، لا لشيء سوى لأننا تخلّينا عن العاطفة اللطيفة.<br />
-        والموت؟<br />
-        مجرّد افتتاحية مهذّبة لحكايةٍ لن تخرج منها كما دخلت.<br />
-        فلتجلس... أو ابقَ واقفاً، لا يهم.<br />
-        لكن استعد لإشعال الجنون في عروقك،<br />
-        قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.<br />
-        أنا آثير، عنقاء الموت...<br />
-        التي ستجعلك مهووساً.
-      </p>
-    </section>
-
-    <section id="stories">
-      <h2 class="section-title">📖 الروايات 📖</h2>
-      <div class="stories">
-        <a href="a-toxic-rose.html">📖 A Toxic Rose</a>
-        <a href="/p/ترتيلات-آمان.html">📖 ترتيلات آمان</a>
-        <a href="/p/هكذا-ينتقم-الأشرار.html">📖 هكذا ينتقم الأشرار</a>
-      </div>
-    </section>
-
-    <section id="chat">
-      <h2 class="section-title">💬 غرفة الدردشة 💬</h2>
-      <div class="chat-box">
-        <iframe src="https://grouptwilight.chatango.com/" title="غرفة الدردشة"
-          style="width: 100%; height: 300px; border: none; border-radius: 12px; box-shadow: 0 0 15px #ff00ff50;"></iframe>
-      </div>
-    </section>
-
-    <section id="forum-registration">
-      <h2 class="section-title">
-  <a href="how-to-register.html" target="_blank" style="color: inherit; text-decoration: none;">
-    🌀 كيفية التسجيل في المنتدى
-  </a>
-</h2>
-<p>
- يمكنك معرفة خطوات التسجيل من هنا
-</p>
-
-    <section id="forum-rules">
-      
-  <h2 class="section-title">
-    <a href="forum-rules.html" style="color: inherit; text-decoration: none;">
-      📜 قوانين المنتدى
-    </a>
-  </h2>
-  <p>نرجو منك الاطلاع على القوانين العامة لضمان تجربة محترمة وآمنة للجميع</p>
-    </section>
-
-    <section id="forum-updates">
-  <h2 class="section-title">
-    <a href="rss-viewer.html" style="color: inherit; text-decoration: none;">
-      🛠️ جديد التحديث
-    </a>
-  </h2>
-  <p>في هذا القسم نعرض لك آخر تحديثات الفصول في المنتدى.</p>
   
-  </section>
-
+<!DOCTYPE html>  
+<html lang="ar" dir="rtl">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>آثيريات العنقاء - روايات سوداوية وعميقة بخط عربي فاخر</title>  
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />  
+  <style>  
+    :root {  
+      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);  
+      --star-color: rgba(0, 191, 255, 0.08);  
+      --text-primary: #cfefff;  
+      --text-secondary: #7dd3fc;  
+      --text-accent: #38bdf8;  
+      --link-color: #60a5fa;  
+      --link-hover-color: #93c5fd;  
+      --button-bg: #0f172a;  
+      --button-hover-bg: #1e293b;  
+      --glow-color: #3b82f6;  
+    }  
+  
+    html {  
+      scroll-behavior: smooth;  
+    }  
+  
+    body {  
+      margin: 0;  
+      font-family: 'Amiri', serif;  
+      background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);  
+      background-size: 400% 400%;  
+      animation: spaceWave 60s ease infinite;  
+      color: var(--text-primary);  
+      overflow-x: hidden;  
+      min-height: 100vh;  
+      position: relative;  
+    }  
+  
+    body::before {  
+      content: "";  
+      position: fixed;  
+      top: 0; left: 0; right: 0; bottom: 0;  
+      pointer-events: none;  
+      z-index: 0;  
+      background-image:  
+        radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.1) 2px, transparent 3px),  
+        radial-gradient(circle at 50% 60%, rgba(0, 191, 255, 0.08) 1.5px, transparent 2px),  
+        radial-gradient(circle at 80% 40%, rgba(0, 191, 255, 0.12) 2.5px, transparent 3px),  
+        radial-gradient(circle at 70% 80%, rgba(0, 191, 255, 0.06) 1.8px, transparent 2px);  
+      background-size: 250px 250px;  
+      animation: starsGlitter 120s linear infinite;  
+    }  
+  
+    @keyframes spaceWave {  
+      0% { background-position: 0% 50%; }  
+      50% { background-position: 100% 50%; }  
+      100% { background-position: 0% 50%; }  
+    }  
+  
+    @keyframes starsGlitter {  
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }  
+      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }  
+    }  
+  
+    .container {  
+      max-width: 700px;  
+      margin: 0 auto;  
+      padding: 0 15px;  
+      box-sizing: border-box;  
+    }  
+  
+    header {  
+      width: 100%;  
+      background: rgba(2, 6, 23, 0.9);  
+      border-bottom: 2px solid var(--glow-color);  
+      box-shadow: 0 0 15px var(--glow-color);  
+      backdrop-filter: blur(6px);  
+      padding: 0;  
+      margin: 0;  
+      box-sizing: border-box;  
+      text-align: center;  
+      position: relative;  
+      z-index: 10000;  
+    }  
+  
+    header a img {  
+      width: 100%;  
+      height: auto;  
+      display: block;  
+      object-fit: cover;  
+      max-height: none;  
+      margin: 0;  
+    }  
+  
+    .main-nav {  
+      display: flex;  
+      overflow-x: auto;  
+      white-space: nowrap;  
+      padding: 6px 10px;  
+      background: rgba(2, 6, 23, 0.9);  
+      border-top: 1px solid var(--glow-color);  
+      border-bottom: 2px solid var(--glow-color);  
+      box-shadow: 0 0 10px var(--glow-color);  
+      scrollbar-width: thin;  
+      scrollbar-color: var(--glow-color) transparent;  
+    }  
+  
+    .main-nav::-webkit-scrollbar {  
+      height: 6px;  
+    }  
+  
+    .main-nav::-webkit-scrollbar-thumb {  
+      background-color: var(--glow-color);  
+      border-radius: 3px;  
+    }  
+  
+    .main-nav a {  
+      display: inline-block;  
+      color: var(--link-color);  
+      padding: 6px 12px;  
+      text-decoration: none;  
+      font-weight: bold;  
+      font-size: 15px;  
+      margin-right: 8px;  
+      white-space: nowrap;  
+      transition: color 0.3s, text-shadow 0.3s;  
+      flex-shrink: 0;  
+    }  
+  
+    .main-nav a:hover {  
+      color: var(--link-hover-color);  
+      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);  
+      text-decoration: underline;  
+    }  
+  
+    section {  
+      margin: 18px 0;  
+      background: rgba(2, 6, 23, 0.6);  
+      border-radius: 8px;  
+      box-shadow: 0 0 10px var(--glow-color);  
+      padding: 14px 12px;  
+      box-sizing: border-box;  
+      width: 100%;  
+    }  
+  
+    .section-title {  
+      font-size: 20px;  
+      color: var(--text-secondary);  
+      margin-bottom: 14px;  
+      text-shadow: 0 0 6px var(--text-secondary);  
+    }  
+  
+    .stories a {  
+      display: block;  
+      padding: 8px 12px;  
+      margin: 8px 0;  
+      background: rgba(2, 6, 23, 0.8);  
+      color: var(--text-accent);  
+      text-decoration: none;  
+      border-right: 4px solid var(--link-color);  
+      font-size: 16px;  
+      font-weight: 600;  
+      text-shadow: 0 0 6px var(--text-accent);  
+    }  
+  
+    form {  
+      display: flex;  
+      flex-direction: column;  
+      gap: 8px;  
+    }  
+  
+    input[type="email"],  
+    input[type="text"],  
+    textarea {  
+      padding: 8px;  
+      border-radius: 5px;  
+      border: none;  
+      font-family: 'Amiri', serif;  
+      font-size: 14px;  
+      background: rgba(2, 6, 23, 0.8);  
+      color: var(--text-accent);  
+    }  
+  
+    button[type="submit"] {  
+      padding: 8px 16px;  
+      background: var(--button-bg);  
+      color: var(--text-accent);  
+      font-weight: bold;  
+      border: none;  
+      border-radius: 5px;  
+      cursor: pointer;  
+      transition: background 0.3s;  
+      align-self: flex-start;  
+    }  
+  
+    button[type="submit"]:hover {  
+      background: var(--button-hover-bg);  
+    }  
+  
+    footer {  
+      width: 100%;  
+      text-align: center;  
+      padding: 12px;  
+      font-size: 12px;  
+      border-top: 1px solid var(--glow-color);  
+      color: var(--text-secondary);  
+      background: rgba(2, 6, 23, 0.7);  
+      box-sizing: border-box;  
+      margin-top: 30px;  
+    }  
+  
+    .click-star {  
+      position: fixed;  
+      font-size: 20px;  
+      pointer-events: none;  
+      animation: star-pop 1s forwards ease-out;  
+      user-select: none;  
+      z-index: 11000;  
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;  
+    }  
+  
+    @keyframes star-pop {  
+      0% { transform: scale(1) translateY(0); opacity: 1; }  
+      50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }  
+      100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }  
+    }  
+  </style>  
+</head>  
+  
+<body>    
     
-
-    <section id="complaints">
-      <h2 class="section-title">📬 صندوق الشكاوى 📬</h2>
-      <form action="https://formspree.io/f/mgvyllwn" method="POST">
-        <input type="text" name="name" placeholder="اسمك..." required />
-        <input type="email" name="email" placeholder="بريدك الإلكتروني..." required />
-        <textarea name="message" rows="5" placeholder="اكتب شكواك أو اقتراحك..." required></textarea>
-        <button type="submit">إرسال</button>
-      </form>
-    </section>
-
-    <footer>
-      حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
-    </footer>
-
-  </div>
-
-  <script>
-    document.addEventListener("click", function (e) {
-      const star = document.createElement("div");
-      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
-      star.textContent = emoji;
-      star.className = "click-star";
-      star.style.color = colors[Math.floor(Math.random() * colors.length)];
-      star.style.left = e.clientX + "px";
-      star.style.top = e.clientY + "px";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1000);
-    });
-  </script>
-
-</body>
-  </html>
+  <div class="container">    
+    
+    <header>    
+      <a href="https://ibb.co/60C1GRPD" target="_blank">    
+        <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />    
+      </a>    
+          
+      <nav class="main-nav">    
+        <a href="index.html">🏠 الرئيسية</a>    
+        <a href="#stories">📖 الروايات</a>    
+        <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرام</a>    
+        <a href="follow-me.html" id="followBtn">تابعني</a>    
+        <a href="#chat">💬 غرفة الدردشة</a>    
+        <a href="#forum-updates">🛠️ جديد التحديث</a>    
+  <!-- أزرار جديدة توصّل للأقسام اللي طلبتهم -->    
+  <a href="#forum-registration">🌀 كيف أسجل بالمنتدى</a>    
+  <a href="#forum-rules">📜 قوانين المنتدى</a>    
+        <a href="#complaints">✉️ الشكاوى</a>    
+      </nav>    
+            
+    </header>    
+    
+    <section>    
+      <h2 class="section-title">🕯️ همسات البداية 🕯️</h2>    
+      <p>    
+        يا أهلاً وسهلاً… وهلاكاً عظيماً بمن قرر الضياع في مجرّتي.<br />    
+        هنا لا تقرأ لتفهم، بل لتتبعثر<br />    
+        العقل يُستأصل برقّة أنامل الأنثى،<br />    
+        والهوى يُصفّى، لا لشيء سوى لأننا تخلّينا عن العاطفة اللطيفة.<br />    
+        والموت؟<br />    
+        مجرّد افتتاحية مهذّبة لحكايةٍ لن تخرج منها كما دخلت.<br />    
+        فلتجلس... أو ابقَ واقفاً، لا يهم.<br />    
+        لكن استعد لإشعال الجنون في عروقك،<br />    
+        قبل أن تصبح مجرماً أدبيّاً يُعاد تشكيله بأصابعي.<br />    
+        أنا آثير، عنقاء الموت...<br />    
+        التي ستجعلك مهووساً.    
+      </p>    
+    </section>    
+    
+    <section id="stories">    
+      <h2 class="section-title">📖 الروايات 📖</h2>    
+      <div class="stories">    
+        <a href="a-toxic-rose.html">📖 A Toxic Rose</a>    
+        <a href="/p/ترتيلات-آمان.html">📖 ترتيلات آمان</a>    
+        <a href="/p/هكذا-ينتقم-الأشرار.html">📖 هكذا ينتقم الأشرار</a>    
+      </div>    
+    </section>    
+    
+    <section id="chat">    
+      <h2 class="section-title">💬 غرفة الدردشة 💬</h2>    
+      <div class="chat-box">    
+        <iframe src="https://grouptwilight.chatango.com/" title="غرفة الدردشة"    
+          style="width: 100%; height: 300px; border: none; border-radius: 12px; box-shadow: 0 0 15px #3b82f650;"></iframe>    
+      </div>    
+    </section>    
+    
+    <section id="forum-registration">    
+      <h2 class="section-title">    
+  <a href="how-to-register.html" target="_blank" style="color: inherit; text-decoration: none;">    
+    🌀 كيفية التسجيل في المنتدى    
+  </a>    
+</h2>    
+<p>    
+ يمكنك معرفة خطوات التسجيل من هنا    
+</p>    
+    
+    <section id="forum-rules">    
+          
+  <h2 class="section-title">    
+    <a href="forum-rules.html" style="color: inherit; text-decoration: none;">    
+      📜 قوانين المنتدى    
+    </a>    
+  </h2>    
+  <p>نرجو منك الاطلاع على القوانين العامة لضمان تجربة محترمة وآمنة للجميع</p>    
+    </section>    
+    
+    <section id="forum-updates">    
+  <h2 class="section-title">    
+    <a href="rss-viewer.html" style="color: inherit; text-decoration: none;">    
+      🛠️ جديد التحديث    
+    </a>    
+  </h2>    
+  <p>في هذا القسم نعرض لك آخر تحديثات الفصول في المنتدى.</p>    
+      
+  </section>    
+    
+        
+    
+    <section id="complaints">    
+      <h2 class="section-title">📬 صندوق الشكاوى 📬</h2>    
+      <form action="https://formspree.io/f/mgvyllwn" method="POST">    
+        <input type="text" name="name" placeholder="اسمك..." required />    
+        <input type="email" name="email" placeholder="بريدك الإلكتروني..." required />    
+        <textarea name="message" rows="5" placeholder="اكتب شكواك أو اقتراحك..." required></textarea>    
+        <button type="submit">إرسال</button>    
+      </form>    
+    </section>    
+    
+    <footer>    
+      حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025    
+    </footer>    
+    
+  </div>    
+    
+  <script>    
+    document.addEventListener("click", function (e) {    
+      const star = document.createElement("div");    
+      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];    
+      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];    
+      star.textContent = emoji;    
+      star.className = "click-star";    
+      star.style.color = colors[Math.floor(Math.random() * colors.length)];    
+      star.style.left = e.clientX + "px";    
+      star.style.top = e.clientY + "px";    
+      document.body.appendChild(star);    
+      setTimeout(() => star.remove(), 1000);    
+    });    
+  </script>    
+    
+</body>    
+  </html>    
