@@ -223,7 +223,21 @@
       0% { transform: scale(1) translateY(0); opacity: 1; }  
       50% { transform: scale(1.5) translateY(-10px) rotate(30deg); opacity: 0.7; }  
       100% { transform: scale(0.5) translateY(-40px) rotate(90deg); opacity: 0; }  
-    }  
+    } 
+
+    .logo-wrapper {
+  pointer-events: none; /* يمنع النقر على الصورة */
+  user-select: none;    /* يمنع التحديد أو السحب */
+  -webkit-user-drag: none; /* يمنع السحب على سفاري */
+  width: 100%;
+}
+
+.logo-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+} 
   </style>  
 </head>  
   
@@ -232,9 +246,9 @@
   <div class="container">    
     
     <header>    
-      <a href="https://ibb.co/60C1GRPD" target="_blank">    
-        <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />    
-      </a>    
+      <div class="logo-wrapper">
+  <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
+      </div>
           
       <nav class="main-nav">    
         <a href="index.html">🏠 الرئيسية</a>    
