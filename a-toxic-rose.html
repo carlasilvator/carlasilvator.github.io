@@ -163,91 +163,6 @@
       border-radius: 0 0 10px 10px;
       padding: 12px 10px;
     }
-
-    .click-star {
-      position: absolute;
-      font-size: 20px;
-      z-index: 9999;
-      animation: fadeUp 1s ease-out forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 480px) {
-      section { max-width: 90%; font-size: 13px; }
-      .stories a { font-size: 13px; }
-      footer { max-width: 90%; font-size: 11px; }
-      .main-nav { font-size: 11px; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="logo-link">
-    <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
-  </div>
-</header>
-
-<nav class="main-nav">
-  <a href="index.html">🏠 الرئيسية</a>
-  <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
-  <a href="follow-me.html">🧿 اشتركي معنا</a>
-</nav>
-
-<section>
-  <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>
-  <a href="https://ibb.co/gMpm74L4" target="_blank">
-    <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />
-  </a>
-</section>
-
-<section>
-  <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>
-  <p>
-    راسيل ستيوارت الأميرة البريطانية التي خُلقت بين تيجانٍ ملوثة بالدماء، واختارت أن تقود ثورة ضد عائلتها الملكية... لا من أجل الحرية، بل لتستولي على العرش بنفسها.<br><br>
-    ثائرة أنيقة، ومسمومة بالذكاء،<br>
-    لكن ما من أذكى وأدهى من إيان إيفانوف، السياسي الروسي الفاسد الذي خرج من رماد الموت كقنبلة موقوتة لهذا العالم.<br><br>
-    و حين تشابك قدره مع راسيل لم يراها امرأة... بل ورقة رابحة، فوضى قابلة للترويض، ونار مستعرة أدمن الاحتراق بها.<br><br>
-    هذه الرواية ليست قصة حب، بل قصة هيمنة، سيطرة، ومن يجرّ الآخر أولاً إلى الهاوية.
-  </p>
-</section>
-
-<section>
-  <h2 class="section-title">📖 فصول الرواية 📖</h2>
-  <div class="stories">
-    <a href="PUT-LINK-HERE-1">🌑 البارت الأول</a>
-    <a href="PUT-LINK-HERE-2">🌒 البارت الثاني</a>
-    <a href="PUT-LINK-HERE-3">🌓 البارت الثالث</a>
-  </div>
-</section>
-
-<footer>
-  جميع الحقوق محفوظة للكاتبة روان © 2025 — يُمنع النسخ دون إذن كتابي
-</footer>
-
-<script>
-  // تأثير النجوم عند النقر
-  document.addEventListener("click", function (e) {
-    const star = document.createElement("div");
-    const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-    const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
-    star.textContent = emoji;
-    star.className = "click-star";
-    star.style.color = colors[Math.floor(Math.random() * colors.length)];
-    star.style.left = e.clientX + "px";
-    star.style.top = e.clientY + "px";
-    document.body.appendChild(star);
-    setTimeout(() => star.remove(), 1000);
-  });
-
-  // تمييز البارتات المقروءة
-  document.querySelectorAll(".stories a").forEach(link => {
     const href = link.getAttribute("href");
     if (localStorage.getItem("read_" + href)) {
       link.classList.add("read");
