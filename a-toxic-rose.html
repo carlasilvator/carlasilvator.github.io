@@ -1,309 +1,167 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 🔍 تحسين الظهور على Google -->
+  <meta name="description" content="A Toxic Rose - رواية نفسية خيالية مظلمة من تأليف CarlaSilvator. ثورة، سلطة، وشخصيات سايكو في لعبة بلا رابح." />
+  <meta name="keywords" content="A Toxic Rose, رواية A Toxic Rose, CarlaSilvator, رواية خيال علمي مظلم, دارك رومانس, روايات سايكو, روايات نفسية, قصص عربية مظلمة" />
+  <meta name="author" content="CarlaSilvator" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- 🎨 لون شريط التصفح على الجوال -->
+  <meta name="theme-color" content="#000d1a" />
+
   <title>A Toxic Rose - رواية</title>
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
   <style>
     :root {
-  --space-bg-dark: linear-gradient(135deg, #4b1535, #71557a, #f3c8dd); 
-  /* من البني الشوكولا إلى الليفندر الغامق، ثم لمسة بينك ملكي بتوهّج خفيف */
+  --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
+  --star-color: rgba(0, 191, 255, 0.08);
+  --text-primary: #cfefff;
+  --text-secondary: #7dd3fc;
+  --text-accent: #38bdf8;
+  --link-color: #60a5fa;
+  --link-hover-color: #93c5fd;
+  --glow-color: #3b82f6;
+  --btn-bg: #1e293b;
+  --btn-hover-bg: #0f172a;
+  --btn-text-color: #cfefff;
+} html {
+  scroll-behavior: smooth;
+}
 
-  --star-color: rgba(255, 240, 250, 0.12); 
-  /* نجوم بلون وردي شفاف يعكس جو الغموض الأنثوي */
-
-  --text-primary: #f3c8dd;  /* Queen Pink - العنوان والنص الأساسي */
-  --text-secondary: #d183a9;  /* Middle Purple - للنصوص الثانوية أو الوصفية */
-  --text-accent: #ffffff;  /* أبيض للتسليط أو العبارات المهمة */
-
-  --link-color: #f3c8dd;  /* الروابط بلون بينك ناعم */
-  --link-hover-color: #ffffff;  /* أبيض عند المرور للتمييز بوضوح */
-
-  --glow-color: #f3c8dd;  
-  /* التوهج نفس لون الملكة، ليظهر بأزرار أو خطوط الإطار */
-
-  --btn-bg: #d183a9;  /* زر بخلفية بنفسجية ناعمة */
-  --btn-hover-bg: #f3c8dd;  /* عند المرور يصير وردي ملكي */
-  --btn-text-color: #4b1535;  /* النص داخل الزر بلون الشوكولا ليعطي تباين أنثوي ساحر */
-} 
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Tajawal', sans-serif;
-      background: linear-gradient(135deg,#4b1535, #71557a, #f3c8dd);
-      color: #f3c8dd;
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
-    }
-
- body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-
-  background:
-    radial-gradient(circle at 20% 30%, rgba(209, 131, 169, 0.6) 2px, transparent 3px),
-    radial-gradient(circle at 50% 60%, rgba(209, 131, 169, 0.5) 1.5px, transparent 2px),
-    radial-gradient(circle at 80% 40%, rgba(209, 131, 169, 0.7) 2.5px, transparent 3px),
-    radial-gradient(circle at 70% 80%, rgba(209, 131, 169, 0.55) 1.8px, transparent 2px);
-
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  animation: star-move 60s linear infinite;
-
-  /* ✨ التوهج السحري */
-  filter: drop-shadow(0 0 4px rgba(209, 131, 169, 0.8))
-          drop-shadow(0 0 6px rgba(209, 131, 169, 0.6));
-   }
-
-    @keyframes star-move {
-      to {
-        background-position: -1000px 1000px, 500px -500px, -800px 800px, 300px -300px;
-      }
-    } 
-
-    header {
+body {
+  margin: 0;
+  font-family: 'Amiri', serif;
+  background: var(--space-bg-dark);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  min-height: 100vh;
   position: relative;
-  height: 110px;
-  overflow: hidden;
-  background: linear-gradient(90deg, rgba(75,21,53,0.9), rgba(113,85,122,0.8));
-  border-bottom: 2px solid var(--glow-color);
-  box-shadow: 0 0 15px var(--glow-color);
-  padding: 0;
-  text-align: center;
-  z-index: 10000;
+  animation: spaceWave 60s ease infinite;
+  background-size: 400% 400%;
 }
 
-.logo-link {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-}
+body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0;
 
-.logo-link img {
-  pointer-events: none; /* تمنع التفاعل مع الصورة */
-  user-select: none;    /* تمنع تحديد الصورة */
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  max-height: 130px; /* أو أي ارتفاع مناسب للهيدر */
-  box-shadow: 0 0 25px var(--glow-color);
-}
-    
+background: radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.1) 2px, transparent 3px), radial-gradient(circle at 50% 60%, rgba(0, 191, 255, 0.08) 1.5px, transparent 2px), radial-gradient(circle at 80% 40%, rgba(0, 191, 255, 0.12) 2.5px, transparent 3px), radial-gradient(circle at 70% 80%, rgba(0, 191, 255, 0.06) 1.8px, transparent 2px);
 
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(90deg, rgba(75,21,53,0.85), rgba(113,85,122,0.8));
-      border-top: 1px solid var(--glow-color);
-      border-bottom: 2px solid var(--glow-color);
-      padding: 10px 0;
-      box-shadow: 0 0 10px var(--glow-color);
-      z-index: 9000;
-    }
+background-size: 250px 250px; animation: starsGlitter 120s linear infinite; filter: drop-shadow(0 0 4px rgba(0, 191, 255, 0.7)) drop-shadow(0 0 6px rgba(0, 191, 255, 0.6)); }
 
-    .main-nav a {
-      color: var(--link-color);
-      padding: 10px 16px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s, text-shadow 0.3s;
-    }
+@keyframes spaceWave { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-    .main-nav a:hover {
-      color: var(--link-hover-color);
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
-      text-decoration: underline;
-    }
+@keyframes starsGlitter { 0% { background-position: 0 0, 0 0, 0 0, 0 0; } 100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; } }
 
-    section {
-      padding: 12px 10px;
-      max-width: 600px;
-      margin: 15px auto;
-      background: rgba(75, 21, 53, 0.5); /* Brown Chocolate شفاف */
-      border-radius: 8px;
-      box-shadow: 0 0 10px var(--glow-color);
-      font-size: 14px;
-      line-height: 1.6;
-    }
+header { position: relative; height: 100px; overflow: hidden; background: rgba(2, 6, 23, 0.9); border-bottom: 2px solid var(--glow-color); box-shadow: 0 0 25px var(--glow-color); padding: 0; text-align: center; z-index: 10000; }
 
-    .section-title {
-      font-size: 18px;
-      color: var(--text-secondary);
-      margin-bottom: 10px;
-      text-shadow: 0 0 5px var(--text-secondary);
-    }
+.logo-link { display: block; width: 100%; margin: 0 auto; }
 
-    .cover-img {
-      max-width: 85%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(243, 200, 221, 0.8), 0 0 30px rgba(209, 131, 169, 0.7);
-      margin: 0 auto 15px;
-      display: block;
-    }
+.logo-link img { pointer-events: none; user-select: none; display: block; width: 100%; height: auto; object-fit: cover; max-height: 120px; box-shadow: 0 0 35px var(--glow-color); }
 
-    .stories a {
-      display: block;
-      padding: 8px 12px;
-      margin: 8px 0;
-      background: rgba(209, 131, 169, 0.85);
-      color: var(--text-primary);
-      text-decoration: none;
-      border-right: 4px solid var(--link-color);
-      font-size: 16px;
-      font-weight: 600;
-      text-shadow: 0 0 7px var(--text-primary);
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
+.main-nav { display: flex; justify-content: center; align-items: center; background: rgba(2, 6, 23, 0.8); border-top: 1px solid var(--glow-color); border-bottom: 2px solid var(--glow-color); padding: 8px 0; box-shadow: 0 0 15px var(--glow-color); z-index: 9000; }
 
-    .stories a:hover {
-      background: rgba(243, 200, 221, 0.9); /* بدل rgba(72, 49, 118, 1) */
-    }
+.main-nav a { color: var(--link-color); padding: 8px 14px; text-decoration: none; font-weight: bold; font-size: 13px; transition: color 0.3s, text-shadow 0.3s; }
 
-    footer {
-      text-align: center;
-      padding: 12px 10px;
-      font-size: 12px;
-      border-top: 1px solid var(--glow-color);
-      color: var(--text-secondary);
-      background: rgba(10, 15, 44, 0.75);
-      max-width: 600px;
-      margin: 20px auto 30px;
-      border-radius: 0 0 8px 8px;
-    }
+.main-nav a:hover { color: var(--link-hover-color); text-shadow: 0 0 7px var(--link-hover-color), 0 0 20px var(--link-hover-color); }
 
-    .click-star {
-      position: fixed;
-      font-size: 20px;
-      pointer-events: none;
-      animation: star-fade 1s forwards;
-      transform-origin: center;
-      z-index: 9999;
-      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-    }
+section { padding: 10px 12px; max-width: 500px; margin: 20px auto; background: rgba(2, 6, 23, 0.6); border-radius: 10px; box-shadow: 0 0 20px var(--glow-color); font-size: 13.5px; line-height: 1.7; }
 
-    @keyframes star-fade {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+.section-title { font-size: 16px; color: var(--text-secondary); margin-bottom: 10px; text-shadow: 0 0 10px var(--text-secondary); }
 
-      100% {
-        opacity: 0;
-        transform: translateY(-20px) scale(1.5);
-      }
-    }
+.cover-img { max-width: 90%; height: auto; border-radius: 12px; box-shadow: 0 0 25px var(--glow-color), 0 0 45px var(--glow-color); margin: 0 auto 15px; display: block; }
 
-    @media (max-width: 480px) {
-      section {
-        max-width: 90%;
-        font-size: 13px;
-      }
+.stories a { display: block; padding: 7px 10px; margin: 8px 0; background: rgba(30, 58, 138, 0.85); color: var(--text-primary); text-decoration: none; border-right: 4px solid var(--glow-color); font-size: 14px; font-weight: bold; text-shadow: 0 0 6px var(--text-primary); border-radius: 4px; transition: background 0.3s; }
 
-      .stories a {
-        font-size: 14px;
-      }
+.stories a:hover { background: rgba(59, 130, 246, 0.9); }
 
-      footer {
-        max-width: 90%;
-        font-size: 11px;
-      }
+footer { text-align: center; padding: 12px 10px; font-size: 12px; border-top: 1px solid var(--glow-color); color: var(--text-secondary); background: rgba(2, 6, 23, 0.75); max-width: 500px; margin: 20px auto 30px; border-radius: 0 0 10px 10px; box-shadow: 0 0 10px var(--glow-color); }
 
-      .main-nav {
-        font-size: 12px;
-      }
-    }
+@media (max-width: 480px) { section { max-width: 90%; font-size: 13px; }
+
+.stories a { font-size: 13px; }
+
+footer { max-width: 90%; font-size: 11px; }
+
+.main-nav { font-size: 11px; } }
+
   </style>
 </head>
 <body>
-
-  <header>
-  <div class="logo-link">
-    <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />
-  </div>
-  </header>
-
-  <nav class="main-nav">
-    <a href="index.html">🏠 الرئيسية</a>
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
-    <a href="follow-me.html" id="followBtn">أشترك</a>
-  </nav>
-
-  <section>
-    <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>
-    <a href="https://ibb.co/gMpm74L4" target="_blank">
-      <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />
-    </a>
-  </section>
-
-  <section>
-    <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>
-    <p>
-      راسيل ستيوارت الأميرة البريطانية التي خُلقت بين تيجانٍ ملوثة بالدماء، واختارت أن تقود ثورة ضد عائلتها الملكية... لا من أجل الحرية، بل لتستولي على العرش بنفسها.<br><br>
-      ثائرة أنيقة، ومسمومة بالذكاء،<br>
-      لكن ما من أذكى وأدهى من إيان إيفانوف، السياسي الروسي الفاسد الذي خرج من رماد الموت كقنبلة موقوتة لهذا العالم.<br><br>
-      و حين تشابك قدره مع راسيل لم يراها امرأة... بل ورقة رابحة، فوضى قابلة للترويض، ونار مستعرة أدمن الاحتراق بها.<br><br>
-      تصطدم الأقدار، تكشف الأوراق، وتُفتح لعبة لم يُخلق لها رابح.<br><br>
-      في هذا العالم، لا ينتصر الطيّبون، ولا يموت الأشرار بسهولة.<br>
-      بل تُعقد التحالفات، وتُقطع رقاب الأضعف على حواف الكؤوس.<br><br>
-      هذه الرواية ليست قصة حب، بل قصة هيمنة، سيطرة، ومن يجرّ الآخر أولاً إلى الهاوية.
-    </p>
-  </section>
-
-  <section>
-    <h2 class="section-title">📖 فصول الرواية 📖</h2>
-    <div class="stories">
-      <a href="PUT-LINK-HERE">🌑 البارت الأول</a>
-      <a href="PUT-LINK-HERE">🌒 البارت الثاني</a>
-      <a href="PUT-LINK-HERE">🌓 البارت الثالث</a>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title">👥 شخصيات الرواية 👥</h2>
-    <p style="text-align: center;">
-      للتعرّف على خلفيات الشخصيات المظلمة، تفضّلوا إلى صفحتهم الخاصة 👇<br>
-      <a href="PUT-CHARACTERS-PAGE-LINK-HERE" target="_blank" style="color: var(--text-accent); text-decoration: underline;">
-        اضغط هنا للدخول إلى صفحة الشخصيات
-      </a>
-    </p>
-  </section>
-
-  <footer>
-    جميع الحقوق محفوظة للكاتبة روان. <br />
-    كل استخدام غير مرخّص للمحتوى يُعتبر انتهاكًا قانونيًا، ويُعرّض صاحبه للمساءلة — &copy; 2025
-  </footer>
-
-  <script>
-    document.addEventListener("click", function (e) {
-      const star = document.createElement("div");
-      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
-      star.textContent = emoji;
-      star.className = "click-star";
-      star.style.color = colors[Math.floor(Math.random() * colors.length)];
-      star.style.left = e.clientX + "px";
-      star.style.top = e.clientY + "px";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1000);
-    });
-  </script>
-
-</body>
-</html>
+<!-- بقية المحتوى نفسه بدون أي تغيير -->
+  
+  <header>  
+  <div class="logo-link">  
+    <img src="https://i.ibb.co/8gZdGD5P/Picsart-25-06-26-13-46-12-868.jpg" alt="شعار آثيريات العنقاء" />  
+  </div>  
+  </header>  
+  
+  <nav class="main-nav">  
+    <a href="index.html">🏠 الرئيسية</a>  
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>  
+    <a href="follow-me.html" id="followBtn">أشترك</a>  
+  </nav>  
+  
+  <section>  
+    <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>  
+    <a href="https://ibb.co/gMpm74L4" target="_blank">  
+      <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />  
+    </a>  
+  </section>  
+  
+  <section>  
+    <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>  
+    <p>  
+      راسيل ستيوارت الأميرة البريطانية التي خُلقت بين تيجانٍ ملوثة بالدماء، واختارت أن تقود ثورة ضد عائلتها الملكية... لا من أجل الحرية، بل لتستولي على العرش بنفسها.<br><br>  
+      ثائرة أنيقة، ومسمومة بالذكاء،<br>  
+      لكن ما من أذكى وأدهى من إيان إيفانوف، السياسي الروسي الفاسد الذي خرج من رماد الموت كقنبلة موقوتة لهذا العالم.<br><br>  
+      و حين تشابك قدره مع راسيل لم يراها امرأة... بل ورقة رابحة، فوضى قابلة للترويض، ونار مستعرة أدمن الاحتراق بها.<br><br>  
+      تصطدم الأقدار، تكشف الأوراق، وتُفتح لعبة لم يُخلق لها رابح.<br><br>  
+      في هذا العالم، لا ينتصر الطيّبون، ولا يموت الأشرار بسهولة.<br>  
+      بل تُعقد التحالفات، وتُقطع رقاب الأضعف على حواف الكؤوس.<br><br>  
+      هذه الرواية ليست قصة حب، بل قصة هيمنة، سيطرة، ومن يجرّ الآخر أولاً إلى الهاوية.  
+    </p>  
+  </section>  
+  
+  <section>  
+    <h2 class="section-title">📖 فصول الرواية 📖</h2>  
+    <div class="stories">  
+      <a href="PUT-LINK-HERE">🌑 البارت الأول</a>  
+      <a href="PUT-LINK-HERE">🌒 البارت الثاني</a>  
+      <a href="PUT-LINK-HERE">🌓 البارت الثالث</a>  
+    </div>  
+  </section>  
+  
+  <section>  
+    <h2 class="section-title">👥 شخصيات الرواية 👥</h2>  
+    <p style="text-align: center;">  
+      للتعرّف على خلفيات الشخصيات المظلمة، تفضّلوا إلى صفحتهم الخاصة 👇<br>  
+      <a href="PUT-CHARACTERS-PAGE-LINK-HERE" target="_blank" style="color: var(--text-accent); text-decoration: underline;">  
+        اضغط هنا للدخول إلى صفحة الشخصيات  
+      </a>  
+    </p>  
+  </section>  
+  
+  <footer>  
+    جميع الحقوق محفوظة للكاتبة روان. <br />  
+    كل استخدام غير مرخّص للمحتوى يُعتبر انتهاكًا قانونيًا، ويُعرّض صاحبه للمساءلة — &copy; 2025  
+  </footer>  
+  
+  <script>  
+    document.addEventListener("click", function (e) {  
+      const star = document.createElement("div");  
+      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];  
+      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];  
+      star.textContent = emoji;  
+      star.className = "click-star";  
+      star.style.color = colors[Math.floor(Math.random() * colors.length)];  
+      star.style.left = e.clientX + "px";  
+      star.style.top = e.clientY + "px";  
+      document.body.appendChild(star);  
+      setTimeout(() => star.remove(), 1000);  
+    });  
+  </script>  
+  
+</body>  
+</html>  
+  
