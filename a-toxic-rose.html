@@ -263,20 +263,5 @@
     كل استخدام غير مرخّص للمحتوى يُعتبر انتهاكًا قانونيًا، ويُعرّض صاحبه للمساءلة — &copy; 2025
   </footer>
 
-  <script>
-    document.addEventListener("click", function (e) {
-      const star = document.createElement("div");
-      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
-      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
-      star.textContent = emoji;
-      star.className = "click-star";
-      star.style.color = colors[Math.floor(Math.random() * colors.length)];
-      star.style.left = e.clientX + "px";
-      star.style.top = e.clientY + "px";
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 1000);
-    });
-  </script>
-
 </body>
   </html>
