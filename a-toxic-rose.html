@@ -1,266 +1,263 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A Toxic Rose - رواية نفسية خيالية مظلمة من تأليف CarlaSilvator. ثورة، سلطة، وشخصيات سايكو في لعبة بلا رابح." />
-    <meta name="keywords" content="A Toxic Rose, رواية A Toxic Rose, CarlaSilvator, رواية خيال علمي مظلم, دارك رومانس, روايات سايكو, روايات نفسية, قصص عربية مظلمة" />
-    <meta name="author" content="CarlaSilvator" />
-    <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#000d1a" />
-    <title>A Toxic Rose - رواية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
-        --star-color: rgba(0, 191, 255, 0.08);
-        --text-primary: #cfefff;
-        --text-secondary: #7dd3fc;
-        --text-accent: #38bdf8;
-        --link-color: #60a5fa;
-        --link-hover-color: #93c5fd;
-        --glow-color: #3b82f6;
-        --btn-bg: #1e293b;
-        --btn-hover-bg: #0f172a;
-        --btn-text-color: #cfefff;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        font-family: 'Amiri', serif;
-        background: var(--space-bg-dark);
-        color: var(--text-primary);
-        overflow-x: hidden;
-        min-height: 100vh;
-        position: relative;
-        animation: spaceWave 60s ease infinite;
-        background-size: 400% 400%;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Toxic Rose - رواية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
+      --text-primary: #cfefff;
+      --text-secondary: #7dd3fc;
+      --text-accent: #38bdf8;
+      --link-color: #60a5fa;
+      --link-hover-color: #93c5fd;
+      --glow-color: #3b82f6;
+      --read-color: #6b7280;
+    }
 
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        z-index: 0;
-        background: radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.1) 2px, transparent 3px), radial-gradient(circle at 50% 60%, rgba(0, 191, 255, 0.08) 1.5px, transparent 2px), radial-gradient(circle at 80% 40%, rgba(0, 191, 255, 0.12) 2.5px, transparent 3px), radial-gradient(circle at 70% 80%, rgba(0, 191, 255, 0.06) 1.8px, transparent 2px);
-        background-size: 250px 250px;
-        animation: starsGlitter 120s linear infinite;
-        filter: drop-shadow(0 0 4px rgba(0, 191, 255, 0.7)) drop-shadow(0 0 6px rgba(0, 191, 255, 0.6));
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background: var(--space-bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-size: 400% 400%;
+      animation: spaceWave 60s ease infinite;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0,191,255,0.1) 2px, transparent 3px),
+        radial-gradient(circle at 50% 60%, rgba(0,191,255,0.08) 1.5px, transparent 2px),
+        radial-gradient(circle at 80% 40%, rgba(0,191,255,0.12) 2.5px, transparent 3px),
+        radial-gradient(circle at 70% 80%, rgba(0,191,255,0.06) 1.8px, transparent 2px);
+      background-size: 250px 250px;
+      animation: starsGlitter 120s linear infinite;
+      filter: drop-shadow(0 0 4px rgba(0,191,255,0.7)) drop-shadow(0 0 6px rgba(0,191,255,0.6));
+    }
+
+    @keyframes spaceWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes starsGlitter {
+      0% { background-position: 0 0; }
+      100% { background-position: -2000px 2000px; }
+    }
+
+    header {
+      background: rgba(2, 6, 23, 0.9);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 25px var(--glow-color);
+      text-align: center;
+    }
+
+    .logo-link img {
+      display: block;
+      width: 100%;
+      max-height: 120px;
+      object-fit: cover;
+      box-shadow: 0 0 35px var(--glow-color);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .main-nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(2, 6, 23, 0.8);
+      border-top: 1px solid var(--glow-color);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 15px var(--glow-color);
+      padding: 8px 0;
+    }
+
+    .main-nav a {
+      color: var(--link-color);
+      padding: 8px 14px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    .main-nav a:hover {
+      color: var(--link-hover-color);
+      text-shadow: 0 0 7px var(--link-hover-color), 0 0 20px var(--link-hover-color);
+    }
+
+    section {
+      padding: 10px 12px;
+      max-width: 500px;
+      margin: 20px auto;
+      background: rgba(2, 6, 23, 0.6);
+      border-radius: 10px;
+      box-shadow: 0 0 20px var(--glow-color);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .section-title {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px var(--text-secondary);
+    }
+
+    .cover-img {
+      max-width: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 25px var(--glow-color), 0 0 45px var(--glow-color);
+      margin: 0 auto 15px;
+      display: block;
+    }
+
+    .stories a {
+      display: block;
+      padding: 8px 12px;
+      margin: 10px 0;
+      background: rgba(30, 58, 138, 0.85);
+      color: var(--text-primary);
+      text-decoration: none;
+      border-right: 4px solid var(--glow-color);
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-shadow: 0 0 6px var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    .stories a:hover {
+      background: rgba(59, 130, 246, 0.9);
+    }
+
+    .stories a.read {
+      background: #1f2937 !important;
+      color: var(--read-color) !important;
+      text-decoration: line-through;
+      border-right-color: #64748b;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: rgba(2, 6, 23, 0.75);
+      border-top: 1px solid var(--glow-color);
+      box-shadow: 0 0 10px var(--glow-color);
+      max-width: 500px;
+      margin: 20px auto 30px;
+      border-radius: 0 0 10px 10px;
+      padding: 12px 10px;
+    }
+
+    .click-star {
+      position: absolute;
+      font-size: 20px;
+      z-index: 9999;
+      animation: fadeUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(-30px);
+        opacity: 0;
       }
+    }
 
-      @keyframes spaceWave {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
+    @media (max-width: 480px) {
+      section { max-width: 90%; font-size: 13px; }
+      .stories a { font-size: 13px; }
+      footer { max-width: 90%; font-size: 11px; }
+      .main-nav { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
 
-      @keyframes starsGlitter {
-        0% {
-          background-position: 0 0, 0 0, 0 0, 0 0;
-        }
-        100% {
-          background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px;
-        }
-      }
+<header>
+  <div class="logo-link">
+    <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
+  </div>
+</header>
 
-      header {
-        position: relative;
-        background: rgba(2, 6, 23, 0.9);
-        border-bottom: 2px solid var(--glow-color);
-        box-shadow: 0 0 15px var(--glow-color); /* تم تخفيف التوهج */
-        padding: 0;
-        text-align: center;
-        z-index: 10000;
-      }
+<nav class="main-nav">
+  <a href="index.html">🏠 الرئيسية</a>
+  <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
+  <a href="follow-me.html">🧿 اشتركي معنا</a>
+</nav>
 
-      .logo-link {
-        display: block;
-        width: 100%;
-        margin: 0 auto;
-      }
+<section>
+  <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>
+  <a href="https://ibb.co/gMpm74L4" target="_blank">
+    <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />
+  </a>
+</section>
 
-      .logo-link img {
-        pointer-events: none;
-        user-select: none;
-        display: block;
-        max-width: 100%;
-        height: auto;
-        object-fit: contain;
-        max-height: 120px; /* تخفيف حجم الصورة */
-        margin: 0 auto;
-        box-shadow: 0 0 15px var(--glow-color); /* تم تخفيف التوهج */
-      }
+<section>
+  <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>
+  <p>
+    راسيل ستيوارت الأميرة البريطانية التي خُلقت بين تيجانٍ ملوثة بالدماء، واختارت أن تقود ثورة ضد عائلتها الملكية... لا من أجل الحرية، بل لتستولي على العرش بنفسها.<br><br>
+    ثائرة أنيقة، ومسمومة بالذكاء،<br>
+    لكن ما من أذكى وأدهى من إيان إيفانوف، السياسي الروسي الفاسد الذي خرج من رماد الموت كقنبلة موقوتة لهذا العالم.<br><br>
+    و حين تشابك قدره مع راسيل لم يراها امرأة... بل ورقة رابحة، فوضى قابلة للترويض، ونار مستعرة أدمن الاحتراق بها.<br><br>
+    هذه الرواية ليست قصة حب، بل قصة هيمنة، سيطرة، ومن يجرّ الآخر أولاً إلى الهاوية.
+  </p>
+</section>
 
-      .main-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgba(2, 6, 23, 0.8);
-        border-top: 1px solid var(--glow-color);
-        border-bottom: 2px solid var(--glow-color);
-        padding: 8px 0;
-        box-shadow: 0 0 15px var(--glow-color);
-        z-index: 9000;
-      }
+<section>
+  <h2 class="section-title">📖 فصول الرواية 📖</h2>
+  <div class="stories">
+    <a href="PUT-LINK-HERE-1">🌑 البارت الأول</a>
+    <a href="PUT-LINK-HERE-2">🌒 البارت الثاني</a>
+    <a href="PUT-LINK-HERE-3">🌓 البارت الثالث</a>
+  </div>
+</section>
 
-      .main-nav a {
-        color: var(--link-color);
-        padding: 8px 14px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 13px;
-        transition: color 0.3s, text-shadow 0.3s;
-      }
+<footer>
+  جميع الحقوق محفوظة للكاتبة روان © 2025 — يُمنع النسخ دون إذن كتابي
+</footer>
 
-      .main-nav a:hover {
-        color: var(--link-hover-color);
-        text-shadow: 0 0 7px var(--link-hover-color), 0 0 20px var(--link-hover-color);
-      }
+<script>
+  // تأثير النجوم عند النقر
+  document.addEventListener("click", function (e) {
+    const star = document.createElement("div");
+    const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];
+    const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];
+    star.textContent = emoji;
+    star.className = "click-star";
+    star.style.color = colors[Math.floor(Math.random() * colors.length)];
+    star.style.left = e.clientX + "px";
+    star.style.top = e.clientY + "px";
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 1000);
+  });
 
-      section {
-        padding: 10px 12px;
-        max-width: 500px;
-        margin: 20px auto;
-        background: rgba(2, 6, 23, 0.6);
-        border-radius: 10px;
-        box-shadow: 0 0 20px var(--glow-color);
-        font-size: 13.5px;
-        line-height: 1.7;
-      }
+  // تمييز البارتات المقروءة
+  document.querySelectorAll(".stories a").forEach(link => {
+    const href = link.getAttribute("href");
+    if (localStorage.getItem("read_" + href)) {
+      link.classList.add("read");
+    }
+    link.addEventListener("click", () => {
+      localStorage.setItem("read_" + href, true);
+      link.classList.add("read");
+    });
+  });
+</script>
 
-      .section-title {
-        font-size: 16px;
-        color: var(--text-secondary);
-        margin-bottom: 10px;
-        text-shadow: 0 0 10px var(--text-secondary);
-      }
-
-      .cover-img {
-        max-width: 80%; /* تصغير صورة الغلاف */
-        height: auto;
-        border-radius: 12px;
-        box-shadow: 0 0 15px var(--glow-color); /* تخفيف التوهج */
-        margin: 0 auto 15px;
-        display: block;
-      }
-
-      footer {
-        text-align: center;
-        padding: 12px 10px;
-        font-size: 12px;
-        border-top: 1px solid var(--glow-color);
-        color: var(--text-secondary);
-        background: rgba(2, 6, 23, 0.75);
-        max-width: 500px;
-        margin: 20px auto 30px;
-        border-radius: 0 0 10px 10px;
-        box-shadow: 0 0 10px var(--glow-color);
-      }
-
-      @media (max-width: 480px) {
-        section {
-          max-width: 90%;
-          font-size: 13px;
-        }
-
-        .stories a {
-          font-size: 13px;
-        }
-
-        footer {
-          max-width: 90%;
-          font-size: 11px;
-        }
-
-        .main-nav {
-          font-size: 11px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="logo-link">
-        <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
-      </div>
-    </header>
-    <nav class="main-nav">
-      <a href="index.html">🏠 الرئيسية</a>
-      <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
-      <a href="follow-me.html" id="followBtn">أشترك</a>
-    </nav>
-    <section>
-      <h2 class="section-title">🌹 A Toxic Rose 🌹</h2>
-      <a href="https://ibb.co/gMpm74L4" target="_blank">
-        <img class="cover-img" src="https://i.ibb.co/VWZJNwcw/Picsart-24-11-30-15-07-15-111.jpg" alt="غلاف الرواية" />
-      </a>
-    </section> 
-  
-  <section>  
-    <h2 class="section-title">🕯️ لمحة عن الرواية 🖤</h2>  
-    <p>  
-      راسيل ستيوارت الأميرة البريطانية التي خُلقت بين تيجانٍ ملوثة بالدماء، واختارت أن تقود ثورة ضد عائلتها الملكية... لا من أجل الحرية، بل لتستولي على العرش بنفسها.<br><br>  
-      ثائرة أنيقة، ومسمومة بالذكاء،<br>  
-      لكن ما من أذكى وأدهى من إيان إيفانوف، السياسي الروسي الفاسد الذي خرج من رماد الموت كقنبلة موقوتة لهذا العالم.<br><br>  
-      و حين تشابك قدره مع راسيل لم يراها امرأة... بل ورقة رابحة، فوضى قابلة للترويض، ونار مستعرة أدمن الاحتراق بها.<br><br>  
-      تصطدم الأقدار، تكشف الأوراق، وتُفتح لعبة لم يُخلق لها رابح.<br><br>  
-      في هذا العالم، لا ينتصر الطيّبون، ولا يموت الأشرار بسهولة.<br>  
-      بل تُعقد التحالفات، وتُقطع رقاب الأضعف على حواف الكؤوس.<br><br>  
-      هذه الرواية ليست قصة حب، بل قصة هيمنة، سيطرة، ومن يجرّ الآخر أولاً إلى الهاوية.  
-    </p>  
-  </section>  
-  
-  <section>  
-    <h2 class="section-title">📖 فصول الرواية 📖</h2>  
-    <div class="stories">  
-      <a href="PUT-LINK-HERE">🌑 البارت الأول</a>  
-      <a href="PUT-LINK-HERE">🌒 البارت الثاني</a>  
-      <a href="PUT-LINK-HERE">🌓 البارت الثالث</a>  
-    </div>  
-  </section>  
-  
-  <section>  
-    <h2 class="section-title">👥 شخصيات الرواية 👥</h2>  
-    <p style="text-align: center;">  
-      للتعرّف على خلفيات الشخصيات المظلمة، تفضّلوا إلى صفحتهم الخاصة 👇<br>  
-      <a href="PUT-CHARACTERS-PAGE-LINK-HERE" target="_blank" style="color: var(--text-accent); text-decoration: underline;">  
-        اضغط هنا للدخول إلى صفحة الشخصيات  
-      </a>  
-    </p>  
-  </section>  
-  
-  <footer>  
-    جميع الحقوق محفوظة للكاتبة روان. <br />  
-    كل استخدام غير مرخّص للمحتوى يُعتبر انتهاكًا قانونيًا، ويُعرّض صاحبه للمساءلة — &copy; 2025  
-  </footer>  
-  
-  <script>  
-    document.addEventListener("click", function (e) {  
-      const star = document.createElement("div");  
-      const colors = ["#ff70a6", "#39ff14", "#8a2be2", "#a1c4fd"];  
-      const emoji = ["✨", "🌟", "💫", "⭐"][Math.floor(Math.random() * 4)];  
-      star.textContent = emoji;  
-      star.className = "click-star";  
-      star.style.color = colors[Math.floor(Math.random() * colors.length)];  
-      star.style.left = e.clientX + "px";  
-      star.style.top = e.clientY + "px";  
-      document.body.appendChild(star);  
-      setTimeout(() => star.remove(), 1000);  
-    });  
-  </script>  
-  
-</body>  
-</html>  
-  
+</body>
+    </html>
