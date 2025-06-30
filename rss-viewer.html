@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,161 +9,174 @@
     :root {
       --bg: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
       --glow: #3b82f6;
+      --glow-color: #3b82f6;
       --text-primary: #cfefff;
       --text-secondary: #7dd3fc;
       --text-accent: #38bdf8;
-      --link-hover: #93c5fd;
-    }body {
-  margin: 0;
-  font-family: 'Amiri', serif;
-  background: var(--bg);
-  color: var(--text-primary);
-  animation: bgShift 120s ease infinite;
-  background-size: 200% 200%;
-}
+      --accent-color: #38bdf8;
+      --link-hover-color: #93c5fd;
+    }
 
-@keyframes bgShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
+    body {
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      animation: bgShift 120s ease infinite;
+      background-size: 200% 200%;
+    }
 
-header, footer, nav {
-  background: rgba(2, 6, 23, 0.9);
-  border-bottom: 2px solid var(--glow);
-  box-shadow: 0 0 15px var(--glow);
-  text-align: center;
-  padding: 10px 0;
-}
+    @keyframes bgShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
 
-header img {
-  width: 100%;
-  max-height: 240px;
-  object-fit: cover;
-}
+    header, footer, nav {
+      background: rgba(2, 6, 23, 0.9);
+      border-bottom: 2px solid var(--glow);
+      box-shadow: 0 0 15px var(--glow);
+      text-align: center;
+      padding: 10px 0;
+    }
 
-nav a {
-  color: var(--text-secondary);
-  padding: 10px 15px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 13px;
-}
+    header img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+    }
 
-nav a:hover {
-  color: var(--link-hover);
-  text-shadow: 0 0 10px var(--link-hover);
-}
+    nav a {
+      color: var(--text-secondary);
+      padding: 10px 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 13px;
+    }
 
-.section-title {
-  text-align: center;
-  font-size: 20px;
-  margin: 30px 0 10px;
-  color: var(--text-accent);
-  text-shadow: 0 0 10px var(--glow);
-}
+    nav a:hover {
+      color: var(--link-hover-color);
+      text-shadow: 0 0 10px var(--link-hover-color);
+    }
 
-.description-box {
-  max-width: 700px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glow);
-  padding: 15px;
-  border-radius: 10px;
-  text-align: center;
-}
+    .section-title {
+      text-align: center;
+      font-size: 20px;
+      margin: 30px 0 10px;
+      color: var(--text-accent);
+      text-shadow: 0 0 10px var(--glow);
+    }
 
-.search-box {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0;
-}
+    .description-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glow);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
 
-.search-box input {
-  padding: 10px;
-  width: 90%;
-  max-width: 400px;
-  border: none;
-  border-radius: 8px;
-  background: #0f172a;
-  color: white;
-  box-shadow: 0 0 8px var(--glow);
-}
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
 
-.rss-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
+    .search-box input {
+      padding: 10px;
+      width: 90%;
+      max-width: 400px;
+      border: none;
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
+      box-shadow: 0 0 8px var(--glow);
+    }
 
-.rss-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--glow);
-  box-shadow: 0 0 20px var(--glow);
-  border-radius: 10px;
-  margin-bottom: 20px;
-  padding: 10px 15px;
-}
+    .rss-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-.rss-info {
-  flex-grow: 1;
-  padding-right: 10px;
-}
+    .update-strip {
+      background: rgba(25, 18, 61, 0.8);
+      border: 1px solid var(--glow-color);
+      border-radius: 10px;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      box-shadow: 0 0 15px var(--glow-color);
+      transition: background 0.3s ease;
+    }
 
-.rss-info small {
-  display: block;
-  font-size: 11px;
-  color: var(--text-secondary);
-}
+    .update-strip:hover {
+      background: rgba(25, 18, 61, 0.95);
+    }
 
-.rss-info h2 {
-  margin: 5px 0;
-  font-size: 14px;
-  color: var(--text-accent);
-  cursor: pointer;
-}
+    .update-title {
+      font-weight: bold;
+      color: var(--accent-color);
+      text-shadow: 0 0 5px var(--glow-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
 
-.rss-date {
-  font-size: 11px;
-  color: #999;
-}
+    .update-title:hover {
+      color: var(--link-hover-color);
+      text-decoration: underline;
+    }
 
-.rss-cover {
-  width: 60px;
-  height: 60px;
-  border-radius: 6px;
-  object-fit: cover;
-  box-shadow: 0 0 10px var(--glow);
-}
+    .update-date {
+      font-size: 12px;
+      color: #aaa;
+    }
 
-footer {
-  margin-top: 50px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
+    footer {
+      margin-top: 50px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
   </style>
 </head>
-<body>  <header>
+<body>
+  <header>
     <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء">
-  </header>  <nav>
+  </header>
+
+  <nav>
     <a href="index.html">🏠 الرئيسية</a>
     <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
     <a href="follow-me.html">🧭 أشترك</a>
-  </nav>  <h2 class="section-title">📡 جديد التحديثات</h2>  <div class="description-box">
+  </nav>
+
+  <h2 class="section-title">📡 جديد التحديثات</h2>
+
+  <div class="description-box">
     تصفّح أحدث المستجدات الخاصة بالفصول الجديدة، التعديلات، والقرارات الصادرة من آثير.
-  </div>  <div class="search-box">
+  </div>
+
+  <div class="search-box">
     <input type="text" id="searchInput" placeholder="🔍 ابحث في التحديثات...">
-  </div>  <div class="rss-container" id="rss-container">
+  </div>
+
+  <div class="rss-container" id="rss-container">
     <p>جارٍ تحميل المحتوى...</p>
-  </div>  <footer>
+  </div>
+
+  <footer>
     حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
-  </footer>  <script>
+  </footer>
+
+  <script>
     async function fetchRSS() {
       try {
         const response = await fetch('rss.xml');
         if (!response.ok) throw new Error('تعذر تحميل ملف RSS');
+
         const text = await response.text();
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'application/xml');
@@ -177,22 +191,16 @@ footer {
         }
 
         items.forEach(item => {
-          const title = item.querySelector('title')?.textContent || 'عنوان غير معروف';
-          const description = item.querySelector('description')?.textContent || '';
+          const title = item.querySelector('title')?.textContent || 'بدون عنوان';
+          const pubDate = item.querySelector('pubDate')?.textContent || '';
           const link = item.querySelector('link')?.textContent || '#';
-          const date = item.querySelector('pubDate')?.textContent || 'تاريخ غير متاح';
-          const img = item.querySelector('media\\:thumbnail')?.getAttribute('url') || 'https://i.ibb.co/nj0WrG5/default-cover.jpg';
 
           const div = document.createElement('div');
-          div.className = 'rss-item';
+          div.className = 'update-strip';
 
           div.innerHTML = `
-            <img src="${img}" class="rss-cover" alt="غلاف">
-            <div class="rss-info">
-              <small>📖 ${title}</small>
-              <h2 onclick="window.open('${link}', '_blank')">${description}</h2>
-            </div>
-            <div class="rss-date">${date}</div>
+            <a href="${link}" target="_blank" class="update-title">${title}</a>
+            <div class="update-date">${pubDate}</div>
           `;
 
           container.appendChild(div);
@@ -200,7 +208,7 @@ footer {
 
         document.getElementById('searchInput').addEventListener('input', function () {
           const keyword = this.value.toLowerCase();
-          document.querySelectorAll('.rss-item').forEach(item => {
+          document.querySelectorAll('.update-strip').forEach(item => {
             item.style.display = item.textContent.toLowerCase().includes(keyword) ? 'flex' : 'none';
           });
         });
@@ -211,5 +219,6 @@ footer {
     }
 
     fetchRSS();
-  </script></body>
-</html>
+  </script>
+</body>
+  </html>
