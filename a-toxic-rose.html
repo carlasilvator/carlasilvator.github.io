@@ -25,40 +25,37 @@
     }
 
     body {
-  margin: 0;
-  font-family: 'Amiri', serif;
-  background: var(--space-bg-dark);
-  color: var(--text-primary);
-  overflow-x: hidden;
-  min-height: 100vh;
-  position: relative;
-  animation: spaceWave 120s ease infinite;
-  background-size: 200% 200%;
-  will-change: background-position
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background: var(--space-bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+      animation: spaceWave 120s ease infinite;
+      background-size: 200% 200%;
+      will-change: background-position;
     }
 
     body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 0;
-
-  background:
-    radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.05) 2px, transparent 3px),
-    radial-gradient(circle at 50% 60%, rgba(0, 191, 255, 0.04) 1.5px, transparent 2px),
-    radial-gradient(circle at 80% 40%, rgba(0, 191, 255, 0.06) 2.5px, transparent 3px),
-    radial-gradient(circle at 70% 80%, rgba(0, 191, 255, 0.03) 1.8px, transparent 2px);
-
-  background-size: 200px 200px;
-  animation: starsGlitter 120s linear infinite;
-  filter: drop-shadow(0 0 2px rgba(0, 191, 255, 0.5));
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 191, 255, 0.05) 2px, transparent 3px),
+        radial-gradient(circle at 50% 60%, rgba(0, 191, 255, 0.04) 1.5px, transparent 2px),
+        radial-gradient(circle at 80% 40%, rgba(0, 191, 255, 0.06) 2.5px, transparent 3px),
+        radial-gradient(circle at 70% 80%, rgba(0, 191, 255, 0.03) 1.8px, transparent 2px);
+      background-size: 200px 200px;
+      animation: starsGlitter 120s linear infinite;
+      filter: drop-shadow(0 0 2px rgba(0, 191, 255, 0.5));
     }
 
-    
     @keyframes spaceWave {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -71,32 +68,32 @@
     }
 
     header {
-      position: relative;
-      height: 100px;
-      overflow: hidden;
+      width: 100%;
       background: rgba(2, 6, 23, 0.9);
       border-bottom: 2px solid var(--glow-color);
-      box-shadow: 0 0 10px var(--glow-color);
-      padding: 0;
+      box-shadow: 0 0 15px var(--glow-color);
+      backdrop-filter: blur(6px);
       text-align: center;
+      position: relative;
       z-index: 10000;
+      padding: 0;
     }
 
     .logo-link {
       display: block;
       width: 100%;
+      max-width: 100%;
       margin: 0 auto;
+      pointer-events: none;
+      user-select: none;
     }
 
     .logo-link img {
-      pointer-events: none;
-      user-select: none;
-      display: block;
       width: 100%;
       height: auto;
+      display: block;
       object-fit: cover;
-      max-height: 120px;
-      box-shadow: 0 0 35px var(--glow-color);
+      max-height: 240px;
     }
 
     .main-nav {
@@ -144,13 +141,13 @@
     }
 
     .cover-img {
-  max-width: 70%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color);
-  margin: 0 auto 15px;
-  display: block;
-} 
+      max-width: 70%;
+      height: auto;
+      border-radius: 12px;
+      margin: 0 auto 15px;
+      display: block;
+      box-shadow: none !important;
+    }
 
     .stories a {
       display: block;
@@ -205,19 +202,18 @@
     }
 
     @media (max-width: 600px) {
-  body {
-    animation: none !important;
-  }
-
-  body::before {
-    display: none !important;
-  }
-
-  .cover-img {
-    box-shadow: none !important;
-  }
+      body {
+        animation: none !important;
       }
-    
+
+      body::before {
+        display: none !important;
+      }
+
+      .cover-img {
+        box-shadow: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -280,4 +276,4 @@
   </footer>
 
 </body>
-  </html>
+        </html>
