@@ -9,25 +9,23 @@
 <style>
   /* خلفية سوداء نص أبيض */
   body {
-    background: #000000;
-    color: #fff;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 20px 10px;
-    display: flex;
-    justify-content: center;
-  }
+  background: #000000;
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  /* صندوق النص محدود العرض مع حدود نيون زرقاء غامقة */
-  .container {
-    max-width: 720px;
-    width: 100%;
-    background: #000;
-    border: 2px solid #004466; /* حدود نيون زرقاء غامقة */
-    box-shadow: 0 0 12px 2px #005577;
-    padding: 25px 30px 40px 30px;
-    position: relative;
-  }
+.container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px 50px 16px;
+  background: #000;
+  border: 2px solid #004466;
+  box-shadow: 0 0 12px 2px #005577;
+  box-sizing: border-box;
+}
 
   h2 {
     border-bottom: 2px solid #005577;
@@ -212,51 +210,75 @@
     border-radius: 3px;
   }
 
-  /* تجاوب مع الشاشات الصغيرة */
-  @media (max-width: 700px) {
-    body {
-      padding: 10px 5px;
-    }
-    .container {
-      max-width: 100%;
-      border-width: 1.5px;
-      box-shadow: none;
-      padding: 15px 20px 30px 20px;
-    }
-    .paragraph {
-      font-size: 1rem;
-      margin-bottom: 60px;
-    }
-    .comment-toggle-btn {
-      position: static;
-      display: inline-block;
-      margin-left: 10px;
-      width: auto;
-      height: auto;
-      border-radius: 6px;
-      padding: 4px 10px;
-      box-shadow: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-      vertical-align: middle;
-    }
-    .comments-section {
-      position: static;
-      width: 100%;
-      max-height: 250px;
-      margin-top: 8px;
-      box-shadow: none;
-      border-radius: 12px;
-      left: auto;
-      top: auto;
-      padding: 8px;
-    }
-    #authButtons button {
-      margin-left: 5px;
-      padding: 8px 12px;
-      font-size: 0.9rem;
-    }
+/* تجاوب مع الشاشات الصغيرة */
+@media (max-width: 700px) {
+  body {
+    padding: 10px 5px;
   }
+  .container {
+    max-width: 100%;
+    border-width: 1.5px;
+    box-shadow: none;
+    padding: 15px 20px 30px 20px;
+  }
+  .paragraph {
+    font-size: 1rem;
+    margin-bottom: 60px;
+  }
+  .comment-toggle-btn {
+    position: static;
+    display: inline-block;
+    margin-left: 10px;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    padding: 4px 10px;
+    box-shadow: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .comments-section {
+    position: static;
+    width: 100%;
+    max-height: 250px;
+    margin-top: 8px;
+    box-shadow: none;
+    border-radius: 12px;
+    left: auto;
+    top: auto;
+    padding: 8px;
+  }
+  #authButtons button {
+    margin-left: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* تجاوب إضافي للشاشات الأصغر (مثل جوالات صغيرة جداً) */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 10px 40px 10px;
+    border-width: 1.5px;
+    box-shadow: 0 0 8px #003344;
+  }
+
+  .paragraph {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .comment-toggle-btn {
+    font-size: 1rem;
+    padding: 4px 8px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    padding-bottom: 8px;
+  } 
+  
 </style>
 </head>
 <body>
