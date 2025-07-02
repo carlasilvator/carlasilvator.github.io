@@ -6,278 +6,115 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<style>
-  /* خلفية سوداء نص أبيض */
-  body {
-  background: #000000;
+
+  <style>
+  /* تجاوب عام لكل الشاشات */
+body {
+  background: #000;
   color: #fff;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
   width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 20px 16px 50px 16px;
+  max-width: 95%;
   background: #000;
   border: 2px solid #004466;
   box-shadow: 0 0 12px 2px #005577;
+  padding: 16px 12px 24px;
+  margin-top: 20px;
   box-sizing: border-box;
 }
 
-  h2 {
-    border-bottom: 2px solid #005577;
-    padding-bottom: 12px;
-    margin-bottom: 30px;
-    color: #00d9ff;
-    font-weight: 700;
-  }
-
-  .paragraph {
-    position: relative;
-    margin-bottom: 50px;
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
-
-  /* زر سحابة التعليقات جنب الفقرة */
-  .comment-toggle-btn {
-    position: absolute;
-    top: 2px;
-    left: -45px;
-    background: #004466;
-    border: none;
-    color: #00d9ff;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    box-shadow: 0 0 10px #00d9ff;
-    transition: background-color 0.3s ease;
-  }
-  .comment-toggle-btn:hover {
-    background: #0077aa;
-    box-shadow: 0 0 20px #00ffff;
-  }
-
-  /* سحابة التعليقات جنب الفقرة */
-  .comments-section {
-    position: absolute;
-    top: 40px;
-    left: -320px;
-    width: 310px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #000;
-    border: 2px solid #005577;
-    border-radius: 15px;
-    padding: 10px;
-    display: none;
-    box-shadow: 0 0 20px #00aaff;
-    font-size: 0.9rem;
-    z-index: 9999;
-  }
-
-  .comments-list {
-    max-height: 280px;
-    overflow-y: auto;
-    margin-bottom: 8px;
-  }
-
-  .comment {
-    background: #111;
-    border-radius: 12px;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-    position: relative;
-  }
-
-  .comment .user {
-    font-weight: bold;
-    margin-bottom: 4px;
-    color: #00aaff;
-  }
-
-  .comment .text {
-    margin-bottom: 6px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .comment .actions {
-    display: flex;
-    gap: 8px;
-  }
-
-  .comment button {
-    background: transparent;
-    border: none;
-    color: #00aaff;
-    cursor: pointer;
-    font-size: 0.8rem;
-    padding: 0;
-    transition: color 0.2s ease;
-  }
-  .comment button:hover {
-    color: #00ffff;
-  }
-
-  .reply-box {
-    margin-top: 6px;
-  }
-
-  .reply-box textarea {
-    width: 100%;
-    height: 50px;
-    border-radius: 8px;
-    border: 1px solid #00aaff;
-    background: #000;
-    color: #fff;
-    padding: 5px;
-    resize: none;
-  }
-
-  .reply-box button {
-    margin-top: 5px;
-    background: #00aaff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
-    float: left;
-  }
-
-  textarea#new-comment {
-    width: 100%;
-    height: 60px;
-    border-radius: 12px;
-    border: 2px solid #005577;
-    background: #000;
-    color: #fff;
-    padding: 8px;
-    resize: none;
-    margin-bottom: 8px;
-  }
-
-  button#submit-comment {
-    background: #005577;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 8px 20px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  #authButtons {
-    margin-bottom: 30px;
-    text-align: center;
-  }
-
-  #authButtons button {
-    background: #005577;
-    border: none;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-  }
-  #authButtons button:hover {
-    background: #0077aa;
-  }
-
-  #userInfo {
-    font-weight: bold;
-    color: #00aaff;
-  }
-
-  /* Scrollbar styles */
-  .comments-list::-webkit-scrollbar,
-  .comments-section::-webkit-scrollbar {
-    width: 6px;
-  }
-  .comments-list::-webkit-scrollbar-thumb,
-  .comments-section::-webkit-scrollbar-thumb {
-    background-color: #00aaff;
-    border-radius: 3px;
-  }
-
-/* تجاوب مع الشاشات الصغيرة */
-@media (max-width: 700px) {
-  body {
-    padding: 10px 5px;
-  }
-  .container {
-    max-width: 100%;
-    border-width: 1.5px;
-    box-shadow: none;
-    padding: 15px 20px 30px 20px;
-  }
-  .paragraph {
-    font-size: 1rem;
-    margin-bottom: 60px;
-  }
-  .comment-toggle-btn {
-    position: static;
-    display: inline-block;
-    margin-left: 10px;
-    width: auto;
-    height: auto;
-    border-radius: 6px;
-    padding: 4px 10px;
-    box-shadow: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    vertical-align: middle;
-  }
-  .comments-section {
-    position: static;
-    width: 100%;
-    max-height: 250px;
-    margin-top: 8px;
-    box-shadow: none;
-    border-radius: 12px;
-    left: auto;
-    top: auto;
-    padding: 8px;
-  }
-  #authButtons button {
-    margin-left: 5px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-  }
+/* العنوان */
+h2 {
+  border-bottom: 2px solid #005577;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  color: #00d9ff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
-/* تجاوب إضافي للشاشات الأصغر (مثل جوالات صغيرة جداً) */
-@media (max-width: 480px) {
-  .container {
-    padding: 16px 10px 40px 10px;
-    border-width: 1.5px;
-    box-shadow: 0 0 8px #003344;
-  }
+/* الفقرة */
+.paragraph {
+  position: relative;
+  margin-bottom: 40px;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+}
 
+/* زر التعليقات */
+.comment-toggle-btn {
+  position: static;
+  display: inline-block;
+  margin: 10px 0;
+  background: #004466;
+  color: #00d9ff;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+}
+
+/* تعليقات */
+.comments-section {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  background: #000;
+  border: 1px solid #005577;
+  border-radius: 12px;
+  padding: 8px;
+  margin-top: 10px;
+  box-shadow: 0 0 8px #00aaff;
+  font-size: 0.9rem;
+}
+
+#authButtons {
+  margin-bottom: 16px;
+  text-align: center;
+}
+#authButtons button {
+  background: #005577;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 5px;
+  font-size: 0.9rem;
+}
+#userInfo {
+  display: block;
+  margin-top: 10px;
+  color: #00aaff;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* تصغير للهواتف الصغيرة */
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1rem;
+  }
   .paragraph {
     font-size: 0.95rem;
-    line-height: 1.6;
   }
-
   .comment-toggle-btn {
-    font-size: 1rem;
-    padding: 4px 8px;
+    font-size: 0.9rem;
+    padding: 5px 10px;
   }
-
-  h2 {
-    font-size: 1.2rem;
-    padding-bottom: 8px;
-  } 
+}
   
 </style>
 </head>
