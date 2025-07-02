@@ -7,104 +7,145 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 <style>
+  /* خلفية سوداء نص أبيض */
   body {
-    background: #121212;
+    background: #000000;
     color: #fff;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
   }
+
+  /* صندوق النص محدود العرض مع حدود نيون زرقاء غامقة */
+  .container {
+    max-width: 720px;
+    width: 100%;
+    background: #000;
+    border: 2px solid #004466; /* حدود نيون زرقاء غامقة */
+    box-shadow: 0 0 12px 2px #005577;
+    padding: 25px 30px 40px 30px;
+    position: relative;
+  }
+
   h2 {
-    border-bottom: 2px solid #00f9ff;
-    padding-bottom: 10px;
+    border-bottom: 2px solid #005577;
+    padding-bottom: 12px;
     margin-bottom: 30px;
+    color: #00d9ff;
+    font-weight: 700;
   }
+
   .paragraph {
     position: relative;
     margin-bottom: 50px;
-    padding-right: 15px;
-    font-size: 1rem;
-    line-height: 1.6;
-    max-width: 700px;
+    font-size: 1.1rem;
+    line-height: 1.7;
   }
+
+  /* زر سحابة التعليقات جنب الفقرة */
   .comment-toggle-btn {
     position: absolute;
-    top: 5px;
-    left: -40px;
-    background: #00f9ff;
+    top: 2px;
+    left: -45px;
+    background: #004466;
     border: none;
-    color: #121212;
+    color: #00d9ff;
     font-weight: bold;
     border-radius: 50%;
     width: 35px;
     height: 35px;
     cursor: pointer;
-    box-shadow: 0 0 8px #00f9ff;
+    box-shadow: 0 0 10px #00d9ff;
+    transition: background-color 0.3s ease;
   }
+  .comment-toggle-btn:hover {
+    background: #0077aa;
+    box-shadow: 0 0 20px #00ffff;
+  }
+
+  /* سحابة التعليقات جنب الفقرة */
   .comments-section {
     position: absolute;
     top: 40px;
     left: -320px;
-    width: 300px;
+    width: 310px;
     max-height: 400px;
     overflow-y: auto;
-    background: #121212;
-    border: 2px solid #00f9ff;
+    background: #000;
+    border: 2px solid #005577;
     border-radius: 15px;
     padding: 10px;
     display: none;
-    box-shadow: 0 0 15px #00f9ff;
+    box-shadow: 0 0 20px #00aaff;
     font-size: 0.9rem;
-    z-index: 100;
+    z-index: 9999;
   }
+
   .comments-list {
     max-height: 280px;
     overflow-y: auto;
     margin-bottom: 8px;
   }
+
   .comment {
-    background: #222;
+    background: #111;
     border-radius: 12px;
     padding: 8px 12px;
     margin-bottom: 8px;
     position: relative;
   }
+
   .comment .user {
     font-weight: bold;
     margin-bottom: 4px;
-    color: #00f9ff;
+    color: #00aaff;
   }
+
   .comment .text {
     margin-bottom: 6px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
+
   .comment .actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
   }
+
   .comment button {
     background: transparent;
     border: none;
-    color: #00f9ff;
+    color: #00aaff;
     cursor: pointer;
     font-size: 0.8rem;
     padding: 0;
+    transition: color 0.2s ease;
   }
+  .comment button:hover {
+    color: #00ffff;
+  }
+
   .reply-box {
     margin-top: 6px;
   }
+
   .reply-box textarea {
     width: 100%;
     height: 50px;
     border-radius: 8px;
-    border: 1px solid #00f9ff;
-    background: #121212;
+    border: 1px solid #00aaff;
+    background: #000;
     color: #fff;
     padding: 5px;
     resize: none;
   }
+
   .reply-box button {
     margin-top: 5px;
-    background: #00f9ff;
-    color: #121212;
+    background: #00aaff;
+    color: #000;
     border: none;
     border-radius: 8px;
     padding: 5px 10px;
@@ -112,43 +153,54 @@
     font-weight: bold;
     float: left;
   }
+
   textarea#new-comment {
     width: 100%;
     height: 60px;
     border-radius: 12px;
-    border: 2px solid #00f9ff;
-    background: #121212;
+    border: 2px solid #005577;
+    background: #000;
     color: #fff;
     padding: 8px;
     resize: none;
     margin-bottom: 8px;
   }
+
   button#submit-comment {
-    background: #00f9ff;
-    color: #121212;
+    background: #005577;
+    color: #fff;
     border: none;
     border-radius: 12px;
     padding: 8px 20px;
     cursor: pointer;
     font-weight: bold;
   }
+
   #authButtons {
     margin-bottom: 30px;
+    text-align: center;
   }
+
   #authButtons button {
-    background: #00f9ff;
+    background: #005577;
     border: none;
-    color: #121212;
+    color: #fff;
     padding: 8px 16px;
     border-radius: 12px;
     cursor: pointer;
     font-weight: bold;
     margin-left: 10px;
+    transition: background-color 0.3s ease;
   }
+  #authButtons button:hover {
+    background: #0077aa;
+  }
+
   #userInfo {
     font-weight: bold;
-    color: #00f9ff;
+    color: #00aaff;
   }
+
   /* Scrollbar styles */
   .comments-list::-webkit-scrollbar,
   .comments-section::-webkit-scrollbar {
@@ -156,63 +208,81 @@
   }
   .comments-list::-webkit-scrollbar-thumb,
   .comments-section::-webkit-scrollbar-thumb {
-    background-color: #00f9ff;
+    background-color: #00aaff;
     border-radius: 3px;
   }
 
-  /* تحت styles داخل <style>، ضيف هالجزء */
-@media (max-width: 600px) {
-  .paragraph {
-    max-width: 100%;
-    padding-right: 0;
-    margin-bottom: 60px;
-  }
-  .comment-toggle-btn {
-    position: static;
-    display: inline-block;
-    margin-left: 8px;
-    width: auto;
-    height: auto;
-    border-radius: 6px;
-    padding: 4px 10px;
-    box-shadow: none;
-    font-size: 1.1rem;
-    cursor: pointer;
-  }
-  .comments-section {
-    position: static;
-    width: 100%;
-    max-height: 300px;
-    margin-top: 8px;
-    box-shadow: none;
-    border-radius: 12px;
-    left: auto;
-    top: auto;
-  }
+  /* تجاوب مع الشاشات الصغيرة */
+  @media (max-width: 700px) {
+    body {
+      padding: 10px 5px;
     }
+    .container {
+      max-width: 100%;
+      border-width: 1.5px;
+      box-shadow: none;
+      padding: 15px 20px 30px 20px;
+    }
+    .paragraph {
+      font-size: 1rem;
+      margin-bottom: 60px;
+    }
+    .comment-toggle-btn {
+      position: static;
+      display: inline-block;
+      margin-left: 10px;
+      width: auto;
+      height: auto;
+      border-radius: 6px;
+      padding: 4px 10px;
+      box-shadow: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    .comments-section {
+      position: static;
+      width: 100%;
+      max-height: 250px;
+      margin-top: 8px;
+      box-shadow: none;
+      border-radius: 12px;
+      left: auto;
+      top: auto;
+      padding: 8px;
+    }
+    #authButtons button {
+      margin-left: 5px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+  }
 </style>
 </head>
 <body>
 
-<h2>بارت 1 - Toxic Rose</h2>
+<div class="container">
+  <h2>بارت 1 - Toxic Rose</h2>
 
-<div id="authButtons">
-  <button id="loginBtn">تسجيل الدخول بـ Google</button>
-  <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
-  <span id="userInfo"></span>
-</div>
-
-<div class="paragraph" id="para-1">
-  <p>هذا نص الفقرة الأولى من البارت...</p>
-  <button class="comment-toggle-btn" onclick="toggleComments('para-1')" title="تعليقات">💬</button>
-  <div class="comments-section" id="comments-para-1">
-    <div class="comments-list"></div>
-    <textarea id="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>
-    <button id="submit-comment" disabled onclick="submitComment('para-1')">أرسل</button>
+  <div id="authButtons">
+    <button id="loginBtn">تسجيل الدخول بـ Google</button>
+    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+    <span id="userInfo"></span>
   </div>
-</div>
 
-<!-- ممكن تضيفي فقرات إضافية بنفس الشكل -->
+  <div class="paragraph" id="para-1">
+    <p>هذا نص الفقرة الأولى من البارت. يمكن كتابة النص هنا بشكل جميل ومنسق بحيث يكون سهل القراءة على القارئ.</p>
+    <button class="comment-toggle-btn" onclick="toggleComments('para-1')" title="تعليقات">💬</button>
+    <div class="comments-section" id="comments-para-1">
+      <div class="comments-list"></div>
+      <textarea id="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>
+      <button id="submit-comment" disabled onclick="submitComment('para-1')">أرسل</button>
+    </div>
+  </div>
+
+  <!-- اضيفي فقرات بنفس الطريقة -->
+
+</div>
 
 <script>
   const firebaseConfig = {
@@ -258,7 +328,6 @@
   function enableCommentBoxes(enable) {
     document.getElementById('new-comment').disabled = !enable;
     document.getElementById('submit-comment').disabled = !enable;
-    // الردود مش مفعلين إلا لما تحمل التعليقات
   }
 
   function toggleComments(paraId) {
@@ -271,7 +340,7 @@
     }
   }
 
-  // تحميل التعليقات بشكل متداخل (ردود)
+  // تحميل التعليقات بدون إظهار رسالة خطأ لو فشل التحميل
   function loadComments(paraId) {
     const commentsList = document.querySelector(`#comments-${paraId} .comments-list`);
     commentsList.innerHTML = 'جاري التحميل...';
@@ -283,9 +352,8 @@
       .get()
       .then(querySnapshot => {
         commentsList.innerHTML = '';
-        // فرز التعليقات الأساسية والردود
         const comments = [];
-        const repliesMap = {}; // key: parentCommentId, value: [replyComments]
+        const repliesMap = {};
 
         querySnapshot.forEach(doc => {
           const data = doc.data();
@@ -297,14 +365,14 @@
           }
         });
 
-        // إظهار التعليقات الأساسية (بدون parentId)
         comments.filter(c => !c.parentId).forEach(c => {
           commentsList.appendChild(createCommentElement(c, repliesMap));
         });
       })
       .catch(error => {
-        commentsList.innerHTML = 'خطأ بتحميل التعليقات: ' + error.message;
-        console.error("تفاصيل الخطأ:", error);
+        // ما بنعرض رسالة الخطأ حسب طلبك
+        commentsList.innerHTML = '';
+        console.error("خطأ بتحميل التعليقات:", error);
       });
   }
 
@@ -326,13 +394,11 @@
     const actionsDiv = document.createElement('div');
     actionsDiv.className = 'actions';
 
-    // زر الرد
     const replyBtn = document.createElement('button');
     replyBtn.textContent = 'رد';
     replyBtn.onclick = () => toggleReplyBox(div, commentData);
     actionsDiv.appendChild(replyBtn);
 
-    // إذا المعلق هو نفس المستخدم الحالي، أضف تعديل وحذف
     if(currentUser && commentData.userId === currentUser.uid){
       const editBtn = document.createElement('button');
       editBtn.textContent = 'تعديل';
@@ -358,7 +424,6 @@
 
     div.appendChild(actionsDiv);
 
-    // الردود المتداخلة
     if(repliesMap[commentData.id]){
       repliesMap[commentData.id].forEach(reply => {
         div.appendChild(createCommentElement(reply, repliesMap, level + 1));
@@ -369,14 +434,12 @@
   }
 
   function toggleReplyBox(commentDiv, commentData) {
-    // إذا فيه صندوق رد مفتوح، أقفله
     const existingBox = commentDiv.querySelector('.reply-box');
     if(existingBox){
       existingBox.remove();
       return;
     }
 
-    // إنشاء صندوق الرد
     const box = document.createElement('div');
     box.className = 'reply-box';
 
