@@ -1,525 +1,541 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>بارت جديد - Toxic Rose</title>
-
-<!-- خط عربي مريح -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-
-<style>
-  /* ستايل صفحة القراءة - مع تحسينات ونسخة شبه طبق الأصل واتباد */
-  body {
-    background: #0a0a0a;
-    color: #d9d9d9;
-    font-family: 'Cairo', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-  }
-
-  .container {
-    max-width: 740px;
-    width: 90%;
-    background: #111;
-    border: 1.5px solid #004466;
-    box-shadow: 0 0 18px #007799, inset 0 0 10px #00bbff;
-    padding: 30px 25px 60px 25px;
-    margin: 20px 0;
-    border-radius: 10px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-    color: #00d9ff;
-    border-bottom: 2px solid #0077aa;
-    padding-bottom: 12px;
-    margin-bottom: 30px;
-    user-select: none;
-  }
-
-  .paragraph {
-    position: relative;
-    margin-bottom: 80px;
-    font-size: 1.15rem;
-    line-height: 1.9;
-  }
-
-  .paragraph p {
-    margin: 0;
-  }
-
-  /* زر التعليقات بجنب الفقرة ثابت ومستجيب */
-  .comment-toggle-btn {
-    position: absolute;
-    top: 10px;
-    right: 100%;
-    margin-right: 12px;
-    background: #004466;
-    border: none;
-    color: #00d9ff;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    cursor: pointer;
-    box-shadow: 0 0 12px #00d9ff;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    user-select: none;
-  }
-  .comment-toggle-btn:hover {
-    background: #0077aa;
-    box-shadow: 0 0 24px #00ffff;
-  }
-
-  /* صندوق التعليقات */
-  .comments-section {
-    position: absolute;
-    top: 45px;
-    right: 110%;
-    width: 320px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #121212;
-    border: 1.5px solid #005577;
-    border-radius: 12px;
-    padding: 15px;
-    display: none;
-    box-shadow: 0 0 25px #00aaff;
-    z-index: 1000;
-    font-size: 0.95rem;
-  }
-
-  /* تعليقات فردية */
-  .comment {
-    background: #1c1c1c;
-    border-radius: 10px;
-    padding: 10px 12px;
-    margin-bottom: 12px;
-    word-break: break-word;
-  }
-  .comment .user {
-    font-weight: bold;
-    margin-bottom: 6px;
-    color: #00aaff;
-    user-select: text;
-  }
-  .comment .text {
-    margin-bottom: 8px;
-    white-space: pre-wrap;
-  }
-  .comment .actions {
-    display: flex;
-    gap: 10px;
-  }
-  .comment button {
-    background: transparent;
-    border: none;
-    color: #00aaff;
-    font-size: 0.85rem;
-    cursor: pointer;
-    padding: 0;
-    user-select: none;
-  }
-  .comment button:hover {
-    color: #00ffff;
-  }
-
-  /* مربع ردود */
-  .reply-box {
-    margin-top: 10px;
-  }
-  .reply-box textarea {
-    width: 100%;
-    height: 60px;
-    border-radius: 10px;
-    border: 1.8px solid #005577;
-    background: #0a0a0a;
-    color: #d9d9d9;
-    padding: 8px;
-    resize: none;
-    font-family: 'Cairo', sans-serif;
-  }
-  .reply-box button {
-    background: #00aaff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 7px 14px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 6px;
-  }
-
-  /* صندوق كتابة تعليق جديد */
-  textarea#new-comment {
-    width: 100%;
-    height: 60px;
-    border-radius: 10px;
-    border: 1.8px solid #005577;
-    background: #0a0a0a;
-    color: #d9d9d9;
-    padding: 8px;
-    resize: none;
-    margin-bottom: 10px;
-    font-family: 'Cairo', sans-serif;
-  }
-  #submit-comment {
-    background: #00aaff;
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  #submit-comment:disabled,
-  textarea#new-comment:disabled {
-    background: #222;
-    color: #666;
-    cursor: not-allowed;
-  }
-
-  /* أزرار تسجيل الدخول */
-  #authButtons {
-    text-align: center;
-    margin-bottom: 20px;
-    user-select: none;
-  }
-  #authButtons button {
-    background: #005577;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 18px;
-    margin: 0 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  #authButtons button:hover {
-    background: #0077aa;
-  }
-  #userInfo {
-    display: block;
-    margin-top: 12px;
-    color: #00d9ff;
-    font-weight: bold;
-    user-select: text;
-  }
-
-  /* Scrollbar مخصص */
-  .comments-section::-webkit-scrollbar,
-  .comments-list::-webkit-scrollbar {
-    width: 6px;
-  }
-  .comments-section::-webkit-scrollbar-thumb,
-  .comments-list::-webkit-scrollbar-thumb {
-    background-color: #00aaff;
-    border-radius: 4px;
-  }
-
-  /* تجاوب الموبايل */
-  @media (max-width: 768px) {
-    .container {
-      width: 95%;
-      margin: 15px 0;
-      padding: 20px 15px 40px 15px;
-      box-shadow: none;
-    }
-    .comment-toggle-btn {
-      position: static;
-      margin: 10px 0 8px 0;
-      border-radius: 6px;
-      width: auto;
-      height: auto;
-      padding: 6px 14px;
-      font-size: 1.1rem;
-    }
-    .comments-section {
-      position: static;
-      width: 100%;
-      max-height: 260px;
-      box-shadow: none;
-      border-radius: 10px;
-      margin-top: 12px;
-    }
-    h2 {
-      font-size: 1.5rem;
-    }
-    .paragraph {
-      font-size: 1.05rem;
-      margin-bottom: 60px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .container {
-      padding: 16px 12px 30px 12px;
-      border-width: 1px;
-    }
-    .paragraph {
-      font-size: 1rem;
-    }
-  }
-</style>
-
-</head>
-<body>
-
-<div class="container">
-  <h2>بارت 1 - Toxic Rose</h2>
-
-  <div id="authButtons">
-    <button id="loginBtn">تسجيل الدخول بـ Google</button>
-    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
-    <span id="userInfo"></span>
-  </div>
-
-  <div class="paragraph" id="para-1">
-    <p>هذا نص الفقرة الأولى من البارت. يمكن كتابة النص هنا بشكل جميل ومنسق بحيث يكون سهل القراءة على القارئ.</p>
-    <button class="comment-toggle-btn" onclick="toggleComments('para-1')" title="تعليقات">💬</button>
-    <div class="comments-section" id="comments-para-1">
-      <div class="comments-list"></div>
-      <textarea id="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>
-      <button id="submit-comment" disabled onclick="submitComment('para-1')">أرسل</button>
-    </div>
-  </div>
-
-  <!-- يمكنك إضافة فقرات أخرى بنفس الشكل -->
-
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
-<script>
-  // إعداد Firebase - لا تعرض مفاتيحك في مشاريع حقيقية بدون حماية!
-  const firebaseConfig = {
-    apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
-    authDomain: "works-rawan.firebaseapp.com",
-    projectId: "works-rawan",
-    storageBucket: "works-rawan.firebasestorage.app",
-    messagingSenderId: "986254083746",
-    appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  let currentUser = null;
-
-  const loginBtn = document.getElementById('loginBtn');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const userInfo = document.getElementById('userInfo');
-
-  auth.onAuthStateChanged(user => {
-    currentUser = user;
-    if(user) {
-      loginBtn.style.display = 'none';
-      logoutBtn.style.display = 'inline-block';
-      userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;
-      enableCommentBoxes(true);
-    } else {
-      loginBtn.style.display = 'inline-block';
-      logoutBtn.style.display = 'none';
-      userInfo.textContent = '';
-      enableCommentBoxes(false);
-    }
-  });
-
-  loginBtn.onclick = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).catch(console.error);
-  };
-  logoutBtn.onclick = () => { auth.signOut(); };
-
-  function enableCommentBoxes(enable) {
-    document.getElementById('new-comment').disabled = !enable;
-    document.getElementById('submit-comment').disabled = !enable;
-  }
-
-  function toggleComments(paraId) {
-    const section = document.getElementById('comments-' + paraId);
-    if (section.style.display === 'none' || section.style.display === '') {
-      section.style.display = 'block';
-      loadComments(paraId);
-    } else {
-      section.style.display = 'none';
-    }
-  }
-
-  function loadComments(paraId) {
-    const commentsList = document.querySelector(`#comments-${paraId} .comments-list`);
-    commentsList.innerHTML = 'جاري التحميل...';
-
-    db.collection("comments")
-      .where("paragraphId", "==", paraId)
-      .orderBy("timestamp", "asc")
-      .get()
-      .then(querySnapshot => {
-        commentsList.innerHTML = '';
-        const comments = [];
-        const repliesMap = {};
-
-        querySnapshot.forEach(doc => {
-          const data = doc.data();
-          data.id = doc.id;
-          comments.push(data);
-          if(data.parentId){
-            if(!repliesMap[data.parentId]) repliesMap[data.parentId] = [];
-            repliesMap[data.parentId].push(data);
-          }
-        });
-
-        comments.filter(c => !c.parentId).forEach(c => {
-          commentsList.appendChild(createCommentElement(c, repliesMap));
-        });
-      })
-      .catch(error => {
-        commentsList.innerHTML = '';
-        console.error("خطأ بتحميل التعليقات:", error);
-      });
-  }
-
-  function createCommentElement(commentData, repliesMap, level=0) {
-    const div = document.createElement('div');
-    div.className = 'comment';
-    div.style.marginLeft = (level * 20) + 'px';
-
-    const userSpan = document.createElement('div');
-    userSpan.className = 'user';
-    userSpan.textContent = commentData.userEmail || 'مجهول';
-    div.appendChild(userSpan);
-
-    const textSpan = document.createElement('div');
-    textSpan.className = 'text';
-    textSpan.textContent = commentData.text;
-    div.appendChild(textSpan);
-
-    const actionsDiv = document.createElement('div');
-    actionsDiv.className = 'actions';
-
-    const replyBtn = document.createElement('button');
-    replyBtn.textContent = 'رد';
-    replyBtn.onclick = () => toggleReplyBox(div, commentData);
-    actionsDiv.appendChild(replyBtn);
-
-    if(currentUser && commentData.userId === currentUser.uid){
-      const editBtn = document.createElement('button');
-      editBtn.textContent = 'تعديل';
-      editBtn.onclick = () => {
-        const newText = prompt('عدّل تعليقك:', commentData.text);
-        if(newText !== null && newText.trim() !== ''){
-          db.collection('comments').doc(commentData.id).update({ text: newText.trim() })
-            .then(() => loadComments(commentData.paragraphId));
-        }
-      };
-      actionsDiv.appendChild(editBtn);
-
-      const delBtn = document.createElement('button');
-      delBtn.textContent = 'حذف';
-      delBtn.onclick = () => {
-        if(confirm('هل تريد حذف هذا التعليق؟')){
-          db.collection('comments').doc(commentData.id).delete()
-            .then(() => loadComments(commentData.paragraphId));
-        }
-      };
-      actionsDiv.appendChild(delBtn);
-    }
-
-    div.appendChild(actionsDiv);
-
-    if(repliesMap[commentData.id]){
-      repliesMap[commentData.id].forEach(reply => {
-        div.appendChild(createCommentElement(reply, repliesMap, level + 1));
-      });
-    }
-
-    return div;
-  }
-
-  function toggleReplyBox(commentDiv, commentData) {
-    const existingBox = commentDiv.querySelector('.reply-box');
-    if(existingBox){
-      existingBox.remove();
-      return;
-    }
-
-    const box = document.createElement('div');
-    box.className = 'reply-box';
-
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = 'اكتب ردك هنا...';
-    box.appendChild(textarea);
-
-    const sendBtn = document.createElement('button');
-    sendBtn.textContent = 'أرسل الرد';
-    sendBtn.onclick = () => {
-      const val = textarea.value.trim();
-      if(!val){
-        alert('اكتب رد قبل الإرسال');
-        return;
-      }
-      if(!currentUser){
-        alert('لازم تسجل الدخول لتكتب رد');
-        return;
-      }
-      db.collection('comments').add({
-        paragraphId: commentData.paragraphId,
-        text: val,
-        userId: currentUser.uid,
-        userEmail: currentUser.email,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        parentId: commentData.id
-      }).then(() => {
-        loadComments(commentData.paragraphId);
-      }).catch(e => {
-        alert('خطأ بإنشاء الرد');
-        console.error(e);
-      });
-      box.remove();
-    };
-    box.appendChild(sendBtn);
-
-    commentDiv.appendChild(box);
-  }
-
-  function submitComment(paraId) {
-    const textarea = document.getElementById('new-comment');
-    const text = textarea.value.trim();
-    if(text === ''){
-      alert('اكتب تعليق قبل الإرسال');
-      return;
-    }
-    if(!currentUser){
-      alert('لازم تسجل الدخول لتكتب تعليق');
-      return;
-    }
-    db.collection('comments').add({
-      paragraphId: paraId,
-      text: text,
-      userId: currentUser.uid,
-      userEmail: currentUser.email,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-      textarea.value = '';
-      loadComments(paraId);
-    }).catch(e => {
-      alert('خطأ بإنشاء التعليق');
-      console.error(e);
-    });
-  }
-</script>
-
-</body>
-      </html>
+<!DOCTYPE html>  
+<html lang="ar" dir="rtl">  
+<head>  
+<meta charset="UTF-8" />  
+<meta name="viewport" content="width=device-width, initial-scale=1" />  
+<title>بارت جديد - Toxic Rose</title>  
+  
+<!-- خط عربي مريح -->  
+<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">  
+  
+<style>  
+  body {  
+    background: #0a0a0a;  
+    color: #d9d9d9;  
+    font-family: 'Cairo', sans-serif;  
+    margin: 0; padding: 0;  
+    display: flex;  
+    justify-content: center;  
+  }  
+  
+  .container {  
+    max-width: 740px;  
+    width: 90%;  
+    background: #111;  
+    border: 1.5px solid #004466;  
+    box-shadow: 0 0 18px #007799, inset 0 0 10px #00bbff;  
+    padding: 30px 25px 60px 25px;  
+    margin: 20px 0;  
+    border-radius: 10px;  
+  }  
+  
+  h2 {  
+    font-size: 1.8rem;  
+    color: #00d9ff;  
+    border-bottom: 2px solid #0077aa;  
+    padding-bottom: 12px;  
+    margin-bottom: 30px;  
+    user-select: none;  
+  }  
+  
+  .paragraph {  
+    position: relative;  
+    margin-bottom: 80px;  
+    font-size: 1.15rem;  
+    line-height: 1.9;  
+  }  
+  .paragraph p {  
+    margin: 0;  
+  }  
+  
+  .comment-toggle-btn {  
+    position: absolute;  
+    top: 10px;  
+    right: 100%;  
+    margin-right: 12px;  
+    background: #004466;  
+    border: none;  
+    color: #00d9ff;  
+    font-weight: bold;  
+    border-radius: 50%;  
+    width: 38px;  
+    height: 38px;  
+    cursor: pointer;  
+    box-shadow: 0 0 12px #00d9ff;  
+    transition: all 0.3s ease;  
+    display: flex;  
+    align-items: center;  
+    justify-content: center;  
+    font-size: 1.3rem;  
+    user-select: none;  
+  }  
+  .comment-toggle-btn:hover {  
+    background: #0077aa;  
+    box-shadow: 0 0 24px #00ffff;  
+  }  
+  
+  .comments-section {  
+    position: absolute;  
+    top: 45px;  
+    right: 110%;  
+    width: 320px;  
+    max-height: 400px;  
+    overflow-y: auto;  
+    background: #121212;  
+    border: 1.5px solid #005577;  
+    border-radius: 12px;  
+    padding: 15px;  
+    display: none;  
+    box-shadow: 0 0 25px #00aaff;  
+    z-index: 1000;  
+    font-size: 0.95rem;  
+  }  
+  
+  .comment {  
+    background: #1c1c1c;  
+    border-radius: 10px;  
+    padding: 10px 12px;  
+    margin-bottom: 12px;  
+    word-break: break-word;  
+  }  
+  .comment .user {  
+    font-weight: bold;  
+    margin-bottom: 6px;  
+    color: #00aaff;  
+    user-select: text;  
+  }  
+  .comment .text {  
+    margin-bottom: 8px;  
+    white-space: pre-wrap;  
+  }  
+  .comment .actions {  
+    display: flex;  
+    gap: 10px;  
+  }  
+  .comment button {  
+    background: transparent;  
+    border: none;  
+    color: #00aaff;  
+    font-size: 0.85rem;  
+    cursor: pointer;  
+    padding: 0;  
+    user-select: none;  
+  }  
+  .comment button:hover {  
+    color: #00ffff;  
+  }  
+  
+  .reply-box {  
+    margin-top: 10px;  
+  }  
+  .reply-box textarea {  
+    width: 100%;  
+    height: 60px;  
+    border-radius: 10px;  
+    border: 1.8px solid #005577;  
+    background: #0a0a0a;  
+    color: #d9d9d9;  
+    padding: 8px;  
+    resize: none;  
+    font-family: 'Cairo', sans-serif;  
+  }  
+  .reply-box button {  
+    background: #00aaff;  
+    color: #000;  
+    border: none;  
+    border-radius: 8px;  
+    padding: 7px 14px;  
+    font-weight: bold;  
+    cursor: pointer;  
+    margin-top: 6px;  
+  }  
+  
+  textarea.new-comment {  
+    width: 100%;  
+    height: 60px;  
+    border-radius: 10px;  
+    border: 1.8px solid #005577;  
+    background: #0a0a0a;  
+    color: #d9d9d9;  
+    padding: 8px;  
+    resize: none;  
+    margin-bottom: 10px;  
+    font-family: 'Cairo', sans-serif;  
+  }  
+  button.submit-comment {  
+    background: #00aaff;  
+    color: #000;  
+    border: none;  
+    border-radius: 8px;  
+    padding: 8px 16px;  
+    font-weight: bold;  
+    cursor: pointer;  
+  }  
+  button.submit-comment:disabled,  
+  textarea.new-comment:disabled {  
+    background: #222;  
+    color: #666;  
+    cursor: not-allowed;  
+  }  
+  
+  #authButtons {  
+    text-align: center;  
+    margin-bottom: 20px;  
+    user-select: none;  
+  }  
+  #authButtons button {  
+    background: #005577;  
+    color: #fff;  
+    border: none;  
+    border-radius: 10px;  
+    padding: 10px 18px;  
+    margin: 0 6px;  
+    font-weight: bold;  
+    cursor: pointer;  
+    transition: background 0.3s ease;  
+  }  
+  #authButtons button:hover {  
+    background: #0077aa;  
+  }  
+  #userInfo {  
+    display: block;  
+    margin-top: 12px;  
+    color: #00d9ff;  
+    font-weight: bold;  
+    user-select: text;  
+  }  
+  
+  .comments-section::-webkit-scrollbar,  
+  .comments-list::-webkit-scrollbar {  
+    width: 6px;  
+  }  
+  .comments-section::-webkit-scrollbar-thumb,  
+  .comments-list::-webkit-scrollbar-thumb {  
+    background-color: #00aaff;  
+    border-radius: 4px;  
+  }  
+  
+  @media (max-width: 768px) {  
+    .container {  
+      width: 95%;  
+      margin: 15px 0;  
+      padding: 20px 15px 40px 15px;  
+      box-shadow: none;  
+    }  
+    .comment-toggle-btn {  
+      position: static;  
+      margin: 10px 0 8px 0;  
+      border-radius: 6px;  
+      width: auto;  
+      height: auto;  
+      padding: 6px 14px;  
+      font-size: 1.1rem;  
+    }  
+    .comments-section {  
+      position: static;  
+      width: 100%;  
+      max-height: 260px;  
+      box-shadow: none;  
+      border-radius: 10px;  
+      margin-top: 12px;  
+    }  
+    h2 {  
+      font-size: 1.5rem;  
+    }  
+    .paragraph {  
+      font-size: 1.05rem;  
+      margin-bottom: 60px;  
+    }  
+  }  
+  
+  @media (max-width: 480px) {  
+    .container {  
+      padding: 16px 12px 30px 12px;  
+      border-width: 1px;  
+    }  
+    .paragraph {  
+      font-size: 1rem;  
+    }  
+  }  
+</style>  
+  
+</head>  
+<body>  
+  
+<div class="container">  
+  <h2>بارت 1 - Toxic Rose</h2>  
+  
+  <div id="authButtons">  
+    <button id="loginBtn">تسجيل الدخول بـ Google</button>  
+    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>  
+    <span id="userInfo"></span>  
+  </div>  
+  
+  <!-- فقرة 1 -->  
+  <div class="paragraph" id="para-1">  
+    <p>هذا نص الفقرة الأولى من البارت. يمكن كتابة النص هنا بشكل جميل ومنسق بحيث يكون سهل القراءة على القارئ.</p>  
+    <button class="comment-toggle-btn" onclick="toggleComments('para-1')" title="تعليقات">💬</button>  
+    <div class="comments-section" id="comments-para-1">  
+      <div class="comments-list"></div>  
+      <textarea class="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>  
+      <button class="submit-comment" disabled onclick="submitComment('para-1')">أرسل</button>  
+    </div>  
+  </div>  
+  
+  <!-- يمكنك إضافة فقرات أخرى بنفس الشكل -->  
+  <div class="paragraph" id="para-2">  
+    <p>هذا نص الفقرة الثانية. كرري بنفس الطريقة لتحصلي على عدة فقرات.</p>  
+    <button class="comment-toggle-btn" onclick="toggleComments('para-2')" title="تعليقات">💬</button>  
+    <div class="comments-section" id="comments-para-2">  
+      <div class="comments-list"></div>  
+      <textarea class="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>  
+      <button class="submit-comment" disabled onclick="submitComment('para-2')">أرسل</button>  
+    </div>  
+  </div>  
+  
+</div>  
+  
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>  
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>  
+  
+<script>  
+  const firebaseConfig = {  
+    apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",  
+    authDomain: "works-rawan.firebaseapp.com",  
+    projectId: "works-rawan",  
+    storageBucket: "works-rawan.firebasestorage.app",  
+    messagingSenderId: "986254083746",  
+    appId: "1:986254083746:web:17f7db0389c94473f0b9fb"  
+  };  
+  
+  firebase.initializeApp(firebaseConfig);  
+  
+  const auth = firebase.auth();  
+  const db = firebase.firestore();  
+  
+  let currentUser = null;  
+  
+  const loginBtn = document.getElementById('loginBtn');  
+  const logoutBtn = document.getElementById('logoutBtn');  
+  const userInfo = document.getElementById('userInfo');  
+  
+  auth.onAuthStateChanged(user => {  
+    currentUser = user;  
+    document.querySelectorAll('.paragraph').forEach(p => {  
+      enableCommentBoxes(!!user, p.id);  
+    });  
+  
+    if(user) {  
+      loginBtn.style.display = 'none';  
+      logoutBtn.style.display = 'inline-block';  
+      userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;  
+    } else {  
+      loginBtn.style.display = 'inline-block';  
+      logoutBtn.style.display = 'none';  
+      userInfo.textContent = '';  
+    }  
+  });  
+  
+ loginBtn.onclick = () => {  
+  const provider = new firebase.auth.GoogleAuthProvider();  
+  auth.signInWithPopup(provider).catch(console.error);  
+};  
+  
+logoutBtn.onclick = () => {  
+  auth.signOut();  
+};  
+  
+function enableCommentBoxes(enable, paraId) {  
+  const para = document.getElementById(paraId);  
+  if (!para) return;  
+  const textarea = para.querySelector('textarea.new-comment');  
+  const btn = para.querySelector('button.submit-comment');  
+  if(textarea) textarea.disabled = !enable;  
+  if(btn) btn.disabled = !enable;  
+}  
+  
+function toggleComments(paraId) {  
+  const section = document.getElementById('comments-' + paraId);  
+  if (!section) return;  
+  if (section.style.display === 'none' || section.style.display === '') {  
+    section.style.display = 'block';  
+    loadComments(paraId);  
+  } else {  
+    section.style.display = 'none';  
+  }  
+}  
+  
+function loadComments(paraId) {  
+  const commentsList = document.querySelector(`#comments-${paraId} .comments-list`);  
+  if (!commentsList) return;  
+  
+  commentsList.innerHTML = 'جاري التحميل...';  
+  
+  db.collection("comments")  
+    .where("paragraphId", "==", paraId)  
+    .orderBy("timestamp", "asc")  
+    .get()  
+    .then(querySnapshot => {  
+      commentsList.innerHTML = '';  
+      const comments = [];  
+      const repliesMap = {};  
+  
+      querySnapshot.forEach(doc => {  
+        const data = doc.data();  
+        data.id = doc.id;  
+        comments.push(data);  
+        if(data.parentId){  
+          if(!repliesMap[data.parentId]) repliesMap[data.parentId] = [];  
+          repliesMap[data.parentId].push(data);  
+        }  
+      });  
+  
+      comments.filter(c => !c.parentId).forEach(c => {  
+        commentsList.appendChild(createCommentElement(c, repliesMap));  
+      });  
+    })  
+    .catch(error => {  
+      commentsList.innerHTML = '';  
+      console.error("خطأ بتحميل التعليقات:", error);  
+    });  
+}  
+  
+function createCommentElement(commentData, repliesMap, level=0) {  
+  const div = document.createElement('div');  
+  div.className = 'comment';  
+  div.style.marginLeft = (level * 20) + 'px';  
+  
+  const userSpan = document.createElement('div');  
+  userSpan.className = 'user';  
+  userSpan.textContent = commentData.userEmail || 'مجهول';  
+  div.appendChild(userSpan);  
+  
+  const textSpan = document.createElement('div');  
+  textSpan.className = 'text';  
+  textSpan.textContent = commentData.text;  
+  div.appendChild(textSpan);  
+  
+  const actionsDiv = document.createElement('div');  
+  actionsDiv.className = 'actions';  
+  
+  const replyBtn = document.createElement('button');  
+  replyBtn.textContent = 'رد';  
+  replyBtn.onclick = () => toggleReplyBox(div, commentData);  
+  actionsDiv.appendChild(replyBtn);  
+  
+  if(currentUser && commentData.userId === currentUser.uid){  
+    const editBtn = document.createElement('button');  
+    editBtn.textContent = 'تعديل';  
+    editBtn.onclick = () => {  
+      const newText = prompt('عدّل تعليقك:', commentData.text);  
+      if(newText !== null && newText.trim() !== ''){  
+        db.collection('comments').doc(commentData.id).update({ text: newText.trim() })  
+          .then(() => loadComments(commentData.paragraphId));  
+      }  
+    };  
+    actionsDiv.appendChild(editBtn);  
+  
+    const delBtn = document.createElement('button');  
+    delBtn.textContent = 'حذف';  
+    delBtn.onclick = () => {  
+      if(confirm('هل تريد حذف هذا التعليق؟')){  
+        db.collection('comments').doc(commentData.id).delete()  
+          .then(() => loadComments(commentData.paragraphId));  
+      }  
+    };  
+    actionsDiv.appendChild(delBtn);  
+  }  
+  
+  div.appendChild(actionsDiv);  
+  
+  if(repliesMap[commentData.id]){  
+    repliesMap[commentData.id].forEach(reply => {  
+      div.appendChild(createCommentElement(reply, repliesMap, level + 1));  
+    });  
+  }  
+  
+  return div;  
+}  
+  
+function toggleReplyBox(commentDiv, commentData) {  
+  const existingBox = commentDiv.querySelector('.reply-box');  
+  if(existingBox){  
+    existingBox.remove();  
+    return;  
+  }  
+  
+  const box = document.createElement('div');  
+  box.className = 'reply-box';  
+  
+  const textarea = document.createElement('textarea');  
+  textarea.placeholder = 'اكتب ردك هنا...';  
+  box.appendChild(textarea);  
+  
+  const sendBtn = document.createElement('button');  
+  sendBtn.textContent = 'أرسل الرد';  
+  sendBtn.onclick = () => {  
+    const val = textarea.value.trim();  
+    if(!val){  
+      alert('اكتب رد قبل الإرسال');  
+      return;  
+    }  
+    if(!currentUser){  
+      alert('لازم تسجل الدخول لتكتب رد');  
+      return;  
+    }  
+    db.collection('comments').add({  
+      paragraphId: commentData.paragraphId,  
+      text: val,  
+      userId: currentUser.uid,  
+      userEmail: currentUser.email,  
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),  
+      parentId: commentData.id  
+    }).then(() => {  
+      loadComments(commentData.paragraphId);  
+    }).catch(e => {  
+      alert('خطأ بإنشاء الرد');  
+      console.error(e);  
+    });  
+    box.remove();  
+  };  
+  box.appendChild(sendBtn);  
+  
+  commentDiv.appendChild(box);  
+}  
+  
+function submitComment(paraId) {  
+  const para = document.getElementById(paraId);  
+  if (!para) return;  
+  
+  const textarea = para.querySelector('textarea.new-comment');  
+  if (!textarea) return;  
+  
+  const text = textarea.value.trim();  
+  if(text === ''){  
+    alert('اكتب تعليق قبل الإرسال');  
+    return;  
+  }  
+  if(!currentUser){  
+    alert('لازم تسجل الدخول لتكتب تعليق');  
+    return;  
+  }  
+  db.collection('comments').add({  
+    paragraphId: paraId,  
+    text: text,  
+    userId: currentUser.uid,  
+    userEmail: currentUser.email,  
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()  
+  }).then(() => {  
+    textarea.value = '';  
+    loadComments(paraId);  
+  }).catch(e => {  
+    alert('خطأ بإنشاء التعليق');  
+    console.error(e);  
+  });  
+}  
+</script>  
+  
+</body>  
+</html>  
+  
