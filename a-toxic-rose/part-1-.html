@@ -1,53 +1,187 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>بارت جديد - Toxic Rose</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <style>
-    body { background: #121212; color: #eee; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; padding: 20px; }
-    .paragraph { margin-bottom: 30px; }
-    .comments-section { margin-top: 10px; border: 1px solid #555; padding: 10px; display: none; }
-    .comment { background: #222; color: #eee; margin: 5px 0; padding: 5px; border-radius: 4px; display: flex; justify-content: space-between; }
-    .comment button { background: transparent; border: none; color: #f55; cursor: pointer; }
-    textarea { width: 100%; height: 60px; }
-    button { margin-top: 5px; cursor: pointer; }
-    #authButtons button { margin-right: 10px; }
-  </style>
+<meta charset="UTF-8" />
+<title>بارت جديد - Toxic Rose</title>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<style>
+  body {
+    background: #121212;
+    color: #fff;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+  }
+  h2 {
+    border-bottom: 2px solid #00f9ff;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+  }
+  .paragraph {
+    position: relative;
+    margin-bottom: 50px;
+    padding-right: 15px;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+  .comment-toggle-btn {
+    position: absolute;
+    top: 5px;
+    left: -40px;
+    background: #00f9ff;
+    border: none;
+    color: #121212;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00f9ff;
+  }
+  .comments-section {
+    position: absolute;
+    top: 40px;
+    left: -320px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #121212;
+    border: 2px solid #00f9ff;
+    border-radius: 15px;
+    padding: 10px;
+    display: none;
+    box-shadow: 0 0 15px #00f9ff;
+    font-size: 0.9rem;
+    z-index: 100;
+  }
+  .comments-list {
+    max-height: 280px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+  }
+  .comment {
+    background: #222;
+    border-radius: 12px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .comment .user {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #00f9ff;
+  }
+  .comment .text {
+    margin-bottom: 6px;
+  }
+  .comment .actions {
+    display: flex;
+    gap: 10px;
+  }
+  .comment button {
+    background: transparent;
+    border: none;
+    color: #00f9ff;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 0;
+  }
+  .reply-box {
+    margin-top: 6px;
+  }
+  .reply-box textarea {
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #00f9ff;
+    background: #121212;
+    color: #fff;
+    padding: 5px;
+    resize: none;
+  }
+  .reply-box button {
+    margin-top: 5px;
+    background: #00f9ff;
+    color: #121212;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    float: left;
+  }
+  textarea#new-comment {
+    width: 100%;
+    height: 60px;
+    border-radius: 12px;
+    border: 2px solid #00f9ff;
+    background: #121212;
+    color: #fff;
+    padding: 8px;
+    resize: none;
+    margin-bottom: 8px;
+  }
+  button#submit-comment {
+    background: #00f9ff;
+    color: #121212;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  #authButtons {
+    margin-bottom: 30px;
+  }
+  #authButtons button {
+    background: #00f9ff;
+    border: none;
+    color: #121212;
+    padding: 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  #userInfo {
+    font-weight: bold;
+    color: #00f9ff;
+  }
+  /* Scrollbar styles */
+  .comments-list::-webkit-scrollbar,
+  .comments-section::-webkit-scrollbar {
+    width: 6px;
+  }
+  .comments-list::-webkit-scrollbar-thumb,
+  .comments-section::-webkit-scrollbar-thumb {
+    background-color: #00f9ff;
+    border-radius: 3px;
+  }
+</style>
 </head>
 <body>
 
-  <h2>عنوان البارت هنا</h2>
+<h2>بارت 1 - Toxic Rose</h2>
 
-  <div id="authButtons">
-    <button id="loginBtn">تسجيل الدخول بـ Google</button>
-    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
-    <span id="userInfo" style="margin-left: 15px;"></span>
-  </div>
+<div id="authButtons">
+  <button id="loginBtn">تسجيل الدخول بـ Google</button>
+  <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+  <span id="userInfo"></span>
+</div>
 
-  <!-- 🔽 نسخي فقراتك هون وعدليها فقط -->
-  <div class="paragraph" id="para-1">
-    <p>نص الفقرة الأولى من البارت...</p>
-    <button onclick="toggleComments('para-1')">تعليقات</button>
-    <div class="comments-section" id="comments-para-1">
-      <div class="comments-list"></div>
-      <textarea placeholder="اكتب تعليقك هنا..." disabled></textarea>
-      <button onclick="submitComment('para-1')" disabled>أرسل</button>
-    </div>
+<div class="paragraph" id="para-1">
+  <p>هذا نص الفقرة الأولى من البارت...</p>
+  <button class="comment-toggle-btn" onclick="toggleComments('para-1')" title="تعليقات">💬</button>
+  <div class="comments-section" id="comments-para-1">
+    <div class="comments-list"></div>
+    <textarea id="new-comment" placeholder="اكتب تعليقك هنا..." disabled></textarea>
+    <button id="submit-comment" disabled onclick="submitComment('para-1')">أرسل</button>
   </div>
+</div>
 
-  <div class="paragraph" id="para-2">
-    <p>نص الفقرة الثانية من البارت...</p>
-    <button onclick="toggleComments('para-2')">تعليقات</button>
-    <div class="comments-section" id="comments-para-2">
-      <div class="comments-list"></div>
-      <textarea placeholder="اكتب تعليقك هنا..." disabled></textarea>
-      <button onclick="submitComment('para-2')" disabled>أرسل</button>
-    </div>
-  </div>
-  <!-- 🔼 هون نهاية الفقرات -->
+<!-- ممكن تضيفي فقرات إضافية بنفس الشكل -->
 
 <script>
   const firebaseConfig = {
@@ -64,6 +198,10 @@
   const db = firebase.firestore();
 
   let currentUser = null;
+
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const userInfo = document.getElementById('userInfo');
 
   auth.onAuthStateChanged(user => {
     currentUser = user;
@@ -87,15 +225,14 @@
   logoutBtn.onclick = () => { auth.signOut(); };
 
   function enableCommentBoxes(enable) {
-    const textareas = document.querySelectorAll('.comments-section textarea');
-    const buttons = document.querySelectorAll('.comments-section button');
-    textareas.forEach(ta => ta.disabled = !enable);
-    buttons.forEach(btn => btn.disabled = !enable);
+    document.getElementById('new-comment').disabled = !enable;
+    document.getElementById('submit-comment').disabled = !enable;
+    // الردود مش مفعلين إلا لما تحمل التعليقات
   }
 
   function toggleComments(paraId) {
     const section = document.getElementById('comments-' + paraId);
-    if (section.style.display === 'none') {
+    if (section.style.display === 'none' || section.style.display === '') {
       section.style.display = 'block';
       loadComments(paraId);
     } else {
@@ -103,6 +240,7 @@
     }
   }
 
+  // تحميل التعليقات بشكل متداخل (ردود)
   function loadComments(paraId) {
     const commentsList = document.querySelector(`#comments-${paraId} .comments-list`);
     commentsList.innerHTML = 'جاري التحميل...';
@@ -114,72 +252,162 @@
       .get()
       .then(querySnapshot => {
         commentsList.innerHTML = '';
+        // فرز التعليقات الأساسية والردود
+        const comments = [];
+        const repliesMap = {}; // key: parentCommentId, value: [replyComments]
+
         querySnapshot.forEach(doc => {
           const data = doc.data();
-          const div = document.createElement('div');
-          div.className = 'comment';
-
-          const spanText = document.createElement('span');
-          spanText.textContent = data.text;
-          div.appendChild(spanText);
-
-          if(currentUser && data.userId === currentUser.uid) {
-            const delBtn = document.createElement('button');
-            delBtn.textContent = 'حذف';
-            delBtn.onclick = () => {
-              if(confirm('هل تريد حذف هذا التعليق؟')) {
-                db.collection('comments').doc(doc.id).delete();
-                loadComments(paraId);
-              }
-            };
-            div.appendChild(delBtn);
-
-            const editBtn = document.createElement('button');
-            editBtn.textContent = 'تعديل';
-            editBtn.style.marginLeft = '10px';
-            editBtn.onclick = () => {
-              const newText = prompt('عدّل تعليقك:', data.text);
-              if(newText !== null && newText.trim() !== '') {
-                db.collection('comments').doc(doc.id).update({ text: newText.trim() });
-                loadComments(paraId);
-              }
-            };
-            div.appendChild(editBtn);
+          data.id = doc.id;
+          comments.push(data);
+          if(data.parentId){
+            if(!repliesMap[data.parentId]) repliesMap[data.parentId] = [];
+            repliesMap[data.parentId].push(data);
           }
+        });
 
-          commentsList.appendChild(div);
+        // إظهار التعليقات الأساسية (بدون parentId)
+        comments.filter(c => !c.parentId).forEach(c => {
+          commentsList.appendChild(createCommentElement(c, repliesMap));
         });
       })
       .catch(error => {
-  commentsList.innerHTML = 'خطأ بتحميل التعليقات: ' + error.message;
-  console.error("تفاصيل الخطأ:", error);
-}); 
+        commentsList.innerHTML = 'خطأ بتحميل التعليقات: ' + error.message;
+        console.error("تفاصيل الخطأ:", error);
+      });
+  }
+
+  function createCommentElement(commentData, repliesMap, level=0) {
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.style.marginLeft = (level * 20) + 'px';
+
+    const userSpan = document.createElement('div');
+    userSpan.className = 'user';
+    userSpan.textContent = commentData.userEmail || 'مجهول';
+    div.appendChild(userSpan);
+
+    const textSpan = document.createElement('div');
+    textSpan.className = 'text';
+    textSpan.textContent = commentData.text;
+    div.appendChild(textSpan);
+
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'actions';
+
+    // زر الرد
+    const replyBtn = document.createElement('button');
+    replyBtn.textContent = 'رد';
+    replyBtn.onclick = () => toggleReplyBox(div, commentData);
+    actionsDiv.appendChild(replyBtn);
+
+    // إذا المعلق هو نفس المستخدم الحالي، أضف تعديل وحذف
+    if(currentUser && commentData.userId === currentUser.uid){
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'تعديل';
+      editBtn.onclick = () => {
+        const newText = prompt('عدّل تعليقك:', commentData.text);
+        if(newText !== null && newText.trim() !== ''){
+          db.collection('comments').doc(commentData.id).update({ text: newText.trim() })
+            .then(() => loadComments(commentData.paragraphId));
+        }
+      };
+      actionsDiv.appendChild(editBtn);
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'حذف';
+      delBtn.onclick = () => {
+        if(confirm('هل تريد حذف هذا التعليق؟')){
+          db.collection('comments').doc(commentData.id).delete()
+            .then(() => loadComments(commentData.paragraphId));
+        }
+      };
+      actionsDiv.appendChild(delBtn);
+    }
+
+    div.appendChild(actionsDiv);
+
+    // الردود المتداخلة
+    if(repliesMap[commentData.id]){
+      repliesMap[commentData.id].forEach(reply => {
+        div.appendChild(createCommentElement(reply, repliesMap, level + 1));
+      });
+    }
+
+    return div;
+  }
+
+  function toggleReplyBox(commentDiv, commentData) {
+    // إذا فيه صندوق رد مفتوح، أقفله
+    const existingBox = commentDiv.querySelector('.reply-box');
+    if(existingBox){
+      existingBox.remove();
+      return;
+    }
+
+    // إنشاء صندوق الرد
+    const box = document.createElement('div');
+    box.className = 'reply-box';
+
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = 'اكتب ردك هنا...';
+    box.appendChild(textarea);
+
+    const sendBtn = document.createElement('button');
+    sendBtn.textContent = 'أرسل الرد';
+    sendBtn.onclick = () => {
+      const val = textarea.value.trim();
+      if(!val){
+        alert('اكتب رد قبل الإرسال');
+        return;
+      }
+      if(!currentUser){
+        alert('لازم تسجل الدخول لتكتب رد');
+        return;
+      }
+      db.collection('comments').add({
+        paragraphId: commentData.paragraphId,
+        text: val,
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        parentId: commentData.id
+      }).then(() => {
+        loadComments(commentData.paragraphId);
+      }).catch(e => {
+        alert('خطأ بإنشاء الرد');
+        console.error(e);
+      });
+      box.remove();
+    };
+    box.appendChild(sendBtn);
+
+    commentDiv.appendChild(box);
   }
 
   function submitComment(paraId) {
-    const textarea = document.querySelector(`#comments-${paraId} textarea`);
+    const textarea = document.getElementById('new-comment');
     const text = textarea.value.trim();
-    if (text === '') {
+    if(text === ''){
       alert('اكتب تعليق قبل الإرسال');
       return;
     }
-    if(!currentUser) {
+    if(!currentUser){
       alert('لازم تسجل الدخول لتكتب تعليق');
       return;
     }
-    db.collection("comments").add({
+    db.collection('comments').add({
       paragraphId: paraId,
       text: text,
       userId: currentUser.uid,
+      userEmail: currentUser.email,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
+    }).then(() => {
       textarea.value = '';
       loadComments(paraId);
-    })
-    .catch((error) => {
+    }).catch(e => {
       alert('خطأ بإنشاء التعليق');
-      console.error("Error submitting comment:", error);
+      console.error(e);
     });
   }
 </script>
