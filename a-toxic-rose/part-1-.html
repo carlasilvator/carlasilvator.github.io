@@ -151,9 +151,9 @@
         });
       })
       .catch(error => {
-        commentsList.innerHTML = 'خطأ بتحميل التعليقات';
-        console.error("Firebase error:", error);
-      });
+  commentsList.innerHTML = 'خطأ بتحميل التعليقات: ' + error.message;
+  console.error("تفاصيل الخطأ:", error);
+}); 
   }
 
   function submitComment(paraId) {
