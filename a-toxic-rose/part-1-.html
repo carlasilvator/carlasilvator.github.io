@@ -2,221 +2,274 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>بارت جديد - Toxic Rose</title>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-  <style>
-/* ستايل صفحة القراءة - مستوحى من واتباد */
-body {
-  background: #0a0a0a;
-  color: #fefefe;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-}
+<!-- خط عربي مريح -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
 
-.container {
-  max-width: 740px;
-  width: 100%;
-  background: #111;
-  border: 2px solid #004466;
-  box-shadow: 0 0 15px #007799;
-  padding: 30px 20px 60px 20px;
-  margin: 20px;
-  border-radius: 10px;
-}
+<style>
+  /* ستايل صفحة القراءة - مع تحسينات ونسخة شبه طبق الأصل واتباد */
+  body {
+    background: #0a0a0a;
+    color: #d9d9d9;
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
 
-h2 {
-  font-size: 1.8rem;
-  color: #00d9ff;
-  border-bottom: 2px solid #0077aa;
-  padding-bottom: 12px;
-  margin-bottom: 30px;
-}
-
-.paragraph {
-  position: relative;
-  margin-bottom: 60px;
-  font-size: 1.1rem;
-  line-height: 1.8;
-}
-
-.comment-toggle-btn {
-  position: absolute;
-  top: 2px;
-  left: -45px;
-  background: #004466;
-  border: none;
-  color: #00d9ff;
-  font-weight: bold;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #00d9ff;
-  transition: all 0.3s ease;
-}
-.comment-toggle-btn:hover {
-  background: #0077aa;
-  box-shadow: 0 0 20px #00ffff;
-}
-
-.comments-section {
-  position: absolute;
-  top: 40px;
-  left: -320px;
-  width: 300px;
-  max-height: 400px;
-  overflow-y: auto;
-  background: #0f0f0f;
-  border: 2px solid #005577;
-  border-radius: 12px;
-  padding: 12px;
-  display: none;
-  box-shadow: 0 0 20px #00aaff;
-  z-index: 1000;
-  font-size: 0.9rem;
-}
-
-.comment {
-  background: #1a1a1a;
-  border-radius: 10px;
-  padding: 8px 10px;
-  margin-bottom: 10px;
-}
-.comment .user {
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #00aaff;
-}
-.comment .text {
-  margin-bottom: 5px;
-  white-space: pre-wrap;
-}
-.comment .actions {
-  display: flex;
-  gap: 8px;
-}
-.comment button {
-  background: transparent;
-  border: none;
-  color: #00aaff;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-.comment button:hover {
-  color: #00ffff;
-}
-
-textarea#new-comment,
-.reply-box textarea {
-  width: 100%;
-  height: 60px;
-  border-radius: 10px;
-  border: 2px solid #005577;
-  background: #0a0a0a;
-  color: #fff;
-  padding: 8px;
-  resize: none;
-  margin-bottom: 10px;
-}
-
-#submit-comment,
-.reply-box button {
-  background: #00aaff;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#authButtons {
-  text-align: center;
-  margin-bottom: 20px;
-}
-#authButtons button {
-  background: #005577;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 14px;
-  margin: 0 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
-#authButtons button:hover {
-  background: #0077aa;
-}
-#userInfo {
-  display: block;
-  margin-top: 10px;
-  color: #00d9ff;
-  font-weight: bold;
-}
-
-/* Scrollbar */
-.comments-list::-webkit-scrollbar,
-.comments-section::-webkit-scrollbar {
-  width: 5px;
-}
-.comments-list::-webkit-scrollbar-thumb,
-.comments-section::-webkit-scrollbar-thumb {
-  background-color: #00aaff;
-  border-radius: 3px;
-}
-
-/* تجاوب الموبايل */
-@media (max-width: 768px) {
   .container {
-    margin: 10px;
-    padding: 20px 15px 40px 15px;
-    box-shadow: none;
-  }
-  .comment-toggle-btn {
-    position: static;
-    display: inline-block;
-    margin-left: 10px;
-    font-size: 1rem;
-    width: auto;
-    height: auto;
-    border-radius: 6px;
-    padding: 4px 10px;
-  }
-  .comments-section {
-    position: static;
-    width: 100%;
-    max-height: 250px;
-    box-shadow: none;
+    max-width: 740px;
+    width: 90%;
+    background: #111;
+    border: 1.5px solid #004466;
+    box-shadow: 0 0 18px #007799, inset 0 0 10px #00bbff;
+    padding: 30px 25px 60px 25px;
+    margin: 20px 0;
     border-radius: 10px;
-    margin-top: 10px;
   }
-  h2 {
-    font-size: 1.4rem;
-  }
-  .paragraph {
-    font-size: 1rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .container {
-    padding: 16px 10px 30px 10px;
-    border-width: 1px;
+  h2 {
+    font-size: 1.8rem;
+    color: #00d9ff;
+    border-bottom: 2px solid #0077aa;
+    padding-bottom: 12px;
+    margin-bottom: 30px;
+    user-select: none;
   }
+
   .paragraph {
+    position: relative;
+    margin-bottom: 80px;
+    font-size: 1.15rem;
+    line-height: 1.9;
+  }
+
+  .paragraph p {
+    margin: 0;
+  }
+
+  /* زر التعليقات بجنب الفقرة ثابت ومستجيب */
+  .comment-toggle-btn {
+    position: absolute;
+    top: 10px;
+    right: 100%;
+    margin-right: 12px;
+    background: #004466;
+    border: none;
+    color: #00d9ff;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #00d9ff;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    user-select: none;
+  }
+  .comment-toggle-btn:hover {
+    background: #0077aa;
+    box-shadow: 0 0 24px #00ffff;
+  }
+
+  /* صندوق التعليقات */
+  .comments-section {
+    position: absolute;
+    top: 45px;
+    right: 110%;
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #121212;
+    border: 1.5px solid #005577;
+    border-radius: 12px;
+    padding: 15px;
+    display: none;
+    box-shadow: 0 0 25px #00aaff;
+    z-index: 1000;
     font-size: 0.95rem;
   }
+
+  /* تعليقات فردية */
+  .comment {
+    background: #1c1c1c;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    word-break: break-word;
+  }
+  .comment .user {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #00aaff;
+    user-select: text;
+  }
+  .comment .text {
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+  }
+  .comment .actions {
+    display: flex;
+    gap: 10px;
+  }
+  .comment button {
+    background: transparent;
+    border: none;
+    color: #00aaff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0;
+    user-select: none;
+  }
+  .comment button:hover {
+    color: #00ffff;
+  }
+
+  /* مربع ردود */
+  .reply-box {
+    margin-top: 10px;
+  }
+  .reply-box textarea {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    border: 1.8px solid #005577;
+    background: #0a0a0a;
+    color: #d9d9d9;
+    padding: 8px;
+    resize: none;
+    font-family: 'Cairo', sans-serif;
+  }
+  .reply-box button {
+    background: #00aaff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+
+  /* صندوق كتابة تعليق جديد */
+  textarea#new-comment {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    border: 1.8px solid #005577;
+    background: #0a0a0a;
+    color: #d9d9d9;
+    padding: 8px;
+    resize: none;
+    margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+  }
+  #submit-comment {
+    background: #00aaff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #submit-comment:disabled,
+  textarea#new-comment:disabled {
+    background: #222;
+    color: #666;
+    cursor: not-allowed;
+  }
+
+  /* أزرار تسجيل الدخول */
+  #authButtons {
+    text-align: center;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+  #authButtons button {
+    background: #005577;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    margin: 0 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #authButtons button:hover {
+    background: #0077aa;
+  }
+  #userInfo {
+    display: block;
+    margin-top: 12px;
+    color: #00d9ff;
+    font-weight: bold;
+    user-select: text;
+  }
+
+  /* Scrollbar مخصص */
+  .comments-section::-webkit-scrollbar,
+  .comments-list::-webkit-scrollbar {
+    width: 6px;
+  }
+  .comments-section::-webkit-scrollbar-thumb,
+  .comments-list::-webkit-scrollbar-thumb {
+    background-color: #00aaff;
+    border-radius: 4px;
+  }
+
+  /* تجاوب الموبايل */
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+      margin: 15px 0;
+      padding: 20px 15px 40px 15px;
+      box-shadow: none;
     }
+    .comment-toggle-btn {
+      position: static;
+      margin: 10px 0 8px 0;
+      border-radius: 6px;
+      width: auto;
+      height: auto;
+      padding: 6px 14px;
+      font-size: 1.1rem;
+    }
+    .comments-section {
+      position: static;
+      width: 100%;
+      max-height: 260px;
+      box-shadow: none;
+      border-radius: 10px;
+      margin-top: 12px;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    .paragraph {
+      font-size: 1.05rem;
+      margin-bottom: 60px;
+    }
+  }
 
-  
-
+  @media (max-width: 480px) {
+    .container {
+      padding: 16px 12px 30px 12px;
+      border-width: 1px;
+    }
+    .paragraph {
+      font-size: 1rem;
+    }
+  }
 </style>
+
 </head>
 <body>
 
@@ -239,11 +292,16 @@ textarea#new-comment,
     </div>
   </div>
 
-  <!-- اضيفي فقرات بنفس الطريقة -->
+  <!-- يمكنك إضافة فقرات أخرى بنفس الشكل -->
 
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
 <script>
+  // إعداد Firebase - لا تعرض مفاتيحك في مشاريع حقيقية بدون حماية!
   const firebaseConfig = {
     apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
     authDomain: "works-rawan.firebaseapp.com",
@@ -252,6 +310,7 @@ textarea#new-comment,
     messagingSenderId: "986254083746",
     appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
   };
+
   firebase.initializeApp(firebaseConfig);
 
   const auth = firebase.auth();
@@ -299,14 +358,12 @@ textarea#new-comment,
     }
   }
 
-  // تحميل التعليقات بدون إظهار رسالة خطأ لو فشل التحميل
   function loadComments(paraId) {
     const commentsList = document.querySelector(`#comments-${paraId} .comments-list`);
     commentsList.innerHTML = 'جاري التحميل...';
 
     db.collection("comments")
       .where("paragraphId", "==", paraId)
-      .where("timestamp", "!=", null)
       .orderBy("timestamp", "asc")
       .get()
       .then(querySnapshot => {
@@ -329,7 +386,6 @@ textarea#new-comment,
         });
       })
       .catch(error => {
-        // ما بنعرض رسالة الخطأ حسب طلبك
         commentsList.innerHTML = '';
         console.error("خطأ بتحميل التعليقات:", error);
       });
@@ -466,4 +522,4 @@ textarea#new-comment,
 </script>
 
 </body>
-  </html>
+      </html>
