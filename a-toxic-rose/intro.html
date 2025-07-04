@@ -1,513 +1,907 @@
-<!DOCTYPE html>      
-<html lang="ar" dir="rtl">      
-<head>      
-  <meta charset="UTF-8" />      
-  <meta name="viewport" content="width=device-width, initial-scale=1" />      
-  <title>بارت - Toxic Rose</title>      
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">      
-  <style>      
-    :root {      
-      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);      
-      --star-color: rgba(0, 191, 255, 0.08);      
-      --text-primary: #cfefff;      
-      --text-secondary: #7dd3fc;      
-      --text-accent: #38bdf8;      
-      --link-color: #60a5fa;      
-      --link-hover-color: #93c5fd;      
-      --button-bg: #0f172a;      
-      --button-hover-bg: #1e293b;      
-      --glow-color: #3b82f6;      
-    }      
-      
-    html { scroll-behavior: smooth; }      
-    body {      
-      margin: 0;      
-      font-family: 'Amiri', serif;      
-      background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);      
-      background-size: 400% 400%;      
-      animation: spaceWave 60s ease infinite;      
-      color: var(--text-primary);      
-      overflow-x: hidden;      
-      min-height: 100vh;      
-      position: relative;      
-    }      
-      
-    body::before {      
-      content: "";      
-      position: fixed;      
-      top: 0; left: 0; right: 0; bottom: 0;      
-      pointer-events: none;      
-      z-index: 0;      
-      background-image:      
-        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),      
-        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),      
-        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),      
-        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);      
-      background-size: 250px 250px;      
-      animation: starsGlitter 120s linear infinite;      
-    }      
-      
-    @keyframes spaceWave {      
-      0% { background-position: 0% 50%; }      
-      50% { background-position: 100% 50%; }      
-      100% { background-position: 0% 50%; }      
-    }      
-      
-    @keyframes starsGlitter {      
-      0% { background-position: 0 0, 0 0, 0 0, 0 0; }      
-      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }      
-    }      
-      
-    header {      
-      width: 100%;      
-      background: rgba(2, 6, 23, 0.9);      
-      border-bottom: 2px solid var(--glow-color);      
-      box-shadow: 0 0 15px var(--glow-color);      
-      backdrop-filter: blur(6px);      
-      text-align: center;      
-      position: relative;      
-      z-index: 10000;      
-      padding: 0;      
-    }      
-      
-    .logo-wrapper img {      
-      width: 100%;      
-      height: auto;      
-      display: block;      
-      object-fit: cover;      
-      max-height: 240px;      
-    }      
-      
-    .main-nav {      
-      display: flex;      
-      overflow-x: auto;      
-      white-space: nowrap;      
-      padding: 8px 10px;      
-      background: rgba(2, 6, 23, 0.9);      
-      border-top: 1px solid var(--glow-color);      
-      border-bottom: 2px solid var(--glow-color);      
-      box-shadow: 0 0 10px var(--glow-color);      
-    }      
-      
-    .main-nav a {      
-      display: inline-block;      
-      color: var(--link-color);      
-      padding: 8px 14px;      
-      text-decoration: none;      
-      font-weight: bold;      
-      font-size: 15px;      
-      margin-right: 10px;      
-      white-space: nowrap;      
-      transition: color 0.3s, text-shadow 0.3s;      
-      flex-shrink: 0;      
-    }      
-      
-    .main-nav a:hover {      
-      color: var(--link-hover-color);      
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);      
-      text-decoration: underline;      
-    }      
-      
-    .container {      
-      max-width: 760px;      
-      margin: 40px auto;      
-      background: rgba(2, 6, 23, 0.6);      
-      border-radius: 15px;      
-      padding: 28px 22px 80px;      
-      box-shadow: 0 0 25px var(--glow-color);      
-      position: relative;      
-      z-index: 10;      
-    }      
-      
-    .story-title {      
-      text-align: center;      
-      font-size: 1.8rem;      
-      color: var(--text-secondary);      
-      margin-bottom: 30px;      
-      text-shadow: 0 0 12px var(--text-secondary);      
-    }      
-    
-    /* تعليقات */    
-    .comment-box {    
-      background: rgba(15, 23, 42, 0.9);    
-      border: 1.5px solid #38bdf8;    
-      border-radius: 12px;    
-      padding: 12px 14px 10px;    
-      margin-top: 8px;    
-      box-shadow: 0 0 10px #38bdf8aa;    
-      font-family: 'Amiri', serif;    
-    }    
-    .comments {    
-      max-height: 150px;    
-      overflow-y: auto;    
-      margin-bottom: 12px;    
-      border-bottom: 1px solid #334155;    
-      padding-bottom: 8px;    
-      color: #a0cfff;    
-    }    
-    .comments div {    
-      margin-bottom: 10px;    
-      word-break: break-word;    
-    }    
-    .comments b {    
-      color: #7dd3fc;    
-    }    
-    textarea {    
-      width: 100%;    
-      font-family: 'Amiri', serif;    
-      font-size: 1rem;    
-      border-radius: 8px;    
-      border: 1px solid #38bdf8;    
-      background: #020611;    
-      color: #cfefff;    
-      padding: 8px 10px;    
-      resize: vertical;    
-      min-height: 60px;    
-      transition: border-color 0.3s;    
-    }    
-    textarea:focus {    
-      outline: none;    
-      border-color: #7dd3fc;    
-    }    
-    button.send-comment {    
-      background: #0f172a;    
-      color: #7dd3fc;    
-      border: none;    
-      padding: 10px 16px;    
-      border-radius: 10px;    
-      cursor: pointer;    
-      font-weight: bold;    
-      font-family: 'Amiri', serif;    
-      transition: background-color 0.3s, color 0.3s;    
-    }    
-    button.send-comment:disabled {    
-      background: #334155;    
-      color: #7dd3fcaa;    
-      cursor: not-allowed;    
-    }    
-    
-    /* أزرار التنقل */    
-    .nav-buttons {    
-      display: flex;    
-      justify-content: space-between;    
-      margin-top: 40px;    
-    }    
-    .nav-buttons a {    
-      background: var(--button-bg);    
-      color: var(--text-accent);    
-      padding: 10px 18px;    
-      border-radius: 10px;    
-      text-decoration: none;    
-      font-weight: bold;    
-      transition: background-color 0.3s;    
-    }    
-    .nav-buttons a:hover {    
-      background: var(--button-hover-bg);    
-    }    
-    
-  </style>      
-</head>      
-      
-<body>      
-  <header>      
-    <div class="logo-wrapper">      
-      <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />      
-    </div>      
-  </header>      
-      
-  <nav class="main-nav">      
-    <a href="index.html">🏠 الرئيسية</a>      
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>      
-    <a href="follow-me.html">🧬 اشترك</a>      
-  </nav>      
-      
-  <div class="container">      
-    <h2 class="story-title">بيلادونا السامة</h2>      
-      
-    <div id="authButtons">      
-      <button id="loginBtn">تسجيل الدخول بـ Google</button>      
-      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>      
-      <div id="userInfo"></div>      
-    </div>      
-      
-    <div id="raw-content" style="display:none;">      
-          
-~المقدمة~    
-    
-«كانت مثل البيلادونا تزهر في الظلام لتغري الناظرين بفتنة جمالها الساحر و تخفي بين طياتها سمها القاتل موقعة التائهين على أرض الجنون في فخوخها منتظرة وقت أقامة الحداد على أرواحهم المعذبة بسمومها»    
-    
-    
-    
-أهلاً بك في أرض الجنون    
-يا من قررت بحماقة لذيذة أن تفتح روايتي    
-حيث المنطق يذبح و العُقلاء يؤكلون اولاً..    
-    
-    
-    
-    
-    
-أن كنت قارئ بتفكير أجرامي و سايكو فـ رح تكون طبق التحلية على مائدتي لأن عقلك سيكون الألذ طعماً     
-    
-    
-شدوا الأحزمة     
-أو لا تفعلوا     
-لكن لا تلوموني بعد سقوطكم     
-    
-    
-لا تثق بأحد فكل شخصية هنا هي شيطان متنكر..    
-لا بطل ينقذ    
-و لا بطلة تبكي     
-لا ضحية الكل مذنب    
-حتى أنت لأنك ستقرأ كل هذا الشر     
-لأنك ستتأثر به     
-أعلم هذا جيداً فأنا المخرجة كل شيء يسير حسب رغبتي وحدي    
-    
-    
-دعني أعطيك دورك ياعزيزي أنت الشاهد؟..    
-    
-لا أسفة خليني أصحح أنت شاهد و مشارك رغماً عنك  في حرب لا قانون يحكمها بين هذه الشياطين، حرب العشق و السلطة جنون الهوس و الخيانات العظمى..     
-    
-    
-    
-    
-و يا أرواحي الشفقية أحذركم من زهرتي السامة لا تدعوها تسحركم و تقيم الحداد على أرواحكم المفتونة    
-لا تقتربوا    
-لا تنخدعوا     
-و لا تقعوا بحبها    
-إلا أن رغبتم بأن تدفنوا أحياء هذا يعود لكم...     
-    
-    
-    
-    
-حتى أن لم ترغب بالسقوط يؤسفني    
-أنك ستقع بالتأكيد..     
-الجميع يقع.     
-بينما أنا أشاهدكم بأبتسامة    
-    
-و كل هذا السقوط يجعلني اسأل هل البطلة تستحق ان تقعوا بحبها و تدفنوا أحياء لأجلها؟    
-    
-أم أنكم ستكرهونها في النهاية و تندمون؟    
-    
-دعوني أعرفكم على نفسي أنا آثير.. عنقاء الموت لست كاتبة أنا المخرجة الشريرة التي صنعت هذه المجزرة العاطفية    
-    
-و كما يقولون أنا لست فنانة انا الفن السوداوي    
-    
-و هذه هي زهرتي السامة روايتي الأولى من سلسلة     
-_أبتسم أيها الشيطان..     
-    
-الشيطان سيبتسم في النهاية لأنتصاره و هذه الكاتبة ستصفق له بحرارة    
-    
-    
-    
-    
-    
-    
-    
-    
-ملاحظات قبل البدء برحلة الهلاك:    
-    
-•الرواية قد لا تناسب البعض لأحتوائها على تفاصيل دموية مفصلة و مشاهد حادة    
-    
-•التصنيف: أكشن_غموض_ نفسي_خيال علمي _دموي _Dark romance دارك رومانس    
-    
-من أعداء إلى أحباء ⟵ ثم من أحباء إلى أعداء     
-    
-     
-•التنزيل حسب التفاعل ركزوا على هذه النقطة    
-    
-    
-•ان كنت تبحث عن رواية بعوالم وردية لطيفة فقد أخطأت العنوان كل ما يوجد هنا هو ورد سام بألوان زاهية لكنه قاتل     
-لذا أخرج أن لم تكن من محبي الموت     
-على أيدي كاتبة مهووسة بأكل عقول القراء    
-    
-    
-    
-•المشاهد الجنسية غير موجودة أنا أرقى بكثير من هذا المستوى المتدني     
-    
-•الأنتقاد مقبول لكن بأحترام هذه روايتي مو مطعم طلبات يلبي رغباتك لذا لا تلبس قناع المهرج المتنكر بثوب الناقد أتفقنا؟    
-    
-•جميع الحقوق محفوظة لي و الأقتباس دون أذني هو فعل غبي جداً لأنني سأمسح بكرامتك الأراضي و سأبدء بـ يا عزيزي و أختمها بقبلات حارة على جثة كرامتك القذرة    
-    
-    
-ڤولا يا أرواح الشفق و لا تنسوا أنا حذرتكم    
-أن كنت عاقل فأهرب     
-و أن بقيت فأهلاً بك يسرني ان أبدأ بالتخطيط لرسم حبكة ستطبخ عقلك قبل وضعه هلى مائدتي    
-    
-بدأت في: 27 أكتوبر /عام 2024    
-    
-تاريخ الأنتهاء: حينما تصبح مهووساً    
-باللعنات التي أكتبها     
-الضحية أنت     
-المذنبة انا التي تعشق أكل عقول القراء    
-    
-    </div>      
-      
-    <div id="rendered-content"></div>      
-      
-    <div class="nav    
-    
-<div class="nav-buttons">      
-      <a href="#" id="prevBtn">⬅️ البارت السابق</a>      
-      <a href="#" id="nextBtn">البارت التالي ➡️</a>      
-    </div>      
-  </div>      
-      
-  <footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">      
-    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025      
-  </footer>      
-      
-  <!-- Firebase & Comments Logic -->      
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>      
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>      
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>      
-      
-  <script>      
-    const firebaseConfig = {      
-      apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",      
-      authDomain: "works-rawan.firebaseapp.com",      
-      projectId: "works-rawan",      
-      storageBucket: "works-rawan.firebasestorage.app",      
-      messagingSenderId: "986254083746",      
-      appId: "1:986254083746:web:17f7db0389c94473f0b9fb"      
-    };      
-      
-    firebase.initializeApp(firebaseConfig);      
-    const auth = firebase.auth();      
-    const db = firebase.firestore();      
-      
-    const loginBtn = document.getElementById("loginBtn");      
-    const logoutBtn = document.getElementById("logoutBtn");      
-    const userInfo = document.getElementById("userInfo");      
-    let currentUser = null;      
-      
-    auth.onAuthStateChanged(user => {      
-      currentUser = user;      
-      if (user) {      
-        loginBtn.style.display = "none";      
-        logoutBtn.style.display = "inline-block";      
-        userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;      
-      } else {      
-        loginBtn.style.display = "inline-block";      
-        logoutBtn.style.display = "none";      
-        userInfo.textContent = "";      
-      }      
-    });      
-      
-    loginBtn.onclick = () => {      
-      const provider = new firebase.auth.GoogleAuthProvider();      
-      auth.signInWithPopup(provider).catch(console.error);      
-    };      
-    logoutBtn.onclick = () => auth.signOut();      
-      
-    function sanitize(text) {      
-      const div = document.createElement('div');      
-      div.textContent = text;      
-      return div.innerHTML;      
-    }      
-      
-    function renderParagraphs(partId = 'toxic-rose-1') {      
-      const rawContent = document.getElementById('raw-content').textContent.trim();      
-      const paragraphs = rawContent.split(/\n\s*\n/);      
-      const container = document.getElementById('rendered-content');      
-      container.innerHTML = '';      
-      
-      paragraphs.forEach((text, index) => {      
-        const paraId = `${partId}-p-${index+1}`;      
-        const paraDiv = document.createElement('div');      
-        paraDiv.className = 'paragraph';      
-        paraDiv.id = paraId;      
-      
-        const p = document.createElement('p');      
-        p.innerHTML = sanitize(text.trim());      
-        paraDiv.appendChild(p);      
-      
-        const commentBtn = document.createElement('button');      
-        commentBtn.textContent = '💬';      
-        commentBtn.style.cssText = 'margin-top:10px;background:transparent;border:none;color:#38bdf8;font-size:18px;cursor:pointer';      
-        commentBtn.onclick = () => toggleCommentBox(paraId);      
-        paraDiv.appendChild(commentBtn);      
-      
-        const commentBox = document.createElement('div');      
-        commentBox.className = 'comment-box';      
-        commentBox.id = `box-${paraId}`;      
-        commentBox.style.display = 'none';      
-        commentBox.innerHTML = `      
-          <div class="comments"></div>      
-          <textarea placeholder="اكتب تعليقك هنا..." style="width:100%;margin:10px 0;border-radius:10px;padding:8px;font-family:'Amiri',serif;"></textarea>      
-          <button class="send-comment" disabled>أرسل</button>      
-        `;      
-      
-        const sendBtn = commentBox.querySelector('button.send-comment');      
-        const textarea = commentBox.querySelector('textarea');      
-      
-        textarea.addEventListener('input', () => {      
-          sendBtn.disabled = !textarea.value.trim() || !currentUser;      
-        });      
-      
-        sendBtn.onclick = () => {      
-          const val = textarea.value.trim();      
-          if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة تعليق");      
-          db.collection("comments").add({      
-            paragraphId: paraId,      
-            text: val,      
-            userEmail: currentUser.email,      
-            userId: currentUser.uid,      
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()      
-          }).then(() => {      
-            textarea.value = '';      
-            sendBtn.disabled = true;      
-            loadComments(paraId);      
-          }).catch(e => alert('فشل الإرسال: ' + e.message));      
-        };      
-      
-        paraDiv.appendChild(commentBox);      
-        container.appendChild(paraDiv);      
-      });      
-    }      
-      
-    function toggleCommentBox(paraId) {      
-      const box = document.getElementById(`box-${paraId}`);      
-      if (box.style.display === 'none') {      
-        box.style.display = 'block';      
-        loadComments(paraId);      
-      } else {      
-        box.style.display = 'none';      
-      }      
-    }      
-      
-    function loadComments(paraId) {      
-      const box = document.getElementById(`box-${paraId}`);      
-      const commentList = box.querySelector('.comments');      
-      commentList.innerHTML = 'تحميل...';      
-      db.collection("comments").where("paragraphId", "==", paraId)      
-        .orderBy("timestamp", "asc")      
-        .get()      
-        .then(snapshot => {      
-          commentList.innerHTML = '';      
-          if(snapshot.empty) {      
-            commentList.innerHTML = '<i>لا توجد تعليقات بعد.</i>';      
-          } else {      
-            snapshot.forEach(doc => {      
-              const data = doc.data();      
-              const div = document.createElement('div');      
-              div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";      
-              div.innerHTML = `<b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>${sanitize(data.text)}`;      
-              commentList.appendChild(div);      
-            });      
-          }      
-        }).catch(e => {      
-          commentList.innerHTML = 'فشل تحميل التعليقات.';      
-          console.error(e);      
-        });      
-    }      
-      
-    document.addEventListener("DOMContentLoaded", () => {      
-      renderParagraphs("toxic-part-1");      
-    
-      // لو حابب تربط أزرار التنقل لصفحات أخرى، عدل الروابط هان:      
-      document.getElementById("prevBtn").href = "#"; // ضع رابط البارت السابق      
-      document.getElementById("nextBtn").href = "#"; // ضع رابط البارت التالي      
-    });      
-  </script>      
-</body>      
-  </html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>بارت - Toxic Rose</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
+      --star-color: rgba(0, 191, 255, 0.08);
+      --text-primary: #cfefff;
+      --text-secondary: #7dd3fc;
+      --text-accent: #38bdf8;
+      --link-color: #60a5fa;
+      --link-hover-color: #93c5fd;
+      --button-bg: #0f172a;
+      --button-hover-bg: #1e293b;
+      --glow-color: #3b82f6;
+      --like-color: #f87171;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Amiri', serif;
+      background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);
+      background-size: 400% 400%;
+      animation: spaceWave 60s ease infinite;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),
+        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),
+        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),
+        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);
+      background-size: 250px 250px;
+      animation: starsGlitter 120s linear infinite;
+    }
+
+    @keyframes spaceWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes starsGlitter {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
+    }
+
+    header {
+      width: 100%;
+      background: rgba(2, 6, 23, 0.9);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 15px var(--glow-color);
+      backdrop-filter: blur(6px);
+      text-align: center;
+      position: relative;
+      z-index: 10000;
+      padding: 0;
+    }
+
+    .logo-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 240px;
+    }
+
+    .main-nav {
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 8px 10px;
+      background: rgba(2, 6, 23, 0.9);
+      border-top: 1px solid var(--glow-color);
+      border-bottom: 2px solid var(--glow-color);
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    .main-nav a {
+      display: inline-block;
+      color: var(--link-color);
+      padding: 8px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      margin-right: 10px;
+      white-space: nowrap;
+      transition: color 0.3s, text-shadow 0.3s;
+      flex-shrink: 0;
+    }
+
+    .main-nav a:hover {
+      color: var(--link-hover-color);
+      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 40px auto;
+      background: rgba(2, 6, 23, 0.6);
+      border-radius: 15px;
+      padding: 28px 22px 80px;
+      box-shadow: 0 0 25px var(--glow-color);
+      position: relative;
+      z-index: 10;
+    }
+
+    .story-title {
+      text-align: center;
+      font-size: 1.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      text-shadow: 0 0 12px var(--text-secondary);
+    }
+
+    /* تعليقات */
+    .comment-box {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid #38bdf8;
+      border-radius: 12px;
+      padding: 12px 14px 10px;
+      margin-top: 8px;
+      box-shadow: 0 0 10px #38bdf8aa;
+      font-family: 'Amiri', serif;
+    }
+
+    .comments {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 8px;
+      color: #a0cfff;
+      font-size: 0.95rem;
+    }
+
+    .comments div {
+      margin-bottom: 10px;
+      word-break: break-word;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .comments b {
+      color: #7dd3fc;
+    }
+
+    textarea {
+      width: 100%;
+      font-family: 'Amiri', serif;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #38bdf8;
+      background: #020611;
+      color: #cfefff;
+      padding: 8px 10px;
+      resize: vertical;
+      min-height: 60px;
+      transition: border-color 0.3s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #7dd3fc;
+    }
+
+    button.send-comment {
+      background: #0f172a;
+      color: #7dd3fc;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Amiri', serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    button.send-comment:disabled {
+      background: #334155;
+      color: #7dd3fcaa;
+      cursor: not-allowed;
+    }
+
+    /* أزرار التنقل */
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .nav-buttons a {
+      background: var(--button-bg);
+      color: var(--text-accent);
+      padding: 10px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .nav-buttons a:hover {
+      background: var(--button-hover-bg);
+    }
+
+    /* ردود متداخلة */
+    .comment-replies {
+      margin-right: 20px;
+      border-right: 2px solid #334155;
+      padding-right: 12px;
+      margin-top: 6px;
+    }
+
+    /* زر الرد */
+    .reply-btn {
+      background: transparent;
+      border: none;
+      color: var(--link-color);
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      text-decoration: underline;
+    }
+
+    /* زر التصويت */
+    .like-btn {
+      background: transparent;
+      border: none;
+      color: var(--like-color);
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-left: 10px;
+      position: relative;
+      user-select: none;
+      transition: color 0.3s;
+    }
+
+    .like-btn.liked {
+      color: #f87171;
+      text-shadow: 0 0 6px #f87171;
+    }
+
+    /* تأثير القلوب */
+    .heart-effect {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      animation: heart-pop 0.7s forwards;
+      transform-origin: center;
+      z-index: 1000;
+    }
+
+    @keyframes heart-pop {
+      0% {
+        opacity: 1;
+        transform: scale(0.8) translate(-50%, -50%);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(2.5) translate(-50%, -150%);
+      }
+    }
+
+    /* عداد القراءات */
+    #read-count {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* الإشعارات */
+    #notification-area {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      max-width: 300px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid #38bdf8;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #38bdf8aa;
+      color: #a0cfff;
+      font-family: 'Amiri', serif;
+      padding: 15px 20px;
+      display: none;
+      z-index: 15000;
+    }
+
+    #notification-area p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-wrapper">
+      <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <a href="index.html">🏠 الرئيسية</a>
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
+    <a href="follow-me.html">🧬 اشترك</a>
+  </nav>
+
+  <div class="container">
+    <h2 class="story-title">بيلادونا السامة</h2>
+
+    <div id="authButtons">
+      <button id="loginBtn">تسجيل الدخول بـ Google</button>
+      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+      <div id="userInfo"></div>
+    </div>
+
+    <div id="raw-content" style="display:none;">
+~المقدمة~
+
+«كانت مثل البيلادونا تزهر في الظلام لتغري الناظرين بفتنة جمالها الساحر و تخفي بين طياتها سمها القاتل موقعة التائهين على أرض الجنون في فخوخها منتظرة وقت أقامة الحداد على أرواحهم المعذبة بسمومها»
+
+...
+
+(نص المقدمة الكامل هنا كما في الكود السابق)
+
+</div>
+
+    <div id="rendered-content"></div>
+
+    <div id="read-count">عدد القراءات: 0</div>
+
+    <div class="nav-buttons">
+      <a href="#" id="prevBtn">⬅️ البارت السابق</a>
+      <a href="#" id="nextBtn">البارت التالي ➡️</a>
+    </div>
+  </div>
+
+  <footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">
+    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
+  </footer>
+
+  <div id="notification-area"></div>
+
+  <!-- Firebase & Comments Logic -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
+      authDomain: "works-rawan.firebaseapp.com",
+      projectId: "works-rawan",
+      storageBucket: "works-rawan.firebasestorage.app",
+      messagingSenderId: "986254083746",
+      appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const userInfo = document.getElementById("userInfo");
+    const notificationArea = document.getElementById("notification-area");
+    const readCountElem = document.getElementById("read-count");
+
+    let currentUser = null;
+    const partId = "toxic-part-1";
+
+    // --- Authentication ---
+    auth.onAuthStateChanged(user => {
+      currentUser = user;
+      if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;
+        listenForNotifications(user.uid);
+      } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        userInfo.textContent = "";
+        clearNotificationListener();
+      }
+      // Update send buttons enable/disable on auth change
+      updateAllSendButtons();
+      updateAllLikeButtons();
+    });
+
+    loginBtn.onclick = () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(console.error);
+    };
+
+    logoutBtn.onclick = () => auth.signOut();
+
+    function sanitize(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // --- إدارة قراءة البارت (زيادة عداد القراءة مرة واحدة) ---
+    async function incrementReadCount() {
+      const partRef = db.collection("parts").doc(partId);
+      await db.runTransaction(async (t) => {
+        const doc = await t.get(partRef);
+        if (!doc.exists) {
+          t.set(partRef, { readCount: 1, likesCount: 0, likedBy: [] });
+        } else {
+          const current = doc.data().readCount || 0;
+          t.update(partRef, { readCount: current + 1 });
+        }
+      });
+      updateReadCountUI();
+    }
+
+    async function updateReadCountUI() {
+      const partRef = db.collection("parts").doc(partId);
+      const doc = await partRef.get();
+      const count = (doc.exists && doc.data().readCount) || 0;
+      readCountElem.textContent = `عدد القراءات: ${count}`;
+    }
+
+    // --- Render الفقرات + تعليقات مع الردود + أزرار التصويت ---
+    function renderParagraphs(partId = 'toxic-part-1') {
+      const rawContent = document.getElementById('raw-content').textContent.trim();
+      const paragraphs = rawContent.split(/\n\s*\n/);
+      const container = document.getElementById('rendered-content');
+      container.innerHTML = '';
+
+      paragraphs.forEach((text, index) => {
+        const paraId = `${partId}-p-${index + 1}`;
+        const paraDiv = document.createElement('div');
+        paraDiv.className = 'paragraph';
+        paraDiv.id = paraId;
+
+        const p = document.createElement('p');
+        p.innerHTML = sanitize(text.trim());
+        paraDiv.appendChild(p);
+
+        // زر التعليقات والردود
+        const commentBtn = document.createElement('button');
+        commentBtn.textContent = '💬';
+        commentBtn.style.cssText = 'margin-top:10px;background:transparent;border:none;color:#38bdf8;font-size:18px;cursor:pointer';
+        commentBtn.onclick = () => toggleCommentBox(paraId);
+        paraDiv.appendChild(commentBtn);
+
+        // زر التصويت على الفقرة نفسها (لو حابب) - أو نطبق التصويت على التعليقات فقط، هون بنطبق للبارت ككل.
+        // ممكن إضافة زر تصويت عام للبارت أسفل المحتوى إذا بدك.
+
+        // صندوق التعليقات
+        const commentBox = document.createElement('div');
+        commentBox.className = 'comment-box';
+        commentBox.id = `box-${paraId}`;
+        commentBox.style.display = 'none';
+
+        // مكان عرض التعليقات
+        const commentsDiv = document.createElement('div');
+        commentsDiv.className = 'comments';
+        commentBox.appendChild(commentsDiv
+
+        // مكان عرض التعليقات
+        const commentsDiv = document.createElement('div');
+        commentsDiv.className = 'comments';
+        commentBox.appendChild(commentsDiv);
+
+        // حقل الإدخال
+        const textarea = document.createElement('textarea');
+        textarea.placeholder = 'اكتب تعليقك هنا...';
+        commentBox.appendChild(textarea);
+
+        // زر إرسال التعليق
+        const sendBtn = document.createElement('button');
+        sendBtn.textContent = 'إرسال';
+        sendBtn.className = 'send-comment';
+        sendBtn.disabled = !currentUser;
+        sendBtn.onclick = () => sendComment(paraId, textarea.value, null, commentsDiv, textarea, sendBtn);
+        commentBox.appendChild(sendBtn);
+
+        paraDiv.appendChild(commentBox);
+
+        container.appendChild(paraDiv);
+
+        // تحميل التعليقات لهذه الفقرة
+        loadComments(paraId, commentsDiv);
+
+      });
+    }
+
+    // تفعيل/إخفاء صندوق التعليقات
+    function toggleCommentBox(paraId) {
+      const box = document.getElementById(`box-${paraId}`);
+      if (!box) return;
+      if (box.style.display === 'none') {
+        box.style.display = 'block';
+      } else {
+        box.style.display = 'none';
+      }
+    }
+
+    // تحميل التعليقات من Firebase مع ردود متداخلة (up to 4 replies)
+    async function loadComments(paraId, container) {
+      container.innerHTML = '<p>جاري تحميل التعليقات...</p>';
+
+      try {
+        const commentsSnapshot = await db.collection("comments")
+          .where("partId", "==", partId)
+          .where("paragraphId", "==", paraId)
+          .where("parentId", "==", null)
+          .orderBy("createdAt", "asc")
+          .get();
+
+        if (commentsSnapshot.empty) {
+          container.innerHTML = '<p>لا توجد تعليقات بعد.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        commentsSnapshot.forEach(doc => {
+          const data = doc.data();
+          const commentElem = createCommentElement(doc.id, data, 0);
+          container.appendChild(commentElem);
+        });
+
+      } catch (err) {
+        container.innerHTML = `<p>حدث خطأ في تحميل التعليقات.</p>`;
+        console.error(err);
+      }
+    }
+
+    // إنشاء عنصر تعليق مع زر الرد والردود المتداخلة (حتى 4 فقط)
+    function createCommentElement(commentId, data, level) {
+      const div = document.createElement('div');
+      div.style.marginRight = `${level * 20}px`;
+      div.style.marginTop = '8px';
+      div.style.borderRight = level > 0 ? '2px solid #334155' : 'none';
+      div.style.paddingRight = '10px';
+
+      const author = document.createElement('b');
+      author.textContent = sanitize(data.authorName || 'مجهول');
+      div.appendChild(author);
+
+      const text = document.createElement('p');
+      text.style.margin = '4px 0 4px 0';
+      text.innerHTML = sanitize(data.text);
+      div.appendChild(text);
+
+      // زر الرد
+      const replyBtn = document.createElement('button');
+      replyBtn.textContent = 'رد';
+      replyBtn.className = 'reply-btn';
+      replyBtn.onclick = () => openReplyBox(commentId, div, level);
+      div.appendChild(replyBtn);
+
+      // قسم الردود
+      const repliesDiv = document.createElement('div');
+      repliesDiv.className = 'comment-replies';
+      div.appendChild(repliesDiv);
+
+      // تحميل الردود (حتى 4 فقط)
+      db.collection("comments")
+        .where("parentId", "==", commentId)
+        .orderBy("createdAt", "asc")
+        .limit(4)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            const replyData = doc.data();
+            const replyElem = createCommentElement(doc.id, replyData, level + 1);
+            repliesDiv.appendChild(replyElem);
+          });
+
+          // زر عرض المزيد إذا في ردود أكثر
+          db.collection("comments")
+            .where("parentId", "==", commentId)
+            .get()
+            .then(allReplies => {
+              if (allReplies.size > 4) {
+                const moreBtn = document.createElement('button');
+                moreBtn.textContent = 'عرض المزيد';
+                moreBtn.className = 'reply-btn';
+                moreBtn.style.marginTop = '4px';
+                moreBtn.onclick = () => {
+                  moreBtn.style.display = 'none';
+                  loadMoreReplies(commentId, repliesDiv, level + 1, 4);
+                };
+                div.appendChild(moreBtn);
+              }
+            });
+        });
+
+      return div;
+    }
+
+    // تحميل المزيد من الردود (pagination)
+    function loadMoreReplies(parentId, container, level, offset) {
+      db.collection("comments")
+        .where("parentId", "==", parentId)
+        .orderBy("createdAt", "asc")
+        .startAfter(offset)
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            const elem = createCommentElement(doc.id, data, level);
+            container.appendChild(elem);
+          });
+        });
+    }
+
+    // فتح صندوق الرد على تعليق معين
+    function openReplyBox(parentId, parentElem, level) {
+      // منع تكرار الصناديق
+      if (parentElem.querySelector('.reply-box')) return;
+
+      const replyBox = document.createElement('div');
+      replyBox.className = 'comment-box reply-box';
+      replyBox.style.marginTop = '6px';
+
+      const textarea = document.createElement('textarea');
+      textarea.placeholder = 'اكتب ردك هنا...';
+      replyBox.appendChild(textarea);
+
+      const sendBtn = document.createElement('button');
+      sendBtn.textContent = 'إرسال الرد';
+      sendBtn.className = 'send-comment';
+      sendBtn.disabled = !currentUser;
+      sendBtn.onclick = () => {
+        const text = textarea.value.trim();
+        if (!text) return alert('الرد لا يمكن أن يكون فارغاً');
+        sendReply(parentId, text, replyBox, sendBtn, parentElem);
+      };
+      replyBox.appendChild(sendBtn);
+
+      parentElem.appendChild(replyBox);
+    }
+
+    // إرسال تعليق جديد
+    async function sendComment(paraId, text, parentId = null, commentsDiv, textarea, sendBtn) {
+      if (!currentUser) {
+        alert('يجب تسجيل الدخول أولاً.');
+        return;
+      }
+      text = text.trim();
+      if (!text) {
+        alert('التعليق لا يمكن أن يكون فارغاً.');
+        return;
+      }
+
+      sendBtn.disabled = true;
+
+      try {
+        await db.collection("comments").add({
+          partId: partId,
+          paragraphId: paraId,
+          parentId: parentId,
+          authorId: currentUser.uid,
+          authorName: currentUser.displayName || currentUser.email,
+          text: text,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        textarea.value = '';
+        loadComments(paraId, commentsDiv);
+      } catch (err) {
+        alert('حدث خطأ أثناء إرسال التعليق.');
+        console.error(err);
+      }
+
+      sendBtn.disabled = false;
+    }
+
+    // إرسال رد
+    async function sendReply(parentId, text, replyBox, sendBtn, parentElem) {
+      if (!currentUser) {
+        alert('يجب تسجيل الدخول أولاً.');
+        return;
+      }
+      text = text.trim();
+      if (!text) {
+        alert('الرد لا يمكن أن يكون فارغاً.');
+        return;
+      }
+
+      sendBtn.disabled = true;
+
+      try {
+        await db.collection("comments").add({
+          partId: partId,
+          paragraphId: null,
+          parentId: parentId,
+          authorId: currentUser.uid,
+          authorName: currentUser.displayName || currentUser.email,
+          text: text,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        replyBox.remove();
+
+        // إعادة تحميل تعليقات الفقرة بالكامل
+        const paraId = document.getElementById(parentElem.id).id || null;
+        if (paraId) {
+          const paraDiv = document.getElementById(paraId);
+          const box = paraDiv ? document.getElementById(`box-${paraId}`) : null;
+          if (box) {
+            const commentsDiv = box.querySelector('.comments');
+            loadComments(paraId, commentsDiv);
+          }
+        }
+      } catch (err) {
+        alert('حدث خطأ أثناء إرسال الرد.');
+        console.error(err);
+      }
+
+      sendBtn.disabled = false;
+
+      // إرسال إشعار لصاحب التعليق الأصلي (لو مش نفس الشخص)
+      notifyOriginalAuthor(parentId, currentUser.uid, text);
+    }
+
+    // --- التصويت على البارت ---
+    const likeBtn = document.createElement('button');
+    likeBtn.className = 'like-btn';
+    likeBtn.title = 'صوّت للبارت';
+    likeBtn.innerHTML = '❤';
+    likeBtn.style.fontSize = '28px';
+    likeBtn.style.marginTop = '20px';
+    likeBtn.style.display = 'block';
+    likeBtn.style.marginLeft = 'auto';
+    likeBtn.style.marginRight = 'auto';
+    likeBtn.disabled = true; // افتراضي معطل حتى تسجيل الدخول
+
+    document.querySelector('.container').appendChild(likeBtn);
+
+    likeBtn.onclick = async () => {
+      if (!currentUser) return alert('يجب تسجيل الدخول أولاً.');
+      await toggleLike();
+    };
+
+    async function toggleLike() {
+      const partRef = db.collection("parts").doc(partId);
+      const doc = await partRef.get();
+      if (!doc.exists) {
+        await partRef.set({
+          likesCount: 0,
+          likedBy: []
+        });
+      }
+
+      const data = (await partRef.get()).data();
+      let likedBy = data.likedBy || [];
+      const userIndex = likedBy.indexOf(currentUser.uid);
+
+      if (userIndex === -1) {
+        likedBy.push(currentUser.uid);
+        likeBtn.classList.add('liked');
+        createHeartEffect(likeBtn);
+      } else {
+        likedBy.splice(userIndex, 1);
+        likeBtn.classList.remove('liked');
+      }
+
+      await partRef.update({
+        likedBy: likedBy,
+        likesCount: likedBy.length
+      });
+
+      updateLikeUI(likedBy.length);
+    }
+
+    async function updateLikeUI(count) {
+      // نعرض عدد المصوتين أسفل الزر أو مكان مخصص
+      if (!document.getElementById('likes-count')) {
+        const likeCountElem = document.createElement('div');
+        likeCountElem.id = 'likes-count';
+        likeCountElem.style.color = '#f87171';
+        likeCountElem.style.textAlign = 'center';
+        likeCountElem.style.marginTop = '6px';
+        document.querySelector('.container').appendChild(likeCountElem);
+      }
+      document.getElementById('likes-count').textContent = `عدد المصوتين: ${count}`;
+    }
+
+    function createHeartEffect(button) {
+      const heart = document.createElement('span');
+      heart.className = 'heart-effect';
+      heart.textContent = '❤';
+      const rect = button.getBoundingClientRect();
+      heart.style.top = '50%';
+      heart.style.left = '50%';
+      button.appendChild(heart);
+      setTimeout(() => heart.remove(), 700);
+    }
+
+    // تحديث أزرار الإرسال والتصويت عند تسجيل الدخول أو الخروج
+    function updateAllSendButtons() {
+      const sendBtns = document.querySelectorAll('.send-comment');
+      sendBtns.forEach(btn => {
+        btn.disabled = !currentUser;
+      });
+    }
+
+    function updateAllLikeButtons() {
+      likeBtn.disabled = !currentUser;
+      if (!currentUser) likeBtn.classList.remove('liked');
+    }
+
+    // --- الإشعارات عند الردود ---
+    let notificationsListenerUnsubscribe = null;
+
+    function listenForNotifications(uid) {
+      if (notificationsListenerUnsubscribe) notificationsListenerUnsubscribe();
+
+      notificationsListenerUnsubscribe = db.collection("notifications")
+        .where("userId", "==", uid)
+        .where("read", "==", false)
+        .onSnapshot(snapshot => {
+          snapshot.docChanges().forEach(change => {
+            if (change.type === "added") {
+              const notif = change.doc.data();
+              showNotification(notif.message);
+              // علم الإشعار بأنه مقروء
+              db.collection("notifications").doc(change.doc.id).update({ read: true });
+            }
+          });
+        });
+    }
+
+    function clearNotificationListener() {
+      if (notificationsListenerUnsubscribe) {
+        notificationsListenerUnsubscribe();
+        notificationsListenerUnsubscribe = null;
+      }
+    }
+
+    function showNotification(message) {
+      notificationArea.textContent = message;
+      notificationArea.style.display = 'block';
+      setTimeout(() => {
+        notificationArea.style.display = 'none';
+      }, 6000);
+    }
+
+    // إرسال إشعار لصاحب التعليق الأصلي عند الرد
+    async function notifyOriginalAuthor(commentId, replierUid, replyText) {
+      try {
+        const commentDoc = await db.collection("comments").doc(commentId).get();
+        if (!commentDoc.exists) return;
+
+        const commentData = commentDoc.data();
+        const originalAuthorUid = commentData.authorId;
+
+        if (!originalAuthorUid || originalAuthorUid === replierUid) return; // لا تنبه نفسك!
+
+        const message = `لديك رد جديد على تعليقك: "${replyText.slice(0, 50)}..."`;
+
+        await db.collection("notifications").add({
+          userId: originalAuthorUid,
+          message: message,
+          read: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+      } catch (err) {
+        console.error('خطأ في إرسال الإشعار:', err);
+      }
+    }
+
+    // عرض النص الأصلي مع تجزئة إلى فقرات مع تعليقات وزر تعليق لكل فقرة
+    function init() {
+      renderParagraphs();
+      incrementReadCount();
+      updateReadCountUI();
+      updateLikeUI(0);
+    }
+
+    // بدء التطبيق بعد تحميل الصفحة
+    window.onload = () => {
+      init();
+    };
+
+  </script>
+</body>
+</html>                             
