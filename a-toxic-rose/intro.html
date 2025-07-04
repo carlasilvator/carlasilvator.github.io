@@ -1,540 +1,895 @@
-<!DOCTYPE html>    
-<html lang="ar" dir="rtl">    
-<head>    
-  <meta charset="UTF-8" />    
-  <meta name="viewport" content="width=device-width, initial-scale=1" />    
-  <title>بارت - Toxic Rose</title>    
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">    
-  <style>    
-    :root {    
-      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);    
-      --star-color: rgba(0, 191, 255, 0.08);    
-      --text-primary: #cfefff;    
-      --text-secondary: #7dd3fc;    
-      --text-accent: #38bdf8;    
-      --link-color: #60a5fa;    
-      --link-hover-color: #93c5fd;    
-      --button-bg: #0f172a;    
-      --button-hover-bg: #1e293b;    
-      --glow-color: #3b82f6;    
-    }    
+<!DOCTYPE html>      
+<html lang="ar" dir="rtl">      
+<head>      
+  <meta charset="UTF-8" />      
+  <meta name="viewport" content="width=device-width, initial-scale=1" />      
+  <title>بارت - Toxic Rose</title>      
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">      
+  <style>      
+    :root {      
+      --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);      
+      --star-color: rgba(0, 191, 255, 0.08);      
+      --text-primary: #cfefff;      
+      --text-secondary: #7dd3fc;      
+      --text-accent: #38bdf8;      
+      --link-color: #60a5fa;      
+      --link-hover-color: #93c5fd;      
+      --button-bg: #0f172a;      
+      --button-hover-bg: #1e293b;      
+      --glow-color: #3b82f6;      
+    }      
+      
+    html { scroll-behavior: smooth; }      
+    body {      
+      margin: 0;      
+      font-family: 'Amiri', serif;      
+      background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);      
+      background-size: 400% 400%;      
+      animation: spaceWave 60s ease infinite;      
+      color: var(--text-primary);      
+      overflow-x: hidden;      
+      min-height: 100vh;      
+      position: relative;      
+    }      
+      
+    body::before {      
+      content: "";      
+      position: fixed;      
+      top: 0; left: 0; right: 0; bottom: 0;      
+      pointer-events: none;      
+      z-index: 0;      
+      background-image:      
+        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),      
+        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),      
+        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),      
+        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);      
+      background-size: 250px 250px;      
+      animation: starsGlitter 120s linear infinite;      
+    }      
+      
+    @keyframes spaceWave {      
+      0% { background-position: 0% 50%; }      
+      50% { background-position: 100% 50%; }      
+      100% { background-position: 0% 50%; }      
+    }      
+      
+    @keyframes starsGlitter {      
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }      
+      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }      
+    }      
+      
+    header {      
+      width: 100%;      
+      background: rgba(2, 6, 23, 0.9);      
+      border-bottom: 2px solid var(--glow-color);      
+      box-shadow: 0 0 15px var(--glow-color);      
+      backdrop-filter: blur(6px);      
+      text-align: center;      
+      position: relative;      
+      z-index: 10000;      
+      padding: 0;      
+    }      
+      
+    .logo-wrapper img {      
+      width: 100%;      
+      height: auto;      
+      display: block;      
+      object-fit: cover;      
+      max-height: 240px;      
+    }      
+      
+    .main-nav {      
+      display: flex;      
+      overflow-x: auto;      
+      white-space: nowrap;      
+      padding: 8px 10px;      
+      background: rgba(2, 6, 23, 0.9);      
+      border-top: 1px solid var(--glow-color);      
+      border-bottom: 2px solid var(--glow-color);      
+      box-shadow: 0 0 10px var(--glow-color);      
+    }      
+      
+    .main-nav a {      
+      display: inline-block;      
+      color: var(--link-color);      
+      padding: 8px 14px;      
+      text-decoration: none;      
+      font-weight: bold;      
+      font-size: 15px;      
+      margin-right: 10px;      
+      white-space: nowrap;      
+      transition: color 0.3s, text-shadow 0.3s;      
+      flex-shrink: 0;      
+    }      
+      
+    .main-nav a:hover {      
+      color: var(--link-hover-color);      
+      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);      
+      text-decoration: underline;      
+    }      
+      
+    .container {      
+      max-width: 760px;      
+      margin: 40px auto;      
+      background: rgba(2, 6, 23, 0.6);      
+      border-radius: 15px;      
+      padding: 28px 22px 80px;      
+      box-shadow: 0 0 25px var(--glow-color);      
+      position: relative;      
+      z-index: 10;  
+      overflow: visible;  
+    }      
+      
+    .story-title {      
+      text-align: center;      
+      font-size: 1.8rem;      
+      color: var(--text-secondary);      
+      margin-bottom: 30px;      
+      text-shadow: 0 0 12px var(--text-secondary);      
+    }      
     
-    html { scroll-behavior: smooth; }    
-    body {    
-      margin: 0;    
+    /* تعليقات */    
+    .comment-box {    
+      background: rgba(15, 23, 42, 0.9);    
+      border: 1.5px solid #38bdf8;    
+      border-radius: 12px;    
+      padding: 12px 14px 10px;    
+      margin-top: 8px;    
+      box-shadow: 0 0 10px #38bdf8aa;    
       font-family: 'Amiri', serif;    
-      background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);    
-      background-size: 400% 400%;    
-      animation: spaceWave 60s ease infinite;    
-      color: var(--text-primary);    
-      overflow-x: hidden;    
-      min-height: 100vh;    
-      position: relative;    
     }    
-    
-    body::before {    
-      content: "";    
-      position: fixed;    
-      top: 0; left: 0; right: 0; bottom: 0;    
-      pointer-events: none;    
-      z-index: 0;    
-      background-image:    
-        radial-gradient(circle at 20% 30%, rgba(255, 180, 255, 0.3) 2px, transparent 3px),    
-        radial-gradient(circle at 50% 60%, rgba(255, 200, 255, 0.2) 1.5px, transparent 2px),    
-        radial-gradient(circle at 80% 40%, rgba(255, 160, 255, 0.25) 2.5px, transparent 3px),    
-        radial-gradient(circle at 70% 80%, rgba(255, 220, 255, 0.18) 1.8px, transparent 2px);    
-      background-size: 250px 250px;    
-      animation: starsGlitter 120s linear infinite;    
+    .comments {    
+      max-height: 150px;    
+      overflow-y: auto;    
+      margin-bottom: 12px;    
+      border-bottom: 1px solid #334155;    
+      padding-bottom: 8px;    
+      color: #a0cfff;    
     }    
-    
-    @keyframes spaceWave {    
-      0% { background-position: 0% 50%; }    
-      50% { background-position: 100% 50%; }    
-      100% { background-position: 0% 50%; }    
+    .comments div {    
+      margin-bottom: 10px;    
+      word-break: break-word;    
     }    
-    
-    @keyframes starsGlitter {    
-      0% { background-position: 0 0, 0 0, 0 0, 0 0; }    
-      100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }    
+    .comments b {    
+      color: #7dd3fc;    
     }    
-    
-    header {    
+    textarea {    
       width: 100%;    
-      background: rgba(2, 6, 23, 0.9);    
-      border-bottom: 2px solid var(--glow-color);    
-      box-shadow: 0 0 15px var(--glow-color);    
-      backdrop-filter: blur(6px);    
-      text-align: center;    
-      position: relative;    
-      z-index: 10000;    
-      padding: 0;    
-    }    
-    
-    .logo-wrapper img {    
-      width: 100%;    
-      height: auto;    
-      display: block;    
-      object-fit: cover;    
-      max-height: 240px;    
-    }    
-    
-    .main-nav {    
-      display: flex;    
-      overflow-x: auto;    
-      white-space: nowrap;    
+      font-family: 'Amiri', serif;    
+      font-size: 1rem;    
+      border-radius: 8px;    
+      border: 1px solid #38bdf8;    
+      background: #020611;    
+      color: #cfefff;    
       padding: 8px 10px;    
-      background: rgba(2, 6, 23, 0.9);    
-      border-top: 1px solid var(--glow-color);    
-      border-bottom: 2px solid var(--glow-color);    
-      box-shadow: 0 0 10px var(--glow-color);    
+      resize: vertical;    
+      min-height: 60px;    
+      transition: border-color 0.3s;    
     }    
-    
-    .main-nav a {    
-      display: inline-block;    
-      color: var(--link-color);    
-      padding: 8px 14px;    
-      text-decoration: none;    
+    textarea:focus {    
+      outline: none;    
+      border-color: #7dd3fc;    
+    }    
+    button.send-comment {    
+      background: #0f172a;    
+      color: #7dd3fc;    
+      border: none;    
+      padding: 10px 16px;    
+      border-radius: 10px;    
+      cursor: pointer;    
       font-weight: bold;    
-      font-size: 15px;    
-      margin-right: 10px;    
-      white-space: nowrap;    
-      transition: color 0.3s, text-shadow 0.3s;    
-      flex-shrink: 0;    
+      font-family: 'Amiri', serif;    
+      transition: background-color 0.3s, color 0.3s;    
     }    
-    
-    .main-nav a:hover {    
-      color: var(--link-hover-color);    
-      text-shadow: 0 0 5px var(--link-hover-color), 0 0 15px var(--link-hover-color);    
-      text-decoration: underline;    
-    }    
-    
-    .container {    
-      max-width: 760px;    
-      margin: 40px auto;    
-      background: rgba(2, 6, 23, 0.6);    
-      border-radius: 15px;    
-      padding: 28px 22px 80px;    
-      box-shadow: 0 0 25px var(--glow-color);    
-      position: relative;    
-      z-index: 10;    
-    }    
-    
-    .story-title {    
-      text-align: center;    
-      font-size: 1.8rem;    
-      color: var(--text-secondary);    
-      margin-bottom: 30px;    
-      text-shadow: 0 0 12px var(--text-secondary);    
-    }    
+    button.send-comment:disabled {    
+      background: #334155;    
+      color: #7dd3fcaa;    
+      cursor: not-allowed;    
+    }   
   
-    /* تعليقات */  
-    .comment-box {  
-      background: rgba(15, 23, 42, 0.9);  
-      border: 1.5px solid #38bdf8;  
-      border-radius: 12px;  
-      padding: 12px 14px 10px;  
-      margin-top: 8px;  
-      box-shadow: 0 0 10px #38bdf8aa;  
-      font-family: 'Amiri', serif;  
+    #authButtons button {  
+  background: var(--button-bg);  
+  color: var(--text-accent);  
+  border: none;  
+  padding: 10px 18px;  
+  border-radius: 10px;  
+  font-weight: bold;  
+  font-family: 'Amiri', serif;  
+  cursor: pointer;  
+  margin: 6px;  
+  transition: background 0.3s;  
+}  
+#authButtons button:hover {  
+  background: var(--button-hover-bg);  
+}  
+  
+#userInfo {  
+  margin-top: 10px;  
+  font-size: 0.95rem;  
+  color: var(--text-secondary);  
+  background: rgba(255,255,255,0.05);  
+  padding: 8px 12px;  
+  border-radius: 8px;  
+  display: inline-block;  
+}  
+    
+    /* أزرار التنقل */    
+    .nav-buttons {    
+      display: flex;    
+      justify-content: space-between;    
+      margin-top: 40px;    
+    }    
+    .nav-buttons a {  
+  background: linear-gradient(135deg, #0f172a, #1e293b);  
+  color: var(--text-accent);  
+  padding: 10px 18px;  
+  border-radius: 10px;  
+  text-decoration: none;  
+  font-weight: bold;  
+  transition: background 0.3s;  
+  border: 1px solid var(--glow-color);  
+  box-shadow: 0 0 12px #38bdf855;  
+}  
+.nav-buttons a:hover {  
+  background: var(--button-hover-bg);  
+}   
+  
+    /* سحابة التعليقات تظهر على اليسار وتغطي جزء من الشاشة */  
+.comment-box-overlay {  
+  position: fixed;  
+  top: 80px;  
+  left: 0;  
+  width: 320px;  
+  max-height: 85vh;  
+  overflow-y: auto;  
+  background: rgba(15, 23, 42, 0.95);  
+  border: 2px solid #38bdf8;  
+  border-radius: 0 12px 12px 0;  
+  padding: 16px;  
+  box-shadow: 6px 0 20px #38bdf8aa;  
+  z-index: 9999;  
+  display: none;  
+  transition: transform 0.3s ease;  
+}  
+  
+/* زر إغلاق السحابة */  
+.comment-box-overlay .close-btn {  
+  background: transparent;  
+  border: none;  
+  color: #7dd3fc;  
+  font-size: 22px;  
+  font-weight: bold;  
+  cursor: pointer;  
+  position: absolute;  
+  top: 10px;  
+  right: 12px;  
     }  
-    .comments {  
-      max-height: 150px;  
-      overflow-y: auto;  
-      margin-bottom: 12px;  
-      border-bottom: 1px solid #334155;  
-      padding-bottom: 8px;  
-      color: #a0cfff;  
-    }  
-    .comments div {  
-      margin-bottom: 10px;  
-      word-break: break-word;  
-    }  
-    .comments b {  
-      color: #7dd3fc;  
-    }  
-    textarea {  
-      width: 100%;  
-      font-family: 'Amiri', serif;  
-      font-size: 1rem;  
-      border-radius: 8px;  
-      border: 1px solid #38bdf8;  
-      background: #020611;  
-      color: #cfefff;  
-      padding: 8px 10px;  
-      resize: vertical;  
-      min-height: 60px;  
-      transition: border-color 0.3s;  
-    }  
-    textarea:focus {  
-      outline: none;  
-      border-color: #7dd3fc;  
-    }  
-    button.send-comment {  
-      background: #0f172a;  
-      color: #7dd3fc;  
-      border: none;  
-      padding: 10px 16px;  
-      border-radius: 10px;  
-      cursor: pointer;  
-      font-weight: bold;  
-      font-family: 'Amiri', serif;  
-      transition: background-color 0.3s, color 0.3s;  
-    }  
-    button.send-comment:disabled {  
-      background: #334155;  
-      color: #7dd3fcaa;  
-      cursor: not-allowed;  
-    } 
-
-    #authButtons button {
-  background: var(--button-bg);
-  color: var(--text-accent);
+    @media (max-width: 600px) {  
+  .comment-box-overlay {  
+    width: 100%;  
+    border-radius: 0;  
+    left: 0;  
+  }  
+  }  
+  
+    #voteBar {  
+  position: fixed;  
+  bottom: 15px;  
+  right: 20px;  
+  background: rgba(15, 23, 42, 0.9);  
+  padding: 10px 14px;  
+  border-radius: 16px;  
+  box-shadow: 0 0 15px #38bdf8aa;  
+  z-index: 10000;  
+  display: flex;  
+  align-items: center;  
+  gap: 12px;  
+}  
+  
+#voteBtn {  
+  font-size: 22px;  
+  background: none;  
+  border: none;  
+  color: #f87171;  
+  cursor: pointer;  
+  transition: transform 0.3s;  
+}  
+  
+#voteBtn:hover {  
+  transform: scale(1.2);  
+}  
+  
+#voteCount {  
+  font-family: 'Amiri', serif;  
+  font-size: 0.95rem;  
+  color: #7dd3fc;  
+}  
+  
+#heartExplosion {  
+  position: fixed;  
+  top: 0; left: 0; right: 0; bottom: 0;  
+  pointer-events: none;  
+  z-index: 9999;  
+      }  
+    .comment-box.reply {
+  font-family: 'Amiri', serif;
+  background-color: rgba(15, 23, 42, 0.85);
+  border-left: 3px solid #7dd3fc;
+  margin-top: 6px;
+  color: #a0cfff;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+.reply-btn {
+  background: none;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
+  color: #38bdf8;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+.reply-btn:hover {
+  text-decoration: underline;
+}
+.send-comment {
+  background: #0f172a;
+  color: #7dd3fc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
   font-weight: bold;
   font-family: 'Amiri', serif;
-  cursor: pointer;
-  margin: 6px;
-  transition: background 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
-#authButtons button:hover {
-  background: var(--button-hover-bg);
+.send-comment:hover {
+  background-color: #1e293b;
+} 
+      
+  </style>      
+</head>      
+      
+<body>  
+  <header>      
+    <div class="logo-wrapper">      
+      <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />      
+    </div>      
+  </header>      
+      
+  <nav class="main-nav">      
+    <a href="index.html">🏠 الرئيسية</a>      
+    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>      
+    <a href="follow-me.html">🧬 اشترك</a>      
+  </nav>      
+      
+  <div class="container">      
+    <h2 class="story-title">بيلادونا السامة</h2>      
+      
+    <div id="authButtons">      
+      <button id="loginBtn">تسجيل الدخول بـ Google</button>      
+      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>      
+      <div id="userInfo"></div>      
+    </div>      
+      
+    <div id="raw-content" style="display:none;">      
+          
+~المقدمة~    
+    
+«كانت مثل البيلادونا تزهر في الظلام لتغري الناظرين بفتنة جمالها الساحر و تخفي بين طياتها سمها القاتل موقعة التائهين على أرض الجنون في فخوخها منتظرة وقت أقامة الحداد على أرواحهم المعذبة بسمومها»    
+    
+    
+    
+أهلاً بك في أرض الجنون    
+يا من قررت بحماقة لذيذة أن تفتح روايتي    
+حيث المنطق يذبح و العُقلاء يؤكلون اولاً..    
+    
+    
+    
+    
+    
+أن كنت قارئ بتفكير أجرامي و سايكو فـ رح تكون طبق التحلية على مائدتي لأن عقلك سيكون الألذ طعماً     
+    
+    
+شدوا الأحزمة     
+أو لا تفعلوا     
+لكن لا تلوموني بعد سقوطكم     
+    
+    
+لا تثق بأحد فكل شخصية هنا هي شيطان متنكر..    
+لا بطل ينقذ    
+و لا بطلة تبكي     
+لا ضحية الكل مذنب    
+حتى أنت لأنك ستقرأ كل هذا الشر     
+لأنك ستتأثر به     
+أعلم هذا جيداً فأنا المخرجة كل شيء يسير حسب رغبتي وحدي    
+    
+    
+دعني أعطيك دورك ياعزيزي أنت الشاهد؟..    
+    
+لا أسفة خليني أصحح أنت شاهد و مشارك رغماً عنك  في حرب لا قانون يحكمها بين هذه الشياطين، حرب العشق و السلطة جنون الهوس و الخيانات العظمى..     
+    
+    
+    
+    
+و يا أرواحي الشفقية أحذركم من زهرتي السامة لا تدعوها تسحركم و تقيم الحداد على أرواحكم المفتونة    
+لا تقتربوا    
+لا تنخدعوا     
+و لا تقعوا بحبها    
+إلا أن رغبتم بأن تدفنوا أحياء هذا يعود لكم...     
+    
+    
+    
+    
+حتى أن لم ترغب بالسقوط يؤسفني    
+أنك ستقع بالتأكيد..     
+الجميع يقع.     
+بينما أنا أشاهدكم بأبتسامة    
+    
+و كل هذا السقوط يجعلني اسأل هل البطلة تستحق ان تقعوا بحبها و تدفنوا أحياء لأجلها؟    
+    
+أم أنكم ستكرهونها في النهاية و تندمون؟    
+    
+دعوني أعرفكم على نفسي أنا آثير.. عنقاء الموت لست كاتبة أنا المخرجة الشريرة التي صنعت هذه المجزرة العاطفية    
+    
+و كما يقولون أنا لست فنانة انا الفن السوداوي    
+    
+و هذه هي زهرتي السامة روايتي الأولى من سلسلة     
+_أبتسم أيها الشيطان..     
+    
+الشيطان سيبتسم في النهاية لأنتصاره و هذه الكاتبة ستصفق له بحرارة    
+    
+    
+    
+    
+    
+    
+    
+    
+ملاحظات قبل البدء برحلة الهلاك:    
+    
+•الرواية قد لا تناسب البعض لأحتوائها على تفاصيل دموية مفصلة و مشاهد حادة    
+    
+•التصنيف: أكشن_غموض_ نفسي_خيال علمي _دموي _Dark romance دارك رومانس    
+    
+من أعداء إلى أحباء ⟵ ثم من أحباء إلى أعداء     
+    
+     
+•التنزيل حسب التفاعل ركزوا على هذه النقطة    
+    
+    
+•ان كنت تبحث عن رواية بعوالم وردية لطيفة فقد أخطأت العنوان كل ما يوجد هنا هو ورد سام بألوان زاهية لكنه قاتل     
+لذا أخرج أن لم تكن من محبي الموت     
+على أيدي كاتبة مهووسة بأكل عقول القراء    
+    
+    
+    
+•المشاهد الجنسية غير موجودة أنا أرقى بكثير من هذا المستوى المتدني     
+    
+•الأنتقاد مقبول لكن بأحترام هذه روايتي مو مطعم طلبات يلبي رغباتك لذا لا تلبس قناع المهرج المتنكر بثوب الناقد أتفقنا؟    
+    
+•جميع الحقوق محفوظة لي و الأقتباس دون أذني هو فعل غبي جداً لأنني سأمسح بكرامتك الأراضي و سأبدء بـ يا عزيزي و أختمها بقبلات حارة على جثة كرامتك القذرة    
+    
+    
+ڤولا يا أرواح الشفق و لا تنسوا أنا حذرتكم    
+أن كنت عاقل فأهرب     
+و أن بقيت فأهلاً بك يسرني ان أبدأ بالتخطيط لرسم حبكة ستطبخ عقلك قبل وضعه هلى مائدتي    
+    
+بدأت في: 27 أكتوبر /عام 2024    
+    
+تاريخ الأنتهاء: حينما تصبح مهووساً    
+باللعنات التي أكتبها     
+الضحية أنت     
+المذنبة انا التي تعشق أكل عقول القراء    
+    
+    </div>      
+      
+    <div id="rendered-content"></div>      
+      
+       <div class="nav-buttons">   
+      <a href="#" id="prevBtn">⬅️ البارت السابق</a>      
+      <a href="#" id="nextBtn">البارت التالي ➡️</a>      
+    </div>      
+  </div>      
+<footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">  
+  حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025  
+</footer>  
+  
+<div id="actionBar" style="  
+  position: fixed;   
+  bottom: 0;   
+  width: 100%;   
+  background: #0f172a;   
+  color: #7dd3fc;   
+  font-family: 'Amiri', serif;   
+  display: flex;   
+  justify-content: center;   
+  gap: 30px;   
+  padding: 10px 0;   
+  border-top: 1px solid #38bdf8;   
+  z-index: 9999;">  
+  <button id="voteBtn" style="background:none; border:none; color:#e0245e; font-size: 24px; cursor: pointer;">❤️</button>  
+  <span id="voteCount">0 تصويت</span>  
+  <span id="readCount">0 قراءة</span>  
+  <span id="commentCount">0 تعليق</span>  
+</div>  
+  
+<!-- قلوب التصويت المتفجرة -->  
+<div id="heartExplosion" style="position: fixed; bottom: 60px; left: 0; width: 100%; height: 0; pointer-events: none; z-index: 9998;"></div>  
+
+  <!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script>
+// 🔥 إعداد Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
+  authDomain: "works-rawan.firebaseapp.com",
+  projectId: "works-rawan",
+  storageBucket: "works-rawan.appspot.com",  // ✅ كان عندك .app بدل .com (خطأ)
+  messagingSenderId: "986254083746",
+  appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let currentUser = null;
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const userInfo = document.getElementById("userInfo");
+
+auth.onAuthStateChanged(user => {
+  currentUser = user;
+  if (user) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;
+  } else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    userInfo.textContent = "";
+  }
+});
+
+loginBtn.onclick = () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(console.error);
+};
+logoutBtn.onclick = () => auth.signOut();
+
+// 💬 توليد الفقرات وتعليقاتها
+function renderParagraphs(partId) {
+  const raw = document.getElementById("raw-content").innerText.trim();
+  const container = document.getElementById("rendered-content");
+  container.innerHTML = "";
+
+  const paragraphs = raw.split(/\n\s*\n/);
+
+  paragraphs.forEach((text, index) => {
+    const paraId = `${partId}-paragraph-${index + 1}`;  // ✅ ربط معرف الفقرة مع partId
+
+    const wrapper = document.createElement("div");
+    wrapper.style.position = "relative";
+    wrapper.style.paddingRight = "40px";
+    wrapper.style.marginBottom = "28px";
+
+    const commentBtn = document.createElement("button");
+    commentBtn.textContent = "💬";
+    commentBtn.style.cssText = `
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #7dd3fc;
+    `;
+    commentBtn.onclick = () => openCommentBox(paraId);
+
+    const p = document.createElement("div");
+    p.id = paraId;
+    p.textContent = text.trim();
+    p.style.cssText = `
+      font-size: 1.05rem;
+      line-height: 1.9;
+      font-family: 'Amiri', serif;
+      color: #cfefff;
+      white-space: pre-line;
+    `;
+
+    wrapper.appendChild(commentBtn);
+    wrapper.appendChild(p);
+    container.appendChild(wrapper);
+  });
 }
 
-#userInfo {
-  margin-top: 10px;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  background: rgba(255,255,255,0.05);
-  padding: 8px 12px;
-  border-radius: 8px;
-  display: inline-block;
+// 💬 عرض صندوق التعليق
+function openCommentBox(paragraphId) {
+  const overlay = document.createElement("div");
+  overlay.className = "comment-box-overlay";
+  overlay.innerHTML = `
+    <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+    <div class="comments" id="comments-${paragraphId}">جاري تحميل التعليقات...</div>
+    <textarea placeholder="اكتب تعليقك هنا..." id="textarea-${paragraphId}"></textarea>
+    <button class="send-comment" onclick="sendComment('${paragraphId}')">إرسال</button>
+  `;
+  document.body.appendChild(overlay);
+
+  const commentsContainer = overlay.querySelector(`#comments-${paragraphId}`);
+  db.collection("comments")
+    .where("paragraphId", "==", paragraphId)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      commentsContainer.innerHTML = "";
+      if (snapshot.empty) {
+        commentsContainer.innerHTML = "<div>لا توجد تعليقات بعد.</div>";
+      } else {
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const div = document.createElement("div");
+          div.innerHTML = `<b>${data.user || "مجهول"}:</b> ${data.text}`;
+          commentsContainer.appendChild(div);
+        });
+      }
+    });
+
+  
+// تعديل دالة عرض التعليقات لعرض زر الرد وحاوية الردود
+function openCommentBox(paragraphId) {
+  const overlay = document.createElement("div");
+  overlay.className = "comment-box-overlay";
+  overlay.innerHTML = `
+    <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+    <div class="comments" id="comments-${paragraphId}">جاري تحميل التعليقات...</div>
+    <textarea placeholder="اكتب تعليقك هنا..." id="textarea-${paragraphId}"></textarea>
+    <button class="send-comment" onclick="sendComment('${paragraphId}')">إرسال</button>
+  `;
+  document.body.appendChild(overlay);
+
+  const commentsContainer = overlay.querySelector(`#comments-${paragraphId}`);
+
+  // تحميل التعليقات مع الردود
+  db.collection("comments")
+    .where("paragraphId", "==", paragraphId)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        commentsContainer.innerHTML = "<div>لا توجد تعليقات بعد.</div>";
+      } else {
+        commentsContainer.innerHTML = "";
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (!data.parentId) {
+            const commentDiv = createCommentDiv(doc.id, data, paragraphId);
+            commentsContainer.appendChild(commentDiv);
+          }
+        });
+        // بعد عرض التعليقات الرئيسية، نعرض الردود تحت كل تعليق
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          if (data.parentId) {
+            const parentComment = document.getElementById(`comment-${data.parentId}`);
+            if (parentComment) {
+              const repliesContainer = parentComment.querySelector(".replies");
+              const replyDiv = createReplyDiv(doc.id, data);
+              repliesContainer.appendChild(replyDiv);
+            }
+          }
+        });
+        // إظهار أو إخفاء زر "عرض المزيد" للردود
+        setupReplyToggle();
+      }
+    });
 }
-  
-    /* أزرار التنقل */  
-    .nav-buttons {  
-      display: flex;  
-      justify-content: space-between;  
-      margin-top: 40px;  
-    }  
-    .nav-buttons a {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  color: var(--text-accent);
-  padding: 10px 18px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-  border: 1px solid var(--glow-color);
-  box-shadow: 0 0 12px #38bdf855;
+
+// إنشاء div تعليق رئيسي مع زر الرد وحاوية الردود
+function createCommentDiv(id, data, paragraphId) {
+  const div = document.createElement("div");
+  div.className = "comment-box";
+  div.id = `comment-${id}`;
+  div.style.marginBottom = "16px";
+  div.innerHTML = `
+    <b>${data.user || "مجهول"}:</b> ${data.text}
+    <br>
+    <button class="reply-btn" onclick="toggleReplyForm('${id}')">رد</button>
+    <div class="reply-form-container" id="reply-form-${id}" style="display:none; margin-top: 8px;">
+      <textarea id="reply-text-${id}" placeholder="اكتب ردك هنا..." style="width: 100%; border-radius: 8px; border: 1px solid #38bdf8; background: #020611; color: #cfefff; padding: 6px;"></textarea>
+      <button class="send-comment" style="margin-top:4px;" onclick="sendReply('${paragraphId}', '${id}')">إرسال الرد</button>
+    </div>
+    <div class="replies" style="margin-left: 20px; margin-top: 8px; max-height: 280px; overflow-y: auto; border-left: 2px solid #38bdf8; padding-left: 8px; position: relative;">
+      <div class="show-more-container" style="text-align: center; margin-top: 6px; display:none;">
+        <button class="show-more-btn" onclick="showMoreReplies(this)">عرض المزيد</button>
+      </div>
+    </div>
+  `;
+  return div;
 }
-.nav-buttons a:hover {
-  background: var(--button-hover-bg);
-} 
-    
-  
-  </style>    
-</head>    
-    
-<body>    
-  <header>    
-    <div class="logo-wrapper">    
-      <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />    
-    </div>    
-  </header>    
-    
-  <nav class="main-nav">    
-    <a href="index.html">🏠 الرئيسية</a>    
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>    
-    <a href="follow-me.html">🧬 اشترك</a>    
-  </nav>    
-    
-  <div class="container">    
-    <h2 class="story-title">بيلادونا السامة</h2>    
-    
-    <div id="authButtons">    
-      <button id="loginBtn">تسجيل الدخول بـ Google</button>    
-      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>    
-      <div id="userInfo"></div>    
-    </div>    
-    
-    <div id="raw-content" style="display:none;">    
-        
-~المقدمة~  
-  
-«كانت مثل البيلادونا تزهر في الظلام لتغري الناظرين بفتنة جمالها الساحر و تخفي بين طياتها سمها القاتل موقعة التائهين على أرض الجنون في فخوخها منتظرة وقت أقامة الحداد على أرواحهم المعذبة بسمومها»  
-  
-  
-  
-أهلاً بك في أرض الجنون  
-يا من قررت بحماقة لذيذة أن تفتح روايتي  
-حيث المنطق يذبح و العُقلاء يؤكلون اولاً..  
-  
-  
-  
-  
-  
-أن كنت قارئ بتفكير أجرامي و سايكو فـ رح تكون طبق التحلية على مائدتي لأن عقلك سيكون الألذ طعماً   
-  
-  
-شدوا الأحزمة   
-أو لا تفعلوا   
-لكن لا تلوموني بعد سقوطكم   
-  
-  
-لا تثق بأحد فكل شخصية هنا هي شيطان متنكر..  
-لا بطل ينقذ  
-و لا بطلة تبكي   
-لا ضحية الكل مذنب  
-حتى أنت لأنك ستقرأ كل هذا الشر   
-لأنك ستتأثر به   
-أعلم هذا جيداً فأنا المخرجة كل شيء يسير حسب رغبتي وحدي  
-  
-  
-دعني أعطيك دورك ياعزيزي أنت الشاهد؟..  
-  
-لا أسفة خليني أصحح أنت شاهد و مشارك رغماً عنك  في حرب لا قانون يحكمها بين هذه الشياطين، حرب العشق و السلطة جنون الهوس و الخيانات العظمى..   
-  
-  
-  
-  
-و يا أرواحي الشفقية أحذركم من زهرتي السامة لا تدعوها تسحركم و تقيم الحداد على أرواحكم المفتونة  
-لا تقتربوا  
-لا تنخدعوا   
-و لا تقعوا بحبها  
-إلا أن رغبتم بأن تدفنوا أحياء هذا يعود لكم...   
-  
-  
-  
-  
-حتى أن لم ترغب بالسقوط يؤسفني  
-أنك ستقع بالتأكيد..   
-الجميع يقع.   
-بينما أنا أشاهدكم بأبتسامة  
-  
-و كل هذا السقوط يجعلني اسأل هل البطلة تستحق ان تقعوا بحبها و تدفنوا أحياء لأجلها؟  
-  
-أم أنكم ستكرهونها في النهاية و تندمون؟  
-  
-دعوني أعرفكم على نفسي أنا آثير.. عنقاء الموت لست كاتبة أنا المخرجة الشريرة التي صنعت هذه المجزرة العاطفية  
-  
-و كما يقولون أنا لست فنانة انا الفن السوداوي  
-  
-و هذه هي زهرتي السامة روايتي الأولى من سلسلة   
-_أبتسم أيها الشيطان..   
-  
-الشيطان سيبتسم في النهاية لأنتصاره و هذه الكاتبة ستصفق له بحرارة  
-  
-  
-  
-  
-  
-  
-  
-  
-ملاحظات قبل البدء برحلة الهلاك:  
-  
-•الرواية قد لا تناسب البعض لأحتوائها على تفاصيل دموية مفصلة و مشاهد حادة  
-  
-•التصنيف: أكشن_غموض_ نفسي_خيال علمي _دموي _Dark romance دارك رومانس  
-  
-من أعداء إلى أحباء ⟵ ثم من أحباء إلى أعداء   
-  
-   
-•التنزيل حسب التفاعل ركزوا على هذه النقطة  
-  
-  
-•ان كنت تبحث عن رواية بعوالم وردية لطيفة فقد أخطأت العنوان كل ما يوجد هنا هو ورد سام بألوان زاهية لكنه قاتل   
-لذا أخرج أن لم تكن من محبي الموت   
-على أيدي كاتبة مهووسة بأكل عقول القراء  
-  
-  
-  
-•المشاهد الجنسية غير موجودة أنا أرقى بكثير من هذا المستوى المتدني   
-  
-•الأنتقاد مقبول لكن بأحترام هذه روايتي مو مطعم طلبات يلبي رغباتك لذا لا تلبس قناع المهرج المتنكر بثوب الناقد أتفقنا؟  
-  
-•جميع الحقوق محفوظة لي و الأقتباس دون أذني هو فعل غبي جداً لأنني سأمسح بكرامتك الأراضي و سأبدء بـ يا عزيزي و أختمها بقبلات حارة على جثة كرامتك القذرة  
-  
-  
-ڤولا يا أرواح الشفق و لا تنسوا أنا حذرتكم  
-أن كنت عاقل فأهرب   
-و أن بقيت فأهلاً بك يسرني ان أبدأ بالتخطيط لرسم حبكة ستطبخ عقلك قبل وضعه هلى مائدتي  
-  
-بدأت في: 27 أكتوبر /عام 2024  
-  
-تاريخ الأنتهاء: حينما تصبح مهووساً  
-باللعنات التي أكتبها   
-الضحية أنت   
-المذنبة انا التي تعشق أكل عقول القراء  
-  
-    </div>    
-    
-    <div id="rendered-content"></div>    
-    
-       <div class="nav-buttons"> 
-      <a href="#" id="prevBtn">⬅️ البارت السابق</a>    
-      <a href="#" id="nextBtn">البارت التالي ➡️</a>    
-    </div>    
-  </div>    
-    
-  <footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">    
-    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025    
-  </footer>    
-    
-  <!-- Firebase & Comments Logic -->    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>    
-    
-  <script>    
-    const firebaseConfig = {    
-      apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",    
-      authDomain: "works-rawan.firebaseapp.com",    
-      projectId: "works-rawan",    
-      storageBucket: "works-rawan.firebasestorage.app",    
-      messagingSenderId: "986254083746",    
-      appId: "1:986254083746:web:17f7db0389c94473f0b9fb"    
-    };    
-    
-    firebase.initializeApp(firebaseConfig);    
-    const auth = firebase.auth();    
-    const db = firebase.firestore();    
-    
-    const loginBtn = document.getElementById("loginBtn");    
-    const logoutBtn = document.getElementById("logoutBtn");    
-    const userInfo = document.getElementById("userInfo");    
-    let currentUser = null;    
-    
-    auth.onAuthStateChanged(user => {    
-      currentUser = user;    
-      if (user) {    
-        loginBtn.style.display = "none";    
-        logoutBtn.style.display = "inline-block";    
-        userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;    
-      } else {    
-        loginBtn.style.display = "inline-block";    
-        logoutBtn.style.display = "none";    
-        userInfo.textContent = "";    
-      }    
-    });    
-    
-    loginBtn.onclick = () => {    
-      const provider = new firebase.auth.GoogleAuthProvider();    
-      auth.signInWithPopup(provider).catch(console.error);    
-    };    
-    logoutBtn.onclick = () => auth.signOut();    
-    
-    function sanitize(text) {    
-      const div = document.createElement('div');    
-      div.textContent = text;    
-      return div.innerHTML;    
-    }    
-    
-    function renderParagraphs(partId = 'toxic-rose-1') {    
-      const rawContent = document.getElementById('raw-content').textContent.trim();    
-      const paragraphs = rawContent.split(/\n\s*\n/);    
-      const container = document.getElementById('rendered-content');    
-      container.innerHTML = '';    
-    
-      paragraphs.forEach((text, index) => {    
-        const paraId = `${partId}-p-${index+1}`;    
-        const paraDiv = document.createElement('div');    
-        paraDiv.className = 'paragraph';    
-        paraDiv.id = paraId;    
-    
-        const p = document.createElement('p');    
-        p.innerHTML = sanitize(text.trim());    
-        paraDiv.appendChild(p);    
-    
-        const commentBtn = document.createElement('button');    
-        commentBtn.textContent = '💬';    
-        commentBtn.style.cssText = 'margin-top:10px;background:transparent;border:none;color:#38bdf8;font-size:18px;cursor:pointer';    
-        commentBtn.onclick = () => toggleCommentBox(paraId);    
-        paraDiv.appendChild(commentBtn);    
-    
-        const commentBox = document.createElement('div');    
-        commentBox.className = 'comment-box';    
-        commentBox.id = `box-${paraId}`;    
-        commentBox.style.display = 'none';    
-        commentBox.innerHTML = `    
-          <div class="comments"></div>    
-          <textarea placeholder="اكتب تعليقك هنا..." style="width:100%;margin:10px 0;border-radius:10px;padding:8px;font-family:'Amiri',serif;"></textarea>    
-          <button class="send-comment" disabled>أرسل</button>    
-        `;    
-    
-        const sendBtn = commentBox.querySelector('button.send-comment');    
-        const textarea = commentBox.querySelector('textarea');    
-    
-        textarea.addEventListener('input', () => {    
-          sendBtn.disabled = !textarea.value.trim() || !currentUser;    
-        });    
-    
-        sendBtn.onclick = () => {    
-          const val = textarea.value.trim();    
-          if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة تعليق");    
-          db.collection("comments").add({    
-            paragraphId: paraId,    
-            text: val,    
-            userEmail: currentUser.email,    
-            userId: currentUser.uid,    
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()    
-          }).then(() => {    
-            textarea.value = '';    
-            sendBtn.disabled = true;    
-            loadComments(paraId);    
-          }).catch(e => alert('فشل الإرسال: ' + e.message));    
-        };    
-    
-        paraDiv.appendChild(commentBox);    
-        container.appendChild(paraDiv);    
-      });    
-    }    
-    
-    function toggleCommentBox(paraId) {    
-      const box = document.getElementById(`box-${paraId}`);    
-      if (box.style.display === 'none') {    
-        box.style.display = 'block';    
-        loadComments(paraId);    
-      } else {    
-        box.style.display = 'none';    
-      }    
-    }    
-    
-    function loadComments(paraId) {    
-      const box = document.getElementById(`box-${paraId}`);    
-      const commentList = box.querySelector('.comments');    
-      commentList.innerHTML = 'تحميل...';    
-      db.collection("comments").where("paragraphId", "==", paraId)    
-        .orderBy("timestamp", "asc")    
-        .get()    
-        .then(snapshot => {    
-          commentList.innerHTML = '';    
-          if(snapshot.empty) {    
-            commentList.innerHTML = '<i>لا توجد تعليقات بعد.</i>';    
-          } else {    
-            snapshot.forEach(doc => {    
-              const data = doc.data();    
-              const div = document.createElement('div');    
-              div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";    
-              div.innerHTML = `<b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>${sanitize(data.text)}`;    
-              commentList.appendChild(div);    
-            });    
-          }    
-        }).catch(e => {    
-          commentList.innerHTML = 'فشل تحميل التعليقات.';    
-          console.error(e);    
-        });    
-    }    
-    
-    document.addEventListener("DOMContentLoaded", () => {    
-      renderParagraphs("part-toxic-1");    
-  
-      // لو حابب تربط أزرار التنقل لصفحات أخرى، عدل الروابط هان:    
-       // ضع رابط البارت السابق    
-      document.getElementById("nextBtn").href = "#"; // ضع رابط البارت التالي    
-    });    
-  </script>    
+
+// إنشاء div رد
+function createReplyDiv(id, data) {
+  const div = document.createElement("div");
+  div.className = "comment-box reply";
+  div.id = `comment-${id}`;
+  div.style.marginBottom = "12px";
+  div.style.fontSize = "0.9rem";
+  div.style.color = "#a0cfff";
+  div.style.border = "1px solid #38bdf8aa";
+  div.style.borderRadius = "10px";
+  div.style.padding = "6px 10px";
+  div.style.background = "rgba(15, 23, 42, 0.9)";
+  div.textContent = `${data.user || "مجهول"}: ${data.text}`;
+  return div;
+}
+
+// إظهار/إخفاء نموذج الرد
+function toggleReplyForm(commentId) {
+  const form = document.getElementById(`reply-form-${commentId}`);
+  form.style.display = (form.style.display === "none") ? "block" : "none";
+}
+
+// إرسال الرد إلى Firebase
+function sendReply(paragraphId, parentId) {
+  const textarea = document.getElementById(`reply-text-${parentId}`);
+  const text = textarea.value.trim();
+  if (!text || !currentUser) return;
+
+  db.collection("comments").add({
+    paragraphId,
+    parentId,
+    text,
+    user: currentUser.displayName || currentUser.email || "قارئ",
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    textarea.value = "";
+    toggleReplyForm(parentId);
+    // تحديث التعليقات بإعادة فتح الصندوق
+    document.querySelector(".comment-box-overlay").remove();
+    openCommentBox(paragraphId);
+    updateCommentCount();
+  });
+}
+
+// إظهار أو إخفاء زر "عرض المزيد" إذا عدد الردود أكبر من 4
+function setupReplyToggle() {
+  document.querySelectorAll(".replies").forEach(container => {
+    const replies = container.querySelectorAll(".comment-box.reply");
+    const showMoreContainer = container.querySelector(".show-more-container");
+
+    replies.forEach((reply, index) => {
+      if (index >= 4) reply.style.display = "none";
+    });
+
+    if (replies.length > 4) {
+      showMoreContainer.style.display = "block";
+    } else {
+      showMoreContainer.style.display = "none";
+    }
+  });
+}
+
+// عند الضغط على زر "عرض المزيد"
+function showMoreReplies(button) {
+  const container = button.closest(".replies");
+  const hiddenReplies = Array.from(container.querySelectorAll(".comment-box.reply")).filter(c => c.style.display === "none");
+  if (hiddenReplies.length > 0) {
+    hiddenReplies.forEach(reply => reply.style.display = "block");
+    button.textContent = "إخفاء الردود";
+  } else {
+    // إخفاء الردود بعد الـ4 الأولى مجدداً
+    container.querySelectorAll(".comment-box.reply").forEach((reply, index) => {
+      reply.style.display = (index >=4) ? "none" : "block";
+    });
+    button.textContent = "عرض المزيد";
+  }
+                                         }
+}
+
+// 📝 إرسال تعليق
+function sendComment(paragraphId) {
+  const textarea = document.getElementById(`textarea-${paragraphId}`);
+  const text = textarea.value.trim();
+  if (!text || !currentUser) return;
+
+  db.collection("comments").add({
+    paragraphId,
+    partId,
+    text,
+    user: currentUser.displayName || currentUser.email || "قارئ",
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    textarea.value = "";
+    document.querySelector(`#comments-${paragraphId}`).innerHTML += `<div><b>${currentUser.displayName}:</b> ${text}</div>`;
+    updateCommentCount();
+  });
+}
+
+// ❤️ نظام التصويت والقراءة
+const partId = "part-toxic-1";
+const voteBtn = document.getElementById('voteBtn');
+const voteCount = document.getElementById('voteCount');
+const readCount = document.getElementById('readCount');
+const commentCount = document.getElementById('commentCount');
+const heartExplosion = document.getElementById('heartExplosion');
+
+const voteRef = db.collection("votes").doc(partId);
+const readsRef = db.collection("reads");
+const commentsRef = db.collection("comments");
+
+function updateVoteCount() {
+  voteRef.get().then(doc => {
+    voteCount.textContent = `${doc.exists ? doc.data().count || 0 : 0} تصويت`;
+  });
+}
+function updateReadCount() {
+  readsRef.where("partId", "==", partId).get().then(snapshot => {
+    readCount.textContent = `${snapshot.size} قراءة`;
+  });
+}
+function updateCommentCount() {
+  commentsRef.where("partId", "==", partId).get().then(snapshot => {
+    commentCount.textContent = `${snapshot.size} تعليق`;
+  });
+}
+
+// 💖 تأثير القلوب
+function triggerHearts() {
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement('div');
+    heart.textContent = '💖';
+    heart.style.cssText = `
+      position: absolute;
+      top: ${Math.random() * 100}%;
+      left: ${Math.random() * 100}%;
+      font-size: ${12 + Math.random() * 20}px;
+      opacity: 1;
+      animation: floatUp 1.8s ease-out forwards;
+    `;
+    heartExplosion.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+  }
+}
+
+// 💫 إضافة تأثير الحركة
+const style = document.createElement('style');
+style.textContent = `
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120px); opacity: 0; }
+}`;
+document.head.appendChild(style);
+
+// 🚀 تنفيذ عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+  renderParagraphs(partId);
+
+  readsRef.add({
+    partId,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(console.error);
+
+  updateVoteCount();
+  updateReadCount();
+  updateCommentCount();
+
+  voteBtn.onclick = () => {
+    if (!currentUser) return alert("سجّل دخولك لتصوّت 🌹");
+
+    voteRef.update({ count: firebase.firestore.FieldValue.increment(1) })
+      .then(() => {
+        updateVoteCount();
+        triggerHearts();
+      }).catch(() => {
+        voteRef.set({ count: 1 });
+        updateVoteCount();
+        triggerHearts();
+      });
+  };
+});
+</script>
 </body>    
-        </html>
+  </html>  
