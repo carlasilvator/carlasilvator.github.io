@@ -184,7 +184,33 @@
       background: #334155;  
       color: #7dd3fcaa;  
       cursor: not-allowed;  
-    }  
+    } 
+
+    #authButtons button {
+  background: var(--button-bg);
+  color: var(--text-accent);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-family: 'Amiri', serif;
+  cursor: pointer;
+  margin: 6px;
+  transition: background 0.3s;
+}
+#authButtons button:hover {
+  background: var(--button-hover-bg);
+}
+
+#userInfo {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
   
     /* أزرار التنقل */  
     .nav-buttons {  
@@ -192,18 +218,21 @@
       justify-content: space-between;  
       margin-top: 40px;  
     }  
-    .nav-buttons a {  
-      background: var(--button-bg);  
-      color: var(--text-accent);  
-      padding: 10px 18px;  
-      border-radius: 10px;  
-      text-decoration: none;  
-      font-weight: bold;  
-      transition: background-color 0.3s;  
-    }  
-    .nav-buttons a:hover {  
-      background: var(--button-hover-bg);  
-    }  
+    .nav-buttons a {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: var(--text-accent);
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  border: 1px solid var(--glow-color);
+  box-shadow: 0 0 12px #38bdf855;
+}
+.nav-buttons a:hover {
+  background: var(--button-hover-bg);
+} 
+    
   
   </style>    
 </head>    
@@ -344,9 +373,7 @@ _أبتسم أيها الشيطان..
     
     <div id="rendered-content"></div>    
     
-    <div class="nav  
-  
-<div class="nav-buttons">    
+       <div class="nav-buttons"> 
       <a href="#" id="prevBtn">⬅️ البارت السابق</a>    
       <a href="#" id="nextBtn">البارت التالي ➡️</a>    
     </div>    
@@ -502,10 +529,10 @@ _أبتسم أيها الشيطان..
     }    
     
     document.addEventListener("DOMContentLoaded", () => {    
-      renderParagraphs("part-1");    
+      renderParagraphs("part-toxic-1");    
   
       // لو حابب تربط أزرار التنقل لصفحات أخرى، عدل الروابط هان:    
-      document.getElementById("prevBtn").href = "#"; // ضع رابط البارت السابق    
+       // ضع رابط البارت السابق    
       document.getElementById("nextBtn").href = "#"; // ضع رابط البارت التالي    
     });    
   </script>    
