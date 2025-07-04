@@ -489,156 +489,130 @@ _أبتسم أيها الشيطان..
       <a href="#" id="prevBtn">⬅️ البارت السابق</a>      
       <a href="#" id="nextBtn">البارت التالي ➡️</a>      
     </div>      
-  </div>      
-<footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">  
-  حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025  
-</footer>  
-  
-<div id="actionBar" style="  
-  position: fixed;   
-  bottom: 0;   
-  width: 100%;   
-  background: #0f172a;   
-  color: #7dd3fc;   
-  font-family: 'Amiri', serif;   
-  display: flex;   
-  justify-content: center;   
-  gap: 30px;   
-  padding: 10px 0;   
-  border-top: 1px solid #38bdf8;   
-  z-index: 9999;">  
-  <button id="voteBtn" style="background:none; border:none; color:#e0245e; font-size: 24px; cursor: pointer;">❤️</button>  
-  <span id="voteCount">0 تصويت</span>  
-  <span id="readCount">0 قراءة</span>  
-  <span id="commentCount">0 تعليق</span>  
-</div>  
-  
-<!-- قلوب التصويت المتفجرة -->  
-<div id="heartExplosion" style="position: fixed; bottom: 60px; left: 0; width: 100%; height: 0; pointer-events: none; z-index: 9998;"></div>  
+  </div>  
 
-  <!-- Firebase -->
+  <footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">
+  حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — © 2025
+</footer>
+
+<div id="actionBar" style="
+  position: fixed;     
+  bottom: 0;     
+  width: 100%;     
+  background: #0f172a;     
+  color: #7dd3fc;     
+  font-family: 'Amiri', serif;     
+  display: flex;     
+  justify-content: center;     
+  gap: 30px;     
+  padding: 10px 0;     
+  border-top: 1px solid #38bdf8;     
+  z-index: 9999;">
+  <button id="voteBtn" style="background:none; border:none; color:#e0245e; font-size: 24px; cursor: pointer;">❤️</button>    
+  <span id="voteCount">0 تصويت</span>    
+  <span id="readCount">0 قراءة</span>    
+  <span id="commentCount">0 تعليق</span>    
+</div>
+
+<!-- قلوب التصويت المتفجرة -->
+<div id="heartExplosion" style="position: fixed; bottom: 60px; left: 0; width: 100%; height: 0; pointer-events: none; z-index: 9998;"></div>
+
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
 <script>
-// 🔥 إعداد Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
-  authDomain: "works-rawan.firebaseapp.com",
-  projectId: "works-rawan",
-  storageBucket: "works-rawan.appspot.com",  // ✅ كان عندك .app بدل .com (خطأ)
-  messagingSenderId: "986254083746",
-  appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+// 🔥 إعداد Firebase  
+const firebaseConfig = {  
+  apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",  
+  authDomain: "works-rawan.firebaseapp.com",  
+  projectId: "works-rawan",  
+  storageBucket: "works-rawan.appspot.com",  
+  messagingSenderId: "986254083746",  
+  appId: "1:986254083746:web:17f7db0389c94473f0b9fb"  
+};  
 
-let currentUser = null;
+firebase.initializeApp(firebaseConfig);  
+const auth = firebase.auth();  
+const db = firebase.firestore();  
+  
+let currentUser = null;  
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
 
-auth.onAuthStateChanged(user => {
-  currentUser = user;
-  if (user) {
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-    userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;
-  } else {
-    loginBtn.style.display = "inline-block";
-    logoutBtn.style.display = "none";
-    userInfo.textContent = "";
-  }
-});
-
-loginBtn.onclick = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).catch(console.error);
-};
-logoutBtn.onclick = () => auth.signOut();
-
-// 💬 توليد الفقرات وتعليقاتها
-function renderParagraphs(partId) {
-  const raw = document.getElementById("raw-content").innerText.trim();
-  const container = document.getElementById("rendered-content");
-  container.innerHTML = "";
-
-  const paragraphs = raw.split(/\n\s*\n/);
-
-  paragraphs.forEach((text, index) => {
-    const paraId = `${partId}-paragraph-${index + 1}`;  // ✅ ربط معرف الفقرة مع partId
-
-    const wrapper = document.createElement("div");
-    wrapper.style.position = "relative";
-    wrapper.style.paddingRight = "40px";
-    wrapper.style.marginBottom = "28px";
-
-    const commentBtn = document.createElement("button");
-    commentBtn.textContent = "💬";
-    commentBtn.style.cssText = `
-      position: absolute;
-      right: 0;
-      top: 0;
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #7dd3fc;
-    `;
-    commentBtn.onclick = () => openCommentBox(paraId);
-
-    const p = document.createElement("div");
-    p.id = paraId;
-    p.textContent = text.trim();
-    p.style.cssText = `
-      font-size: 1.05rem;
-      line-height: 1.9;
-      font-family: 'Amiri', serif;
-      color: #cfefff;
-      white-space: pre-line;
-    `;
-
-    wrapper.appendChild(commentBtn);
-    wrapper.appendChild(p);
-    container.appendChild(wrapper);
-  });
-}
-
-// 💬 عرض صندوق التعليق
-function openCommentBox(paragraphId) {
-  const overlay = document.createElement("div");
-  overlay.className = "comment-box-overlay";
-  overlay.innerHTML = `
-    <button class="close-btn" onclick="this.parentElement.remove()">×</button>
-    <div class="comments" id="comments-${paragraphId}">جاري تحميل التعليقات...</div>
-    <textarea placeholder="اكتب تعليقك هنا..." id="textarea-${paragraphId}"></textarea>
-    <button class="send-comment" onclick="sendComment('${paragraphId}')">إرسال</button>
-  `;
-  document.body.appendChild(overlay);
-
-  const commentsContainer = overlay.querySelector(`#comments-${paragraphId}`);
-  db.collection("comments")
-    .where("paragraphId", "==", paragraphId)
-    .orderBy("timestamp", "asc")
-    .get()
-    .then(snapshot => {
-      commentsContainer.innerHTML = "";
-      if (snapshot.empty) {
-        commentsContainer.innerHTML = "<div>لا توجد تعليقات بعد.</div>";
-      } else {
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const div = document.createElement("div");
-          div.innerHTML = `<b>${data.user || "مجهول"}:</b> ${data.text}`;
-          commentsContainer.appendChild(div);
-        });
-      }
-    });
-
+auth.onAuthStateChanged(user => {  
+  currentUser = user;  
+  if (user) {  
+    if (loginBtn) loginBtn.style.display = "none";  
+    if (logoutBtn) logoutBtn.style.display = "inline-block";  
+    if (userInfo) userInfo.textContent = `مرحباً، ${user.displayName || user.email}`;  
+  } else {  
+    if (loginBtn) loginBtn.style.display = "inline-block";  
+    if (logoutBtn) logoutBtn.style.display = "none";  
+    if (userInfo) userInfo.textContent = "";  
+  }  
+});  
   
-// تعديل دالة عرض التعليقات لعرض زر الرد وحاوية الردود
+if (loginBtn) loginBtn.onclick = () => {  
+  const provider = new firebase.auth.GoogleAuthProvider();  
+  auth.signInWithPopup(provider).catch(console.error);  
+};  
+
+if (logoutBtn) logoutBtn.onclick = () => auth.signOut();  
+
+// 📖 الـ partId ثابت حسب البارت الحالي
+const partId = "part-toxic-1"; 
+
+// 💬 توليد الفقرات مع زر التعليق
+function renderParagraphs(partId) {  
+  const raw = document.getElementById("raw-content").innerText.trim();  
+  const container = document.getElementById("rendered-content");  
+  container.innerHTML = "";  
+  
+  const paragraphs = raw.split(/\n\s*\n/);  
+  
+  paragraphs.forEach((text, index) => {  
+    const paraId = `${partId}-paragraph-${index + 1}`;  
+  
+    const wrapper = document.createElement("div");  
+    wrapper.style.position = "relative";  
+    wrapper.style.paddingRight = "40px";  
+    wrapper.style.marginBottom = "28px";  
+  
+    const commentBtn = document.createElement("button");  
+    commentBtn.textContent = "💬";  
+    commentBtn.style.cssText = `  
+      position: absolute;  
+      right: 0;  
+      top: 0;  
+      background: none;  
+      border: none;  
+      font-size: 20px;  
+      cursor: pointer;  
+      color: #7dd3fc;  
+    `;  
+    commentBtn.onclick = () => openCommentBox(paraId);  
+  
+    const p = document.createElement("div");  
+    p.id = paraId;  
+    p.textContent = text.trim();  
+    p.style.cssText = `  
+      font-size: 1.05rem;  
+      line-height: 1.9;  
+      font-family: 'Amiri', serif;  
+      color: #cfefff;  
+      white-space: pre-line;  
+    `;  
+  
+    wrapper.appendChild(commentBtn);  
+    wrapper.appendChild(p);  
+    container.appendChild(wrapper);  
+  });  
+}  
+  
+// 💬 فتح صندوق التعليقات مع تحميل التعليقات والردود
 function openCommentBox(paragraphId) {
   const overlay = document.createElement("div");
   overlay.className = "comment-box-overlay";
@@ -662,6 +636,7 @@ function openCommentBox(paragraphId) {
         commentsContainer.innerHTML = "<div>لا توجد تعليقات بعد.</div>";
       } else {
         commentsContainer.innerHTML = "";
+        // أولًا نعرض التعليقات الرئيسية (بدون parentId)
         snapshot.forEach(doc => {
           const data = doc.data();
           if (!data.parentId) {
@@ -677,11 +652,11 @@ function openCommentBox(paragraphId) {
             if (parentComment) {
               const repliesContainer = parentComment.querySelector(".replies");
               const replyDiv = createReplyDiv(doc.id, data);
-              repliesContainer.appendChild(replyDiv);
+              if (repliesContainer) repliesContainer.appendChild(replyDiv);
             }
           }
         });
-        // إظهار أو إخفاء زر "عرض المزيد" للردود
+        // تفعيل زر "عرض المزيد" للردود إن وجدت
         setupReplyToggle();
       }
     });
@@ -694,8 +669,7 @@ function createCommentDiv(id, data, paragraphId) {
   div.id = `comment-${id}`;
   div.style.marginBottom = "16px";
   div.innerHTML = `
-    <b>${data.user || "مجهول"}:</b> ${data.text}
-    <br>
+    <b>${data.user || "مجهول"}:</b> ${data.text}<br>
     <button class="reply-btn" onclick="toggleReplyForm('${id}')">رد</button>
     <div class="reply-form-container" id="reply-form-${id}" style="display:none; margin-top: 8px;">
       <textarea id="reply-text-${id}" placeholder="اكتب ردك هنا..." style="width: 100%; border-radius: 8px; border: 1px solid #38bdf8; background: #020611; color: #cfefff; padding: 6px;"></textarea>
@@ -729,14 +703,20 @@ function createReplyDiv(id, data) {
 // إظهار/إخفاء نموذج الرد
 function toggleReplyForm(commentId) {
   const form = document.getElementById(`reply-form-${commentId}`);
+  if (!form) return;
   form.style.display = (form.style.display === "none") ? "block" : "none";
 }
 
 // إرسال الرد إلى Firebase
 function sendReply(paragraphId, parentId) {
   const textarea = document.getElementById(`reply-text-${parentId}`);
+  if (!textarea) return;
   const text = textarea.value.trim();
-  if (!text || !currentUser) return;
+  if (!text) return;
+  if (!currentUser) {
+    alert("سجّل دخولك لتتمكن من الرد");
+    return;
+  }
 
   db.collection("comments").add({
     paragraphId,
@@ -747,11 +727,10 @@ function sendReply(paragraphId, parentId) {
   }).then(() => {
     textarea.value = "";
     toggleReplyForm(parentId);
-    // تحديث التعليقات بإعادة فتح الصندوق
     document.querySelector(".comment-box-overlay").remove();
     openCommentBox(paragraphId);
     updateCommentCount();
-  });
+  }).catch(console.error);
 }
 
 // إظهار أو إخفاء زر "عرض المزيد" إذا عدد الردود أكبر من 4
@@ -760,14 +739,15 @@ function setupReplyToggle() {
     const replies = container.querySelectorAll(".comment-box.reply");
     const showMoreContainer = container.querySelector(".show-more-container");
 
-    replies.forEach((reply, index) => {
-      if (index >= 4) reply.style.display = "none";
-    });
+    replies.forEach((reply, index) => {  
+      if (index >= 4) reply.style.display = "none";  
+      else reply.style.display = "block";
+    });  
 
-    if (replies.length > 4) {
-      showMoreContainer.style.display = "block";
-    } else {
-      showMoreContainer.style.display = "none";
+    if (replies.length > 4) {  
+      showMoreContainer.style.display = "block";  
+    } else {  
+      showMoreContainer.style.display = "none";  
     }
   });
 }
@@ -775,25 +755,29 @@ function setupReplyToggle() {
 // عند الضغط على زر "عرض المزيد"
 function showMoreReplies(button) {
   const container = button.closest(".replies");
+  if (!container) return;
   const hiddenReplies = Array.from(container.querySelectorAll(".comment-box.reply")).filter(c => c.style.display === "none");
   if (hiddenReplies.length > 0) {
     hiddenReplies.forEach(reply => reply.style.display = "block");
     button.textContent = "إخفاء الردود";
   } else {
-    // إخفاء الردود بعد الـ4 الأولى مجدداً
     container.querySelectorAll(".comment-box.reply").forEach((reply, index) => {
-      reply.style.display = (index >=4) ? "none" : "block";
+      reply.style.display = (index >= 4) ? "none" : "block";
     });
     button.textContent = "عرض المزيد";
   }
-                                         }
 }
 
 // 📝 إرسال تعليق
 function sendComment(paragraphId) {
   const textarea = document.getElementById(`textarea-${paragraphId}`);
+  if (!textarea) return;
   const text = textarea.value.trim();
-  if (!text || !currentUser) return;
+  if (!text) return;
+  if (!currentUser) {
+    alert("سجّل دخولك لتتمكن من التعليق");
+    return;
+  }
 
   db.collection("comments").add({
     paragraphId,
@@ -803,13 +787,14 @@ function sendComment(paragraphId) {
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     textarea.value = "";
-    document.querySelector(`#comments-${paragraphId}`).innerHTML += `<div><b>${currentUser.displayName}:</b> ${text}</div>`;
+    // إعادة تحميل التعليقات لعرض الجديد
+    document.querySelector(".comment-box-overlay").remove();
+    openCommentBox(paragraphId);
     updateCommentCount();
-  });
+  }).catch(console.error);
 }
 
 // ❤️ نظام التصويت والقراءة
-const partId = "part-toxic-1";
 const voteBtn = document.getElementById('voteBtn');
 const voteCount = document.getElementById('voteCount');
 const readCount = document.getElementById('readCount');
@@ -825,11 +810,13 @@ function updateVoteCount() {
     voteCount.textContent = `${doc.exists ? doc.data().count || 0 : 0} تصويت`;
   });
 }
+
 function updateReadCount() {
   readsRef.where("partId", "==", partId).get().then(snapshot => {
     readCount.textContent = `${snapshot.size} قراءة`;
   });
 }
+
 function updateCommentCount() {
   commentsRef.where("partId", "==", partId).get().then(snapshot => {
     commentCount.textContent = `${snapshot.size} تعليق`;
@@ -848,6 +835,8 @@ function triggerHearts() {
       font-size: ${12 + Math.random() * 20}px;
       opacity: 1;
       animation: floatUp 1.8s ease-out forwards;
+      pointer-events: none;
+      user-select: none;
     `;
     heartExplosion.appendChild(heart);
     setTimeout(() => heart.remove(), 2000);
@@ -857,16 +846,18 @@ function triggerHearts() {
 // 💫 إضافة تأثير الحركة
 const style = document.createElement('style');
 style.textContent = `
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-120px); opacity: 0; }
-}`;
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120px); opacity: 0; }
+  }
+`;
 document.head.appendChild(style);
 
 // 🚀 تنفيذ عند تحميل الصفحة
 document.addEventListener("DOMContentLoaded", () => {
   renderParagraphs(partId);
 
+  // تسجيل قراءة (يمكن أن تزيد عدد مرات القراءة)
   readsRef.add({
     partId,
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -876,20 +867,22 @@ document.addEventListener("DOMContentLoaded", () => {
   updateReadCount();
   updateCommentCount();
 
-  voteBtn.onclick = () => {
-    if (!currentUser) return alert("سجّل دخولك لتصوّت 🌹");
+  if (voteBtn) {
+    voteBtn.onclick = () => {
+      if (!currentUser) return alert("سجّل دخولك لتصوّت 🌹");
 
-    voteRef.update({ count: firebase.firestore.FieldValue.increment(1) })
-      .then(() => {
-        updateVoteCount();
-        triggerHearts();
-      }).catch(() => {
-        voteRef.set({ count: 1 });
-        updateVoteCount();
-        triggerHearts();
-      });
-  };
+      voteRef.update({ count: firebase.firestore.FieldValue.increment(1) })  
+        .then(() => {  
+          updateVoteCount();  
+          triggerHearts();  
+        }).catch(() => {  
+          voteRef.set({ count: 1 });  
+          updateVoteCount();  
+          triggerHearts();  
+        });
+    };
+  }
 });
 </script>
-</body>    
-  </html>  
+  </body>
+</html>
