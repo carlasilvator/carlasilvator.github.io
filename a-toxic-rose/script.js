@@ -250,39 +250,7 @@ function loadComments(paraId) {
             };
           });
 
-          function loadReplies(commentId) {
-  const container = document.getElementById(`replies-${commentId}`);
-  container.innerHTML = "تحميل الردود...";
-
-  db.collection("comments")
-    .doc(commentId)
-    .collection("replies")
-    .orderBy("timestamp", "asc")
-    .get()
-    .then(snapshot => {
-      container.innerHTML = "";
-      if (snapshot.empty) {
-        container.innerHTML = "<i>لا توجد ردود بعد.</i>";
-        return;
-      }
-
-      snapshot.docs.forEach(doc => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.className = "reply-item";
-        div.style = "margin:10px 0 10px 15px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word;";
-        div.innerHTML = `
-          <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
-          ${sanitize(data.text)}
-        `;
-
-        container.appendChild(div);
-      });
-    }).catch(e => {
-      container.innerHTML = 'فشل تحميل الردود.';
-      console.error(e);
-    });
-}
+          
 
 sendBtn.onclick = () => {
   const val = textarea.value.trim();
@@ -368,6 +336,39 @@ sendBtn.onclick = () => {
     });
                          }
 
+function loadReplies(commentId) {
+  const container = document.getElementById(`replies-${commentId}`);
+  container.innerHTML = "تحميل الردود...";
+
+  db.collection("comments")
+    .doc(commentId)
+    .collection("replies")
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      container.innerHTML = "";
+      if (snapshot.empty) {
+        container.innerHTML = "<i>لا توجد ردود بعد.</i>";
+        return;
+      }
+
+      snapshot.docs.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "reply-item";
+        div.style = "margin:10px 0 10px 15px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word;";
+        div.innerHTML = `
+          <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
+          ${sanitize(data.text)}
+        `;
+
+        container.appendChild(div);
+      });
+    }).catch(e => {
+      container.innerHTML = 'فشل تحميل الردود.';
+      console.error(e);
+    });
+    }
           
 // عند تحميل الصفحة، شغل عرض الفقرات
 document.addEventListener("DOMContentLoaded", () => {
