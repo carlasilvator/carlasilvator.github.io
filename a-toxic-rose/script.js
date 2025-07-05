@@ -223,8 +223,7 @@ function loadReplies(commentId) {
   container.innerHTML = "تحميل الردود...";
 
   db.collection("comments")
-    .doc(commentId)
-    .collection("replies")
+    .where("commentId", "==", commentId)  // هذا اللي يفرق الردود
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
@@ -246,12 +245,12 @@ function loadReplies(commentId) {
 
         container.appendChild(div);
       });
-    }).catch(e => {
+    })
+    .catch(e => {
       container.innerHTML = 'فشل تحميل الردود.';
       console.error(e);
     });
 }
-
 // عند تحميل الصفحة، شغل عرض الفقرات
 document.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
