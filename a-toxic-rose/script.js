@@ -122,6 +122,13 @@ function toggleCommentBox(paraId) {
     box.style.display = 'none';
   }
 }
+// دالة تحصي عدد الردود لتعليق معين
+function countReplies(commentId) {
+  return db.collection("comments")
+    .where("commentId", "==", commentId)
+    .get()
+    .then(snapshot => snapshot.size);
+}
 
 // تحميل التعليقات للفقرة
 function loadComments(paraId) {
@@ -161,6 +168,11 @@ function loadComments(paraId) {
           `;
 
           commentList.appendChild(div);
+
+          countReplies(commentId).then(count => {
+  const repliesToggle = div.querySelector('.replies-toggle');
+  repliesToggle.textContent = `الردود (${count})`;
+});
 
           const replyBtn = div.querySelector(".reply-btn");
           const toggleBtn = div.querySelector(".replies-toggle");
@@ -234,12 +246,12 @@ function loadReplies(commentId) {
       snapshot.docs.forEach(doc => {
         const data = doc.data();
         const div = document.createElement("div");
-        div.className = "reply-item";
-        div.style.cssText = "margin:10px 0 10px 15px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word;";
-        div.innerHTML = `
-          <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
-          ${sanitize(data.text)}
-        `;
+div.className = "reply-item";
+// ازالة style.cssText و استبداله بالـ CSS class فقط
+div.innerHTML = `
+  <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
+  ${sanitize(data.text)}
+`;
 
         container.appendChild(div);
       });
