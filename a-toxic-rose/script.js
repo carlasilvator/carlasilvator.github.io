@@ -169,9 +169,20 @@ function loadComments(paraId) {
 
           commentList.appendChild(div);
 
-          countReplies(commentId).then(count => {
+          // داخل loadComments بعد countReplies(...)
+countReplies(commentId).then(count => {
   const repliesToggle = div.querySelector('.replies-toggle');
   repliesToggle.textContent = `الردود (${count})`;
+
+  repliesToggle.onclick = () => {
+    const repliesBox = document.getElementById(`replies-${commentId}`);
+    if (repliesBox.style.display === "none") {
+      repliesBox.style.display = "block";
+      loadReplies(commentId);
+    } else {
+      repliesBox.style.display = "none";
+    }
+  };
 });
 
           const replyBtn = div.querySelector(".reply-btn");
