@@ -111,32 +111,159 @@ function toggleCommentBox(paraId) {
     box.style.display = 'none';
   }
 }
-
+// دالة تحميل التعليقات مع عرض زر الرد وعدد الردود
 function loadComments(paraId) {
   const box = document.getElementById(`box-${paraId}`);
   const commentList = box.querySelector('.comments');
   commentList.innerHTML = 'تحميل...';
-  db.collection("comments").where("paragraphId", "==", paraId)
+
+  db.collection("comments")
+    .where("paragraphId", "==", paraId)
     .orderBy("timestamp", "asc")
     .get()
-    .then(snapshot => {
+    .then(async (snapshot) => {
       commentList.innerHTML = '';
       if (snapshot.empty) {
         commentList.innerHTML = '<i>لا توجد تعليقات بعد.</i>';
       } else {
-        snapshot.forEach(doc => {
+        // لجلب الردود لجميع التعليقات في البارت دفعة واحدة
+        const commentDocs = snapshot.docs;
+
+        for (const doc of commentDocs) {
           const data = doc.data();
+          const commentId = doc.id;
+
+          // العنصر الأساسي للتعليق
           const div = document.createElement('div');
-          div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";
-          div.innerHTML = `<b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>${sanitize(data.text)}`;
+          div.className = "comment-item";
+          div.style = "margin-bottom:12px; border-bottom:1px solid #334155; padding-bottom:8px; word-break: break-word;";
+
+          // محتوى التعليق
+          div.innerHTML = `
+            <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
+            ${sanitize(data.text)}
+            <br>
+            <span class="reply-controls" style="font-size:0.9rem; color:#38bdf8; cursor:pointer; user-select:none;">
+              <span class="reply-btn" data-commentid="${commentId}">رد</span> |
+              <span class="replies-toggle" data-commentid="${commentId}">الردود (0)</span>
+            </span>
+            <div class="replies-container" id="replies-${commentId}" style="display:none; margin-top:10px; padding-left:15px; border-left:2px solid #38bdf8;"></div>
+            <div class="reply-form-container" id="reply-form-${commentId}" style="display:none; margin-top:8px;">
+              <textarea placeholder="اكتب ردك هنا..." style="width:100%; border-radius:8px; background:#020611; color:#cfefff; padding:6px;" rows="3"></textarea>
+              <button disabled style="margin-top:4px; padding:6px 10px; border-radius:8px; background:#0f172a; color:#7dd3fc; border:none; cursor:pointer;">أرسل الرد</button>
+            </div>
+          `;
+
           commentList.appendChild(div);
-        });
+
+          // جلب عدد الردود وتحديث زر "الردود (عدد)"
+          updateRepliesCount(commentId);
+
+          // ربط أحداث الزر "الرد"
+          const replyBtn = div.querySelector('.reply-btn');
+          replyBtn.onclick = () => toggleReplyForm(commentId);
+
+          // ربط أحداث زر "الردود (عدد)"
+          const repliesToggle = div.querySelector('.replies-toggle');
+          repliesToggle.onclick = () => toggleReplies(commentId);
+        }
       }
     }).catch(e => {
       commentList.innerHTML = 'فشل تحميل التعليقات.';
       console.error(e);
     });
 }
+
+// تحديث عدد الردود للزر الخاص بالتعليق
+function updateRepliesCount(commentId) {
+  db.collection("replies")
+    .where("commentId", "==", commentId)
+    .get()
+    .then(snapshot => {
+      const count = snapshot.size;
+      const repliesToggle = document.querySelector(`.replies-toggle[data-commentid="${commentId}"]`);
+      if (repliesToggle) {
+        repliesToggle.textContent = `الردود (${count})`;
+      }
+    });
+}
+
+// إظهار/إخفاء صندوق الرد
+function toggleReplyForm(commentId) {
+  const form = document.getElementById(`reply-form-${commentId}`);
+  if (form.style.display === 'none') {
+    form.style.display = 'block';
+
+    const textarea = form.querySelector('textarea');
+    const sendBtn = form.querySelector('button');
+
+    sendBtn.disabled = true;
+
+    // تمكين زر الإرسال فقط إذا هناك نص و المستخدم مسجل دخول
+    textarea.oninput = () => {
+      sendBtn.disabled = !textarea.value.trim() || !currentUser;
+    };
+
+    sendBtn.onclick = () => {
+      const val = textarea.value.trim();
+      if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
+
+      db.collection("replies").add({
+        commentId: commentId,
+        text: val,
+        userEmail: currentUser.email,
+        userId: currentUser.uid,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        textarea.value = '';
+        sendBtn.disabled = true;
+        loadReplies(commentId);
+        updateRepliesCount(commentId);
+      }).catch(e => alert('فشل إرسال الرد: ' + e.message));
+    };
+  } else {
+    form.style.display = 'none';
+  }
+}
+
+// تحميل الردود وعرضها تحت التعليق
+function loadReplies(commentId) {
+  const container = document.getElementById(`replies-${commentId}`);
+  container.innerHTML = 'تحميل الردود...';
+
+  db.collection("replies")
+    .where("commentId", "==", commentId)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        container.innerHTML = '<i>لا توجد ردود بعد.</i>';
+      } else {
+        container.innerHTML = '';
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const div = document.createElement('div');
+          div.style = "margin-bottom:8px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word;";
+          div.innerHTML = `<b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>${sanitize(data.text)}`;
+          container.appendChild(div);
+        });
+      }
+    }).catch(e => {
+      container.innerHTML = 'فشل تحميل الردود.';
+      console.error(e);
+    });
+}
+
+// إظهار/إخفاء الردود
+function toggleReplies(commentId) {
+  const container = document.getElementById(`replies-${commentId}`);
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+    loadReplies(commentId);
+  } else {
+    container.style.display = 'none';
+  }
+      }
 
 document.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
