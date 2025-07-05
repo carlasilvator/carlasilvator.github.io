@@ -1,73 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>بارت - Toxic Rose</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="a-toxic-rose/style.css">
-</head>
-
-<body>
-  <!-- الهيدر -->
-  <header>
-    <div class="logo-wrapper">
-      <img src="https://i.ibb.co/jkcmR2L0/Picsart-25-06-28-13-01-01-547.jpg" alt="شعار آثيريات العنقاء" />
-    </div>
-  </header>
-
-  <!-- التنقل -->
-  <nav class="main-nav">
-    <a href="index.html">🏠 الرئيسية</a>
-    <a href="https://www.instagram.com/carlasilvator" target="_blank">📸 أنستغرامي</a>
-    <a href="follow-me.html">🧬 اشترك</a>
-  </nav>
-
-  <!-- محتوى الرواية -->
-  <div class="container">
-    <h2 class="story-title">بيلادونا السامة</h2>
-
-    <!-- تسجيل الدخول -->
-    <div id="authButtons">
-      <button id="loginBtn">تسجيل الدخول بـ Google</button>
-      <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
-      <div id="userInfo"></div>
-    </div>
-
-    <!-- النص الخام -->
-    <div id="raw-content" style="display:none;">
-~المقدمة~
-
-«كانت مثل البيلادونا تزهر في الظلام لتغري الناظرين بفتنة جمالها الساحر و تخفي بين طياتها سمها القاتل موقعة التائهين على أرض الجنون في فخوخها منتظرة وقت أقامة الحداد على أرواحهم المعذبة بسمومها»
-
-أهلاً بك في أرض الجنون
-يا من قررت بحماقة لذيذة أن تفتح روايتي
-
-...
-
-الضحية أنت     
-المذنبة أنا التي تعشق أكل عقول القراء
-    </div>
-
-    <!-- النص المعروض -->
-    <div id="rendered-content"></div>
-
-    <!-- التنقل بين البارتات -->
-    <div class="nav-buttons">
-      <a href="#" id="prevBtn">⬅️ البارت السابق</a>
-      <a href="#" id="nextBtn">البارت التالي ➡️</a>
-    </div>
-  </div>
-
-  <!-- الفوتر -->
-  <footer style="text-align:center; padding:15px 0; color: #7dd3fc; font-family: 'Amiri', serif; font-size: 0.9rem;">
-    حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025
-  </footer>
-
-  <!-- Firebase + سكربت الميزات -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script src="a-toxic-rose/script.js"></script>
-</body>
-</html>
