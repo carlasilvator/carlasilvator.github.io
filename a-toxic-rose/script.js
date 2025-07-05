@@ -201,7 +201,8 @@ function loadReplies(commentId) {
   container.innerHTML = "تحميل الردود...";
 
   db.collection("comments")
-    .where("commentId", "==", commentId)
+  .where("type", "==", "reply")
+  .where("parentId", "==", commentId)
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
