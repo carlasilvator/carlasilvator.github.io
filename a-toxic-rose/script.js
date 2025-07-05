@@ -11,6 +11,71 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+const notificationsDiv = document.getElementById('notifications');
+const notificationsList = document.getElementById('notifications-list');
+const showNotificationsBtn = document.getElementById('show-notifications');
+const closeNotificationsBtn = document.getElementById('close-notifications');
+
+// عرض / إخفاء صندوق الإشعارات
+showNotificationsBtn.onclick = () => {
+  notificationsDiv.style.display = 'block';
+  loadNotifications();
+};
+
+closeNotificationsBtn.onclick = () => {
+  notificationsDiv.style.display = 'none';
+};
+
+// تحميل إشعارات المستخدم الحالية
+function loadNotifications() {
+  if (!currentUser) {
+    notificationsList.innerHTML = '<li>يجب تسجيل الدخول لعرض الإشعارات.</li>';
+    return;
+  }
+
+  notificationsList.innerHTML = '<li>جارٍ تحميل الإشعارات...</li>';
+
+  db.collection("notifications")
+    .where("toUserId", "==", currentUser.uid)
+    .orderBy("timestamp", "desc")
+    .limit(20)
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+        notificationsList.innerHTML = '<li>لا توجد إشعارات جديدة.</li>';
+        return;
+      }
+
+      notificationsList.innerHTML = ''; // تنظيف القائمة
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const li = document.createElement('li');
+        li.style.cursor = 'pointer';
+        li.style.marginBottom = '8px';
+        li.style.borderBottom = '1px solid #334155';
+        li.style.paddingBottom = '6px';
+
+        // صياغة رسالة الإشعار
+        li.textContent = `شخص ما رد على تعليقك: "${data.commentId}"`;  // ممكن تحسّن النص بعدين
+
+        // عند الضغط على الإشعار، يفتح المستخدم البارت ويذهب مباشرة للرد
+        li.onclick = () => {
+          // علامة لتحديد مكان الانتقال (رابط يمكن تعديله حسب هيكل موقعك)
+          window.location.href = `/path/to/part.html#reply-${data.replyId}`;
+
+          // تمييز الإشعار كمقروء
+          db.collection("notifications").doc(doc.id).update({ read: true });
+        };
+
+        notificationsList.appendChild(li);
+      });
+    })
+    .catch(e => {
+      notificationsList.innerHTML = '<li>فشل تحميل الإشعارات.</li>';
+      console.error(e);
+    });
+    }
 
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -198,26 +263,49 @@ function loadComments(paraId) {
           textarea.oninput = () => {
             sendBtn.disabled = !textarea.value.trim() || !currentUser;
           };
-
           sendBtn.onclick = () => {
-            const val = textarea.value.trim();
-            if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
+  const val = textarea.value.trim();
+  if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
 
-            db.collection("comments")
-              .add({
-                commentId: commentId,
-                text: val,
-                userEmail: currentUser.email,
-                userId: currentUser.uid,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-              })
-              .then(() => {
-                textarea.value = "";
-                sendBtn.disabled = true;
-                loadReplies(commentId);
-              })
-              .catch(e => alert("فشل إرسال الرد: " + e.message));
-          };
+  db.collection("comments")
+    .add({
+      commentId: commentId,
+      text: val,
+      userEmail: currentUser.email,
+      userId: currentUser.uid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then((docRef) => {
+      textarea.value = "";
+      sendBtn.disabled = true;
+      loadReplies(commentId);
+
+      // جلب بيانات صاحب التعليق الأصلي
+      db.collection("comments").doc(commentId).get()
+        .then(doc => {
+          if (!doc.exists) return;
+
+          const originalComment = doc.data();
+          const toUserId = originalComment.userId;
+
+          // إضافة إشعار للمستخدم صاحب التعليق الأصلي
+          if (toUserId !== currentUser.uid) { // لا ترسل إشعار لنفس المستخدم
+            db.collection("notifications").add({
+              toUserId: toUserId,
+              fromUserId: currentUser.uid,
+              commentId: commentId,
+              replyId: docRef.id,
+              paragraphId: originalComment.paragraphId,
+              read: false,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          }
+        });
+    })
+    .catch(e => alert("فشل إرسال الرد: " + e.message));
+};
+
+          
         });
       }
     })
