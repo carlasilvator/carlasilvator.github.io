@@ -191,24 +191,22 @@ function loadComments(paraId) {
 
           // إرسال رد جديد
           sendBtn.onclick = () => {
-            const val = textarea.value.trim();
-            if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
+  const val = textarea.value.trim();
+  if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
 
-            // هنا نضيف الرد كمستند فرعي داخل المستند الأساسي (تعليق)
-            db.collection("comments")
-              .doc(commentId)
-              .collection("replies")
-              .add({
-                text: val,
-                userEmail: currentUser.email,
-                userId: currentUser.uid,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-              }).then(() => {
-                textarea.value = "";
-                sendBtn.disabled = true;
-                loadReplies(commentId);
-              }).catch(e => alert("فشل إرسال الرد: " + e.message));
-          };
+  db.collection("comments")
+    .add({
+      commentId: commentId,
+      text: val,
+      userEmail: currentUser.email,
+      userId: currentUser.uid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      textarea.value = "";
+      sendBtn.disabled = true;
+      loadReplies(commentId);
+    }).catch(e => alert("فشل إرسال الرد: " + e.message));
+};
         });
       }
     }).catch(e => {
