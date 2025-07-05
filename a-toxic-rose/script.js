@@ -1,5 +1,4 @@
-  
-<script>  
+
 const firebaseConfig = {  
   apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",  
   authDomain: "works-rawan.firebaseapp.com",  
@@ -307,4 +306,3 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("prevBtn").href = "#";  
   document.getElementById("nextBtn").href = "#";  
 });  
-</script>
