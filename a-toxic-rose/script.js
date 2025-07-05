@@ -13,6 +13,18 @@
   const auth = firebase.auth();
   const db = firebase.firestore();
 
+document.addEventListener("click", (e) => {
+  // زر إرسال الرد
+  if (e.target.classList.contains("send-comment")) {
+    // ...
+  }
+
+  // زر حذف التعليق
+  if (e.target.classList.contains("delete-btn")) {
+    // ...
+  }
+});
+
   // ============ إدارة المستخدم ============
   let currentUser = null;
   const loginBtn = document.getElementById("loginBtn");
@@ -148,7 +160,7 @@
           const div = document.createElement("div");
           div.className = "comment-item";
           div.style.cssText = "margin-bottom:12px; border-bottom:1px solid #334155; padding-bottom:8px; word-break: break-word; position:relative;";
-
+          div.setAttribute("data-comment-id", commentId);
           const displayName = data.userId === (currentUser && currentUser.uid) ? currentUser.displayName || data.userEmail : data.userEmail;
 
           div.innerHTML = `
@@ -186,25 +198,6 @@
           toggleBtn.onclick = () => toggleReplies(commentId);
           textarea.oninput = () => sendBtn.disabled = !textarea.value.trim() || !currentUser;
 
-          sendBtn.onclick = () => {
-            const val = textarea.value.trim();
-            if (!val || !currentUser) return alert("سجّل دخول أولاً");
-
-            db.collection("comments")
-              .doc(commentId)
-              .collection("replies")
-              .add({
-                text: val,
-                userId: currentUser.uid,
-                userEmail: currentUser.email,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-              }).then(() => {
-                textarea.value = "";
-                sendBtn.disabled = true;
-                loadReplies(commentId);
-              });
-          };
-
           if (currentUser && currentUser.uid === data.userId) {
             const editBtn = div.querySelector(".edit-btn");
             const deleteBtn = div.querySelector(".delete-btn");
@@ -232,7 +225,8 @@
           const div = document.createElement("div");
           div.className = "reply-item";
           div.style.cssText = "margin-bottom:8px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word; position:relative;";
-
+          div.setAttribute("data-comment-id", replyId);
+          div.setAttribute("data-parent-id", commentId); // لأن commentId هو الأب
           const displayName = data.userId === (currentUser && currentUser.uid) ? currentUser.displayName || data.userEmail : data.userEmail;
 
           div.innerHTML = `
