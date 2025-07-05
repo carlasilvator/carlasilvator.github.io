@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
-
 :root {
   --space-bg-dark: radial-gradient(ellipse at bottom, #020611, #05030c, #000);
   --star-color: rgba(0, 191, 255, 0.08);
@@ -20,7 +18,7 @@ html {
 body {
   margin: 0;
   font-family: 'Amiri', serif;
-  background: var(--space-bg-dark);
+  background: radial-gradient(ellipse at bottom, #020611 0%, #05030c 35%, #000000 100%);
   background-size: 400% 400%;
   animation: spaceWave 60s ease infinite;
   color: var(--text-primary);
@@ -55,7 +53,6 @@ body::before {
   100% { background-position: -2000px 2000px, 1500px -1000px, -1600px 1600px, 1200px -900px; }
 }
 
-/* ========== HEADER ========== */
 header {
   width: 100%;
   background: rgba(2, 6, 23, 0.9);
@@ -76,7 +73,6 @@ header {
   max-height: 240px;
 }
 
-/* ========== NAVIGATION ========== */
 .main-nav {
   display: flex;
   overflow-x: auto;
@@ -107,7 +103,6 @@ header {
   text-decoration: underline;
 }
 
-/* ========== CONTAINER & CONTENT ========== */
 .container {
   max-width: 760px;
   margin: 40px auto;
@@ -127,7 +122,7 @@ header {
   text-shadow: 0 0 12px var(--text-secondary);
 }
 
-/* ========== COMMENTS ========== */
+/* تعليقات */
 .comment-box {
   background: rgba(15, 23, 42, 0.9);
   border: 1.5px solid #38bdf8;
@@ -193,7 +188,7 @@ button.send-comment:disabled {
   cursor: not-allowed;
 }
 
-/* ========== NAV BUTTONS ========== */
+/* أزرار التنقل */
 .nav-buttons {
   display: flex;
   justify-content: space-between;
@@ -212,4 +207,12 @@ button.send-comment:disabled {
 
 .nav-buttons a:hover {
   background: var(--button-hover-bg);
-       }
+}
+
+footer {
+  text-align: center;
+  padding: 15px 0;
+  color: #7dd3fc;
+  font-family: 'Amiri', serif;
+  font-size: 0.9rem;
+}
