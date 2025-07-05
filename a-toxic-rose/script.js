@@ -329,6 +329,10 @@
   }
 
   // ============ تحميل الصفحة ============
-  document.addEventListener("DOMContentLoaded", () => {
-    renderParagraphs("toxic-rose-1");
-  });
+  auth.onAuthStateChanged(async user => {
+  currentUser = user;
+
+  // ... كود تسجيل الدخول واظهار اسم المستخدم
+
+  renderParagraphs("toxic-rose-1");  // تعيد بناء الصفحة بعد ما currentUser معروف
+});
