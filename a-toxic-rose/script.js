@@ -233,7 +233,6 @@ function loadReplies(commentId) {
 
   db.collection("comments")
     .where("commentId", "==", commentId)
-.where("paragraphId", "==", null) 
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
