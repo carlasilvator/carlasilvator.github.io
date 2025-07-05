@@ -125,18 +125,111 @@ function loadComments(paraId) {
         commentList.innerHTML = '<i>لا توجد تعليقات بعد.</i>';
       } else {
         snapshot.forEach(doc => {
-          const data = doc.data();
-          const div = document.createElement('div');
-          div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";
-          div.innerHTML = `<b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>${sanitize(data.text)}`;
-          commentList.appendChild(div);
-        });
+  const data = doc.data();
+  const commentId = doc.id;
+
+  const div = document.createElement('div');
+  div.className = "comment-item";
+  div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";
+  div.innerHTML = `
+    <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
+    ${sanitize(data.text)}
+    <br>
+    <span class="reply-controls" style="font-size:0.9rem; color:#38bdf8; cursor:pointer;">
+      <span class="reply-btn" data-id="${commentId}">رد</span> |
+      <span class="replies-toggle" data-id="${commentId}">الردود</span>
+    </span>
+    <div class="replies" id="replies-${commentId}" style="display:none; margin-top:8px;"></div>
+    <div class="reply-form" id="reply-form-${commentId}" style="display:none; margin-top:6px;">
+      <textarea placeholder="اكتب ردك..." rows="2" style="width:100%; border-radius:6px; background:#0a101d; color:#cfefff; padding:6px;"></textarea>
+      <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
+    </div>
+  `;
+
+  commentList.appendChild(div);
+
+  const replyBtn = div.querySelector(".reply-btn");
+  const toggleBtn = div.querySelector(".replies-toggle");
+  const form = div.querySelector(".reply-form");
+  const textarea = form.querySelector("textarea");
+  const sendBtn = form.querySelector("button");
+
+  replyBtn.onclick = () => {
+    form.style.display = form.style.display === "none" ? "block" : "none";
+  };
+
+  toggleBtn.onclick = () => {
+    const repliesBox = document.getElementById(`replies-${commentId}`);
+    if (repliesBox.style.display === "none") {
+      repliesBox.style.display = "block";
+      loadReplies(commentId);
+    } else {
+      repliesBox.style.display = "none";
+    }
+  };
+
+  textarea.oninput = () => {
+    sendBtn.disabled = !textarea.value.trim() || !currentUser;
+  };
+
+  sendBtn.onclick = () => {
+    const val = textarea.value.trim();
+    if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
+
+    db.collection("comments").add({
+      commentId,
+      text: val,
+      userEmail: currentUser.email,
+      userId: currentUser.uid,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      textarea.value = "";
+      sendBtn.disabled = true;
+      loadReplies(commentId);
+    }).catch(e => alert("فشل إرسال الرد: " + e.message));
+  };
+});
       }
     }).catch(e => {
       commentList.innerHTML = 'فشل تحميل التعليقات.';
       console.error(e);
     });
 }
+
+function loadReplies(commentId) {
+  const container = document.getElementById(`replies-${commentId}`);
+  container.innerHTML = "تحميل الردود...";
+
+  db.collection("comments")
+    .where("commentId", "==", commentId)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      container.innerHTML = "";
+      if (snapshot.empty) {
+        container.innerHTML = "<i>لا توجد ردود بعد.</i>";
+        return;
+      }
+
+      snapshot.docs.forEach(doc => {
+        const data = doc.data();
+        const replyId = doc.id;
+
+        const div = document.createElement("div");
+        div.className = "reply-item";
+        div.style = "margin:10px 0 10px 15px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff; word-break: break-word;";
+        div.innerHTML = `
+          <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
+          ${sanitize(data.text)}
+        `;
+
+        container.appendChild(div);
+      });
+    }).catch(e => {
+      container.innerHTML = 'فشل تحميل الردود.';
+      console.error(e);
+    });
+                                              }
 
 document.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
