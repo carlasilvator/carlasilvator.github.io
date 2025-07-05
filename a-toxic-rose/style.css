@@ -188,6 +188,17 @@ button.send-comment:disabled {
   cursor: not-allowed;
 }
 
+.reply-item {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-left: 20px;
+  color: #a0cfff;
+  background: rgba(15,23,42,0.9);
+  padding: 6px;
+  border-radius: 8px;
+  word-break: break-word;
+} 
+
 /* أزرار التنقل */
 .nav-buttons {
   display: flex;
