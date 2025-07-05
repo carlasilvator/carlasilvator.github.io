@@ -176,7 +176,7 @@ function loadComments(paraId) {
 
 // تحديث عدد الردود للزر الخاص بالتعليق
 function updateRepliesCount(commentId) {
-  db.collection("replies")
+  db.collection("comments")
     .where("commentId", "==", commentId)
     .get()
     .then(snapshot => {
@@ -208,7 +208,7 @@ function toggleReplyForm(commentId) {
       const val = textarea.value.trim();
       if (!val || !currentUser) return alert("يجب تسجيل الدخول وكتابة رد");
 
-      db.collection("replies").add({
+      db.collection("comments").add({
         commentId: commentId,
         text: val,
         userEmail: currentUser.email,
@@ -231,8 +231,9 @@ function loadReplies(commentId) {
   const container = document.getElementById(`replies-${commentId}`);
   container.innerHTML = 'تحميل الردود...';
 
-  db.collection("replies")
+  db.collection("comments")
     .where("commentId", "==", commentId)
+.where("paragraphId", "==", null) 
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
