@@ -158,26 +158,20 @@ function loadComments(paraId) {
   container.innerHTML = "تحميل...";
 
   db.collection("comments")
-    .where("paragraphId", "==", paraId)
-    .where("depth", "==", 0)
-    .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
-      console.log("تم تحميل التعليقات:", snapshot.size, "للفقرة:", paraId);
-snapshot.forEach(doc => console.log("↳", doc.data()));
       container.innerHTML = "";
       if (snapshot.empty) {
-        container.innerHTML = "<i>لا توجد تعليقات بعد.</i>";
+        container.innerHTML = "<i>ما في ولا تعليق بالدنيا</i>";
         return;
       }
 
       snapshot.forEach(doc => {
         const data = doc.data();
-        const commentId = doc.id;
-        const commentDiv = createCommentDiv(data, commentId);  
-        console.log("تم إنشاء العنصر؟", commentDiv);  // 🔍
-        container.appendChild(commentDiv);
-      
+        container.innerHTML += `<div style="color:#fff;"><b>${data.userEmail}</b>: ${data.text}</div>`;
+      });
+    });
+}
 
         // تحميل الردود المتداخلة داخل هذا التعليق
         loadReplies(commentId, commentDiv, 1);
