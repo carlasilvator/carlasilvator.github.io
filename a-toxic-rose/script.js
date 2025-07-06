@@ -1,4 +1,3 @@
-
 // ========== Firebase Init ==========
 const firebaseConfig = {
   apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
@@ -14,7 +13,7 @@ const db = firebase.firestore();
 
 let currentUser = null;
 
-// ========== عناصر تسجيل الدخول ==========
+// ========== تسجيل الدخول ==========
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const userInfo = document.getElementById("userInfo");
@@ -167,9 +166,15 @@ function handleSend(textarea, sendBtn, paraId = null, commentId = null) {
 
   if (commentId) {
     payload.commentId = commentId;
-    db.collection("comments").add(payload).then(docRef => {
-      textarea.value = "";
-      sendBtn.disabled = true;
+  } else {
+    payload.paragraphId = paraId;
+  }
+
+  db.collection("comments").add(payload).then(docRef => {
+    textarea.value = "";
+    sendBtn.disabled = true;
+
+    if (commentId) {
       loadReplies(commentId);
 
       db.collection("comments").doc(commentId).get().then(doc => {
@@ -189,15 +194,10 @@ function handleSend(textarea, sendBtn, paraId = null, commentId = null) {
           });
         }
       });
-    }).catch(e => alert("فشل إرسال الرد: " + e.message));
-  } else {
-    payload.paragraphId = paraId;
-    db.collection("comments").add(payload).then(() => {
-      textarea.value = "";
-      sendBtn.disabled = true;
+    } else {
       loadComments(paraId);
-    }).catch(e => alert("فشل إرسال التعليق: " + e.message));
-  }
+    }
+  }).catch(e => alert("فشل إرسال: " + e.message));
 }
 
 function loadComments(paraId) {
@@ -241,7 +241,7 @@ function loadComments(paraId) {
         commentList.appendChild(div);
 
         const replyBtn = div.querySelector(".reply-btn");
-        const replyForm = div.querySelector(`#reply-form-${commentId}`);
+        const replyForm = document.getElementById(`reply-form-${commentId}`);
         const replyTextarea = replyForm.querySelector("textarea");
         const replySendBtn = replyForm.querySelector("button");
 
@@ -261,12 +261,12 @@ function loadComments(paraId) {
           const toggle = div.querySelector(".replies-toggle");
           toggle.textContent = `الردود (${count})`;
           toggle.onclick = () => {
-            const box = document.getElementById(`replies-${commentId}`);
-            if (box.style.display === "none") {
-              box.style.display = "block";
+            const repliesBox = document.getElementById(`replies-${commentId}`);
+            if (repliesBox.style.display === "none") {
+              repliesBox.style.display = "block";
               loadReplies(commentId);
             } else {
-              box.style.display = "none";
+              repliesBox.style.display = "none";
             }
           };
         });
@@ -283,8 +283,7 @@ function loadReplies(commentId) {
   container.innerHTML = "تحميل الردود...";
 
   db.collection("comments")
-    .doc(commentId)
-    .collection("replies")
+    .where("commentId", "==", commentId)
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
@@ -314,13 +313,12 @@ function loadReplies(commentId) {
 
 function countReplies(commentId) {
   return db.collection("comments")
-    .doc(commentId)
-    .collection("replies")
+    .where("commentId", "==", commentId)
     .get()
     .then(snapshot => snapshot.size);
 }
 
-// ========== تفعيل الفقرات وتحريك للرد إن وُجد ==========
+// ========== عند التحميل ==========
 window.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
   const hash = window.location.hash;
