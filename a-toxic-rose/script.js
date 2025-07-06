@@ -224,7 +224,6 @@ function loadComments(paraId) {
         div.className = "comment-item";
         div.id = `reply-${commentId}`;
         div.style = "margin-bottom:12px;border-bottom:1px solid #334155;padding-bottom:8px;word-break: break-word;";
-
         div.innerHTML = `
           <b style="color:#7dd3fc">${sanitize(data.userEmail)}</b><br>
           ${sanitize(data.text)}
@@ -234,22 +233,15 @@ function loadComments(paraId) {
             <span class="replies-toggle" data-id="${commentId}">الردود</span>
           </span>
           <div class="replies" id="replies-${commentId}" style="display:none; margin-top:8px;"></div>
+          <div class="reply-form" id="reply-form-${commentId}" style="display:none; margin-top:6px;">
+            <textarea placeholder="اكتب ردك..." rows="2" style="width:100%; border-radius:6px; background:#0a101d; color:#cfefff; padding:6px;"></textarea>
+            <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
+          </div>
         `;
-
-        // إنشاء صندوق الردود منفصلًا خارج الـ innerHTML لمنع مشكلة عدم الوصول إليه
-        const replyForm = document.createElement("div");
-        replyForm.className = "reply-form";
-        replyForm.id = `reply-form-${commentId}`;
-        replyForm.style = "display:none; margin-top:6px;";
-        replyForm.innerHTML = `
-          <textarea placeholder="اكتب ردك..." rows="2" style="width:100%; border-radius:6px; background:#0a101d; color:#cfefff; padding:6px;"></textarea>
-          <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
-        `;
-        div.appendChild(replyForm);
-
         commentList.appendChild(div);
 
         const replyBtn = div.querySelector(".reply-btn");
+        const replyForm = document.getElementById(`reply-form-${commentId}`);
         const replyTextarea = replyForm.querySelector("textarea");
         const replySendBtn = replyForm.querySelector("button");
 
