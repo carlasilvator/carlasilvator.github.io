@@ -152,39 +152,52 @@ function toggleCommentBox(paraId) {
 }  
   
 // ========== تحميل التعليقات ==========  
-// دالة تحميل التعليقات الأساسية (depth=0)
 function loadComments(paraId) {
   const box = document.getElementById(`box-${paraId}`);
-  if (!box) return console.error("❌ ما لقيت الصندوق:", paraId);
+  if (!box) {
+    console.warn(`❌ لا يوجد صندوق تعليق للفقرة: ${paraId}`);
+    return;
+  }
 
   const container = box.querySelector(".comments");
-  if (!container) return console.error("❌ ما لقيت قسم التعليقات داخل الصندوق:", `box-${paraId}`);
+  if (!container) {
+    console.warn(`❌ لا يوجد عنصر .comments داخل box-${paraId}`);
+    return;
+  }
 
   container.innerHTML = "تحميل...";
+
   db.collection("comments")
+    .where("paragraphId", "==", paraId)
+    .where("depth", "==", 0)
+    .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
       container.innerHTML = "";
       if (snapshot.empty) {
-        container.innerHTML = "<i>ما في ولا تعليق بالدنيا</i>";
+        container.innerHTML = "<i style='color:#7dd3fc;'>لا توجد تعليقات بعد.</i>";
         return;
       }
 
       snapshot.forEach(doc => {
         const data = doc.data();
-        container.innerHTML += `<div style="color:#fff;"><b>${data.userEmail}</b>: ${data.text}</div>`;
+        const commentId = doc.id;
+        const commentDiv = createCommentDiv(data, commentId);
+        if (commentDiv) {
+          container.appendChild(commentDiv);
+          loadReplies(commentId, commentDiv, 1);
+        }
       });
+    })
+    .catch(err => {
+      container.innerHTML = `<span style="color:red;">فشل تحميل التعليقات: ${err.message}</span>`;
+      console.error("🧨 خطأ أثناء تحميل التعليقات:", err);
     });
 }
 
-        // تحميل الردود المتداخلة داخل هذا التعليق
-        loadReplies(commentId, commentDiv, 1);
-      });
-    });
-}
-
-// دالة إنشاء div التعليق مع زر الرد
 function createCommentDiv(data, commentId) {
+  if (!data || !commentId) return null;
+
   const div = document.createElement("div");
   div.className = "comment-item";
   div.id = `comment-${commentId}`;
@@ -195,19 +208,16 @@ function createCommentDiv(data, commentId) {
     ${sanitize(data.text)}<br>
     <button class="reply-btn" data-id="${commentId}" style="background:transparent; border:none; color:#38bdf8; cursor:pointer; margin-top:5px;">رد</button>
     <div class="reply-form" id="reply-form-${commentId}" style="display:none; margin-top:6px;">
-      <textarea placeholder="اكتب ردك..." rows="2" style="width: 100%; background:#0a101d; color:#cfefff; border-radius:6px; padding:6px;"></textarea>
+      <textarea placeholder="اكتب ردك..." rows="2" style="width:100%; background:#0a101d; color:#cfefff; border-radius:6px; padding:6px;"></textarea>
       <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
     </div>
     <div class="replies-container" id="replies-container-${commentId}" style="margin-left: 20px; margin-top: 10px;"></div>
   `;
 
-  // تفعيل زر الرد وعناصر الرد
   const replyBtn = div.querySelector(".reply-btn");
   const replyForm = div.querySelector(`#reply-form-${commentId}`);
-if (!replyForm) {
-  console.error("replyForm مفقود للتعليق", commentId);
-  console.log("HTML:", div.innerHTML);
-}
+  if (!replyBtn || !replyForm) return div;
+
   const replyTextarea = replyForm.querySelector("textarea");
   const replySendBtn = replyForm.querySelector("button");
 
@@ -229,28 +239,34 @@ if (!replyForm) {
   return div;
 }
 
-// دالة تحميل الردود المتداخلة (recursion)
-function loadReplies(parentId, parentDiv, depth) {
+function loadReplies(parentId, parentDiv, depth = 1) {
   const container = parentDiv.querySelector(`#replies-container-${parentId}`);
-  if (!container) return; // حماية
+  if (!container) {
+    console.warn(`⚠️ لا يوجد replies-container-${parentId}`);
+    return;
+  }
 
-  // تحميل الردود
   db.collection("comments")
     .where("parentId", "==", parentId)
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
-      if (snapshot.empty) return; // ما في ردود تحت
+      if (snapshot.empty) return;
 
       snapshot.forEach(doc => {
         const data = doc.data();
         const replyId = doc.id;
-        // إنشاء div الرد
+
         const replyDiv = document.createElement("div");
         replyDiv.className = "comment-reply-item";
-        replyDiv.style = `margin-bottom:8px; border-left: 2px solid #38bdf8; padding-left: 8px; margin-left: ${depth * 20}px;`;
-
         replyDiv.id = `comment-${replyId}`;
+        replyDiv.style = `
+          margin-bottom: 8px;
+          border-left: 2px solid #38bdf8;
+          padding-left: 8px;
+          margin-left: ${depth * 20}px;
+        `;
+
         replyDiv.innerHTML = `
           <b>${sanitize(data.userEmail)}</b><br>
           ${sanitize(data.text)}<br>
@@ -264,9 +280,10 @@ function loadReplies(parentId, parentDiv, depth) {
 
         container.appendChild(replyDiv);
 
-        // تفعيل أزرار الرد
         const replyBtn = replyDiv.querySelector(".reply-btn");
         const replyForm = replyDiv.querySelector(`#reply-form-${replyId}`);
+        if (!replyBtn || !replyForm) return;
+
         const replyTextarea = replyForm.querySelector("textarea");
         const replySendBtn = replyForm.querySelector("button");
 
@@ -285,11 +302,16 @@ function loadReplies(parentId, parentDiv, depth) {
           handleSend(replyTextarea, replySendBtn, null, replyId);
         };
 
-        // تكرار التحميل للردود العميقة
+        // تكرار الردود
         loadReplies(replyId, replyDiv, depth + 1);
       });
+    })
+    .catch(err => {
+      console.error(`🧨 فشل تحميل الردود للتعليق ${parentId}:`, err);
     });
-}
+      }
+
+
 // ========== عند التحميل ==========  
 window.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
