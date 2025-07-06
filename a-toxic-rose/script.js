@@ -1,4 +1,4 @@
-<script>
+
 // ========== Firebase Init ==========
 const firebaseConfig = {
   apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
