@@ -152,118 +152,138 @@ function toggleCommentBox(paraId) {
 }  
   
 // ========== تحميل التعليقات ==========  
-function loadComments(paraId) {  
-  const box = document.getElementById(`box-${paraId}`);  
-  const commentList = box.querySelector(".comments");  
-  commentList.innerHTML = "تحميل...";  
-  
-  db.collection("comments")  
-    .where("paragraphId", "==", paraId)  
-    .where("depth", "==", 0)  
-    .orderBy("timestamp", "asc")  
-    .get()  
-    .then(snapshot => {  
-      commentList.innerHTML = "";  
-      if (snapshot.empty) {  
-        commentList.innerHTML = "<i>لا توجد تعليقات بعد.</i>";  
-        return;  
-      }  
-  
-      snapshot.forEach(doc => {  
-        const data = doc.data();  
-        const commentId = doc.id;  
-  
-        const div = document.createElement("div");  
-        div.className = "comment-item";  
-        div.id = `reply-${commentId}`;  
-        div.style = "margin-bottom:12px; border-bottom:1px solid #334155; padding-bottom:8px;";  
-        div.innerHTML = `  
-          <b>${sanitize(data.userEmail)}</b><br>  
-          ${sanitize(data.text)}<br>  
-          <span class="reply-controls">  
-            <span class="reply-btn" data-id="${commentId}">رد</span> |  
-            <span class="replies-toggle" data-id="${commentId}">الردود</span>  
-          </span>  
-          <div class="replies" id="replies-${commentId}" style="display:none;"></div>  
-          <div class="reply-form" id="reply-form-${commentId}" style="display:none;">  
-            <textarea placeholder="اكتب ردك..."></textarea>  
-            <button disabled>أرسل</button>  
-          </div>  
-        `;  
-  
-        commentList.appendChild(div);  
-  
-        const replyBtn = div.querySelector(".reply-btn");  
-        const replyForm = document.getElementById(`reply-form-${commentId}`);  
-        const replyTextarea = replyForm.querySelector("textarea");  
-        const replySendBtn = replyForm.querySelector("button");  
-  
-        replyBtn.onclick = () => {  
-          replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";  
-        };  
-  
-        replyTextarea.oninput = () => {  
-          replySendBtn.disabled = !replyTextarea.value.trim() || !currentUser;  
-        };  
-  
-        replySendBtn.onclick = () => {  
-          handleSend(replyTextarea, replySendBtn, null, commentId);  
-        };  
-  
-        countReplies(commentId).then(count => {  
-          const toggle = div.querySelector(".replies-toggle");  
-          toggle.textContent = `الردود (${count})`;  
-          toggle.onclick = () => {  
-            const repliesBox = document.getElementById(`replies-${commentId}`);  
-            if (repliesBox.style.display === "none") {  
-              repliesBox.style.display = "block";  
-              loadReplies(commentId);  
-            } else {  
-              repliesBox.style.display = "none";  
-            }  
-          };  
-        });  
-      });  
-    });  
-}  
-  
-// ========== تحميل الردود ==========  
-function loadReplies(parentId) {  
-  const container = document.getElementById(`replies-${parentId}`);  
-  container.innerHTML = "تحميل الردود...";  
-  
-  db.collection("comments")  
-    .where("parentId", "==", parentId)  
-    .orderBy("timestamp", "asc")  
-    .get()  
-    .then(snapshot => {  
-      container.innerHTML = "";  
-      if (snapshot.empty) {  
-        container.innerHTML = "<i>لا توجد ردود بعد.</i>";  
-        return;  
-      }  
-  
-      snapshot.forEach(doc => {  
-        const data = doc.data();  
-        const div = document.createElement("div");  
-        div.className = "reply-item";  
-        div.style = "margin:10px 0 10px 15px; padding:6px; background:rgba(15,23,42,0.9); border-radius:8px; color:#a0cfff;";  
-        div.innerHTML = `  
-          <b>${sanitize(data.userEmail)}</b><br>  
-          ${sanitize(data.text)}  
-        `;  
-        container.appendChild(div);  
-      });  
-    });  
-}  
-  
-function countReplies(parentId) {  
-  return db.collection("comments")  
-    .where("parentId", "==", parentId)  
-    .get()  
-    .then(snapshot => snapshot.size);  
-}  
-  
+// دالة تحميل التعليقات الأساسية (depth=0)
+function loadComments(paraId) {
+  const container = document.getElementById(`box-${paraId}`).querySelector(".comments");
+  container.innerHTML = "تحميل...";
+
+  db.collection("comments")
+    .where("paragraphId", "==", paraId)
+    .where("depth", "==", 0)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      container.innerHTML = "";
+      if (snapshot.empty) {
+        container.innerHTML = "<i>لا توجد تعليقات بعد.</i>";
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const commentId = doc.id;
+        const commentDiv = createCommentDiv(data, commentId);
+        container.appendChild(commentDiv);
+
+        // تحميل الردود المتداخلة داخل هذا التعليق
+        loadReplies(commentId, commentDiv, 1);
+      });
+    });
+}
+
+// دالة إنشاء div التعليق مع زر الرد
+function createCommentDiv(data, commentId) {
+  const div = document.createElement("div");
+  div.className = "comment-item";
+  div.id = `comment-${commentId}`;
+  div.style = "margin-bottom:12px; border-bottom:1px solid #334155; padding-bottom:8px;";
+
+  div.innerHTML = `
+    <b>${sanitize(data.userEmail)}</b><br>
+    ${sanitize(data.text)}<br>
+    <button class="reply-btn" data-id="${commentId}" style="background:transparent; border:none; color:#38bdf8; cursor:pointer; margin-top:5px;">رد</button>
+    <div class="reply-form" id="reply-form-${commentId}" style="display:none; margin-top:6px;">
+      <textarea placeholder="اكتب ردك..." rows="2" style="width: 100%; background:#0a101d; color:#cfefff; border-radius:6px; padding:6px;"></textarea>
+      <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
+    </div>
+    <div class="replies-container" id="replies-container-${commentId}" style="margin-left: 20px; margin-top: 10px;"></div>
+  `;
+
+  // تفعيل زر الرد وعناصر الرد
+  const replyBtn = div.querySelector(".reply-btn");
+  const replyForm = div.querySelector(`#reply-form-${commentId}`);
+  const replyTextarea = replyForm.querySelector("textarea");
+  const replySendBtn = replyForm.querySelector("button");
+
+  replyBtn.onclick = () => {
+    replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
+    if (replyForm.style.display === "block") {
+      replyTextarea.focus();
+    }
+  };
+
+  replyTextarea.oninput = () => {
+    replySendBtn.disabled = !replyTextarea.value.trim() || !currentUser;
+  };
+
+  replySendBtn.onclick = () => {
+    handleSend(replyTextarea, replySendBtn, null, commentId);
+  };
+
+  return div;
+}
+
+// دالة تحميل الردود المتداخلة (recursion)
+function loadReplies(parentId, parentDiv, depth) {
+  const container = parentDiv.querySelector(`#replies-container-${parentId}`);
+  if (!container) return; // حماية
+
+  // تحميل الردود
+  db.collection("comments")
+    .where("parentId", "==", parentId)
+    .orderBy("timestamp", "asc")
+    .get()
+    .then(snapshot => {
+      if (snapshot.empty) return; // ما في ردود تحت
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const replyId = doc.id;
+        // إنشاء div الرد
+        const replyDiv = document.createElement("div");
+        replyDiv.className = "comment-reply-item";
+        replyDiv.style = `margin-bottom:8px; border-left: 2px solid #38bdf8; padding-left: 8px; margin-left: ${depth * 20}px;`;
+
+        replyDiv.id = `comment-${replyId}`;
+        replyDiv.innerHTML = `
+          <b>${sanitize(data.userEmail)}</b><br>
+          ${sanitize(data.text)}<br>
+          <button class="reply-btn" data-id="${replyId}" style="background:transparent; border:none; color:#38bdf8; cursor:pointer; margin-top:5px;">رد</button>
+          <div class="reply-form" id="reply-form-${replyId}" style="display:none; margin-top:6px;">
+            <textarea placeholder="اكتب ردك..." rows="2" style="width: 100%; background:#0a101d; color:#cfefff; border-radius:6px; padding:6px;"></textarea>
+            <button disabled style="margin-top:4px; padding:6px 10px; border-radius:6px; background:#0f172a; color:#7dd3fc; border:none;">أرسل</button>
+          </div>
+          <div class="replies-container" id="replies-container-${replyId}" style="margin-top:10px;"></div>
+        `;
+
+        container.appendChild(replyDiv);
+
+        // تفعيل أزرار الرد
+        const replyBtn = replyDiv.querySelector(".reply-btn");
+        const replyForm = replyDiv.querySelector(`#reply-form-${replyId}`);
+        const replyTextarea = replyForm.querySelector("textarea");
+        const replySendBtn = replyForm.querySelector("button");
+
+        replyBtn.onclick = () => {
+          replyForm.style.display = replyForm.style.display === "none" ? "block" : "none";
+          if (replyForm.style.display === "block") {
+            replyTextarea.focus();
+          }
+        };
+
+        replyTextarea.oninput = () => {
+          replySendBtn.disabled = !replyTextarea.value.trim() || !currentUser;
+        };
+
+        replySendBtn.onclick = () => {
+          handleSend(replyTextarea, replySendBtn, null, replyId);
+        };
+
+        // تكرار التحميل للردود العميقة
+        loadReplies(replyId, replyDiv, depth + 1);
+      });
+    });
+}
 // ========== عند التحميل ==========  
 window.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
