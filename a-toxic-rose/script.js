@@ -163,6 +163,8 @@ function loadComments(paraId) {
     .orderBy("timestamp", "asc")
     .get()
     .then(snapshot => {
+      console.log("تم تحميل التعليقات:", snapshot.size, "للفقرة:", paraId);
+snapshot.forEach(doc => console.log("↳", doc.data()));
       container.innerHTML = "";
       if (snapshot.empty) {
         container.innerHTML = "<i>لا توجد تعليقات بعد.</i>";
