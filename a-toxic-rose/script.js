@@ -174,7 +174,9 @@ snapshot.forEach(doc => console.log("↳", doc.data()));
       snapshot.forEach(doc => {
         const data = doc.data();
         const commentId = doc.id;
-        const commentDiv = createCommentDiv(data, commentId);
+        const commentDiv = createCommentDiv(data, commentId);  
+        console.log("تم إنشاء العنصر؟", commentDiv);  // 🔍
+        container.appendChild(commentDiv);
         container.appendChild(commentDiv);
 
         // تحميل الردود المتداخلة داخل هذا التعليق
@@ -204,6 +206,10 @@ function createCommentDiv(data, commentId) {
   // تفعيل زر الرد وعناصر الرد
   const replyBtn = div.querySelector(".reply-btn");
   const replyForm = div.querySelector(`#reply-form-${commentId}`);
+if (!replyForm) {
+  console.error("replyForm مفقود للتعليق", commentId);
+  console.log("HTML:", div.innerHTML);
+}
   const replyTextarea = replyForm.querySelector("textarea");
   const replySendBtn = replyForm.querySelector("button");
 
