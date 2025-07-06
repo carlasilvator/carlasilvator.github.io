@@ -177,7 +177,7 @@ snapshot.forEach(doc => console.log("↳", doc.data()));
         const commentDiv = createCommentDiv(data, commentId);  
         console.log("تم إنشاء العنصر؟", commentDiv);  // 🔍
         container.appendChild(commentDiv);
-        container.appendChild(commentDiv);
+      
 
         // تحميل الردود المتداخلة داخل هذا التعليق
         loadReplies(commentId, commentDiv, 1);
