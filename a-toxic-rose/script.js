@@ -154,9 +154,13 @@ function toggleCommentBox(paraId) {
 // ========== تحميل التعليقات ==========  
 // دالة تحميل التعليقات الأساسية (depth=0)
 function loadComments(paraId) {
-  const container = document.getElementById(`box-${paraId}`).querySelector(".comments");
-  container.innerHTML = "تحميل...";
+  const box = document.getElementById(`box-${paraId}`);
+  if (!box) return console.error("❌ ما لقيت الصندوق:", paraId);
 
+  const container = box.querySelector(".comments");
+  if (!container) return console.error("❌ ما لقيت قسم التعليقات داخل الصندوق:", `box-${paraId}`);
+
+  container.innerHTML = "تحميل...";
   db.collection("comments")
     .get()
     .then(snapshot => {
