@@ -337,7 +337,7 @@ comments.forEach(c => {
             };
 
             // === زر حذف التعليق ===
-if (isCurrentUser) {
+if (isCurrentUser || isAuthor) {
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = '🗑️<br><span style="font-size:0.7rem;">حذف</span>';
   deleteBtn.title = 'حذف التعليق';
