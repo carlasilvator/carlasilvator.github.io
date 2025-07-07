@@ -460,11 +460,74 @@ comments.forEach(c => {
   if (depth > 0) {
     commentDiv.style.background = '#18202e';
   }
+
   commentList.appendChild(commentDiv);
 
   const replies = repliesMap[comment.id] || [];
-  replies.forEach(reply => renderWithReplies(reply, depth + 1));
-}
+
+  if (replies.length > 0) {
+    // زر لإظهار/إخفاء الردود
+    const showRepliesBtn = document.createElement('button');
+    showRepliesBtn.textContent = `الردود (${replies.length})`;
+    showRepliesBtn.style.cssText = 'background: transparent; border:none; color:#38bdf8; cursor:pointer; margin-top:4px; font-size:0.9rem;';
+    commentDiv.appendChild(showRepliesBtn);
+
+    const repliesContainer = document.createElement('div');
+    repliesContainer.style.display = 'none';
+    repliesContainer.style.marginTop = '8px';
+    commentDiv.appendChild(repliesContainer);
+
+    const loadMoreBtn = document.createElement('button');
+    loadMoreBtn.textContent = 'عرض المزيد';
+    loadMoreBtn.style.cssText = 'background: transparent; border:none; color:#7dd3fc; cursor:pointer; margin-top:4px; display:none;';
+    repliesContainer.appendChild(loadMoreBtn);
+
+    let shownCount = 0;
+
+    function loadMoreReplies() {
+      const nextReplies = replies.slice(shownCount, shownCount + 5);
+      nextReplies.forEach(reply => {
+        const isCurrentUserReply = currentUser && reply.userId === currentUser.uid;
+        const isAuthorReply = reply.userId === AUTHOR_UID;
+
+        const replyDiv = renderComment(reply, isCurrentUserReply, isAuthorReply);
+        replyDiv.style.marginLeft = `${(depth + 1) * 20}px`;
+        replyDiv.style.background = '#18202e';
+        replyDiv.style.borderRight = isAuthorReply ? '4px solid #f43f5e' : isCurrentUserReply ? '3px solid #38bdf8' : 'none';
+
+        repliesContainer.insertBefore(replyDiv, loadMoreBtn);
+      });
+
+      shownCount += nextReplies.length;
+
+      if (shownCount >= replies.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'block';
+      }
+    }
+
+    loadMoreBtn.onclick = loadMoreReplies;
+
+    showRepliesBtn.onclick = () => {
+      if (repliesContainer.style.display === 'none') {
+        repliesContainer.style.display = 'block';
+        showRepliesBtn.textContent = 'إخفاء الردود';
+
+        repliesContainer.innerHTML = '';
+        repliesContainer.appendChild(loadMoreBtn);
+        shownCount = 0;
+        loadMoreReplies();
+      } else {
+        repliesContainer.style.display = 'none';
+        showRepliesBtn.textContent = `الردود (${replies.length})`;
+      } 
+       };
+  }
+} // <-- إغلاق دالة
+    
+  
+          
 
 mainComments.forEach(comment => renderWithReplies(comment, 0));
 
