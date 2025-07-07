@@ -336,6 +336,34 @@ comments.forEach(c => {
               showReplyBox(comment.id, div, paraId);
             };
 
+            // === زر حذف التعليق ===
+if (isCurrentUser) {
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = '🗑️';
+  deleteBtn.title = 'حذف التعليق';
+  deleteBtn.style.cssText = `
+    position: absolute;
+    bottom: 8px;
+    left: 36px;
+    background: transparent;
+    border: none;
+    color: #f87171;
+    cursor: pointer;
+    font-size: 0.9rem;
+  `;
+  deleteBtn.onclick = async () => {
+    if (confirm("هل أنت متأكد من حذف هذا التعليق؟ لا يمكن التراجع.")) {
+      try {
+        await db.collection("comments").doc(comment.id).delete();
+      } catch (e) {
+        alert("حدث خطأ أثناء الحذف");
+        console.error(e);
+      }
+    }
+  };
+  div.appendChild(deleteBtn);
+                      }
+
             return div;
           }
 
