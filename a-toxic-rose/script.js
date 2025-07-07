@@ -339,7 +339,7 @@ comments.forEach(c => {
             // === زر حذف التعليق ===
 if (isCurrentUser) {
   const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = '🗑️';
+  deleteBtn.innerHTML = '🗑️<br><span style="font-size:0.7rem;">حذف</span>';
   deleteBtn.title = 'حذف التعليق';
   deleteBtn.style.cssText = `
     position: absolute;
