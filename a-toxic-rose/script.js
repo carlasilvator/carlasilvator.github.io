@@ -358,6 +358,7 @@ if (isCurrentUser || isAuthor) {
     if (confirm("هل أنت متأكد من حذف هذا التعليق؟ لا يمكن التراجع.")) {
       try {
         await db.collection("comments").doc(comment.id).delete();
+        div.remove();
       } catch (e) {
         alert("حدث خطأ أثناء الحذف");
         console.error(e);
