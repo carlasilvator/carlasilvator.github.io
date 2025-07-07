@@ -301,12 +301,13 @@ function toggleCommentBox(paraId) {
           // تجميع الردود حسب parentCommentId
           const mainComments = comments.filter(c => c.parentCommentId === null);
           const repliesMap = {};
-          comments.forEach(c => {
-            if (c.parentCommentId) {
-              if (!repliesMap[c.parentCommentId]) repliesMap[c.parentCommentId] = [];
-              repliesMap[c.parentCommentId].push(c);
-            }
-          });
+comments.forEach(c => {
+  const parentId = c.parentCommentId;
+  if (parentId) {
+    if (!repliesMap[parentId]) repliesMap[parentId] = [];
+    repliesMap[parentId].push(c);
+  }
+});
 
           function renderComment(comment, isCurrentUser, isAuthor) {
             const div = document.createElement('div');
@@ -450,27 +451,24 @@ function toggleCommentBox(paraId) {
             }
           }
 
-          // عرض التعليقات الرئيسية مع ردودها المسطحة
-          mainComments.forEach(comment => {
-            const isCurrentUser = currentUser && comment.userId === currentUser.uid;
-            const isAuthor = comment.userId === AUTHOR_UID;
-            const commentDiv = renderComment(comment, isCurrentUser, isAuthor);
-            commentList.appendChild(commentDiv);
+          function renderWithReplies(comment, depth = 0) {
+  const isCurrentUser = currentUser && comment.userId === currentUser.uid;
+  const isAuthor = comment.userId === AUTHOR_UID;
 
-            // ردود هذا التعليق
-            const replies = repliesMap[comment.id] || [];
-            replies.forEach(reply => {
-              const isCurrentUserReply = currentUser && reply.userId === currentUser.uid;
-              const isAuthorReply = reply.userId === AUTHOR_UID;
+  const commentDiv = renderComment(comment, isCurrentUser, isAuthor);
+  commentDiv.style.marginLeft = `${depth * 20}px`;
+  if (depth > 0) {
+    commentDiv.style.background = '#18202e';
+  }
+  commentList.appendChild(commentDiv);
 
-              const replyDiv = renderComment(reply, isCurrentUserReply, isAuthorReply);
-              replyDiv.style.marginLeft = '20px';
-              replyDiv.style.background = '#18202e';
-              replyDiv.style.borderRight = isAuthorReply ? '4px solid #f43f5e' : isCurrentUserReply ? '3px solid #38bdf8' : 'none';
+  const replies = repliesMap[comment.id] || [];
+  replies.forEach(reply => renderWithReplies(reply, depth + 1));
+}
 
-              commentList.appendChild(replyDiv);
-            });
-          });
+mainComments.forEach(comment => renderWithReplies(comment, 0));
+
+          
         });
     }
 
