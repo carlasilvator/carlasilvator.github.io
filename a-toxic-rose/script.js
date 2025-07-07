@@ -350,7 +350,10 @@ if (isCurrentUser) {
     color: #f87171;
     cursor: pointer;
     font-size: 0.9rem;
+    text-align: center;
+    line-height: 1;
   `;
+  
   deleteBtn.onclick = async () => {
     if (confirm("هل أنت متأكد من حذف هذا التعليق؟ لا يمكن التراجع.")) {
       try {
