@@ -270,22 +270,23 @@ if (typeof firebase === "undefined") {
   });    
     
   // ========== زر الاشتراك ==========    
-  const subscribeBtn = document.getElementById("subscribeBtn");    
-  if (subscribeBtn) {    
-    subscribeBtn.onclick = async () => {    
-      if (subscribeBtn.disabled || subscribeBtn.dataset.locked === "true") return;    
-      subscribeBtn.dataset.locked = "true";    
-      subscribeBtn.disabled = true;    
-      subscribeBtn.textContent = "...جاري الاشتراك";    
-      try {    
-        if (!currentUser) await auth.signInAnonymously();    
-      } catch (e) {    
-        alert("فشل تسجيل الدخول.");    
-        subscribeBtn.disabled = false;    
-        subscribeBtn.textContent = "اشتركي الآن";    
-        subscribeBtn.dataset.locked = "false";    
-      }    
-    };    
+  subscribeBtn.onclick = async () => {
+  if (subscribeBtn.disabled || subscribeBtn.dataset.locked === "true") return;
+  subscribeBtn.dataset.locked = "true";
+  subscribeBtn.disabled = true;
+  subscribeBtn.textContent = "...جاري الاشتراك";
+
+  try {
+    if (!currentUser) {
+      await auth.signInAnonymously();
+    }
+  } catch (e) {
+    alert("فشل تسجيل الدخول.");
+    subscribeBtn.disabled = false;
+    subscribeBtn.textContent = "اشتركي الآن";
+    subscribeBtn.dataset.locked = "false";
+  }
+};
   }    
     
   // ========== Service Worker ==========    
