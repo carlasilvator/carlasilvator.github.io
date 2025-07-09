@@ -268,9 +268,18 @@
     <p class="description">انضمي إلى أرواح الشفقية لتصلك آخر التحديثات مباشرةً إلى بريدك الإلكتروني.</p>    
     <div id="subscription-box" class="form-preview">    
       <h5>✨ اشتركي لتصلك الإشعارات السحرية مباشرة 💌</h5>    
-      <button id="subscribeBtn" type="button">اشتركي الآن</button>    
-      <p id="subscriberCount" style="color:#7dd3fc; margin-top:10px;">عدد الأرواح الشفقية: ...</p>    
-    </div>    
+      <!-- زر الاشتراك -->
+<button id="subscribeBtn">اشتركي الآن</button>
+
+<!-- زر تسجيل الخروج (اختياري) -->
+<button id="logoutBtn" style="display: none;">🚪 تسجيل الخروج</button>
+
+<!-- عرض الاسم -->
+<div id="userInfoDisplay"></div>
+
+<!-- عداد الأرواح -->
+<div id="subscriberCount">عدد الأرواح الشفقية:
+</div>
   </main>    
     
   <div class="intro-card">    
@@ -292,12 +301,14 @@
     حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025    
   </footer>    
     
-  <!-- Firebase Scripts -->    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>    
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>    
-    
-<script src="subscribe-system.js" defer></script>
+<!-- Firebase SDKs (يجب تحميلها أولًا) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>
+
+<!-- سكربت النظام الخاص بك -->
+<script src="js/subscribe-system.js"></script>
+  
 </body>    
 </html>   
