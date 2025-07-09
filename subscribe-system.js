@@ -91,7 +91,7 @@ function showAliasModal() {
 }
 
 // ========== زر الاشتراك ==========
-document.addEventListener("DOMContentLoaded", () => {
+
   const subscribeBtn = document.getElementById("subscribeBtn");
   const userInfo = document.getElementById("userInfoDisplay");
 
@@ -160,9 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (userInfo) userInfo.textContent = "";
       subscribeBtn.disabled = false;
       subscribeBtn.textContent = "اشتركي الآن";
-    });
-  }
-});
+  });
+  } 
+
+    
 
 // ========== نظام الرتب ==========
 function calculateRank(points, createdAt) {
