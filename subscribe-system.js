@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       subscribeBtn.disabled = true;
 
       await requestNotificationPermission(user);
+      localStorage.setItem("subscribed", "true");
       await updateSubscriberCount();
     } catch (e) {
       console.error("فشل الاشتراك:", e);
@@ -159,6 +160,68 @@ document.addEventListener("DOMContentLoaded", () => {
       subscribeBtn.disabled = false;
     }
   };
+
+  // ========== فحص تسجيل دخول المستخدم عند التحميل ==========
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      currentUser = user;
+
+      try {
+        const doc = await db.collection("users").doc(user.uid).get();
+        const data = doc.data();
+        try {
+  const doc = await db.collection("users").doc(user.uid).get();
+  const data = doc.data();
+  let alias = data?.alias;
+
+  if (!alias) {
+    alias = await showAliasModal();
+    if (!alias) {
+      await auth.signOut();
+      return;
+    }
+
+    const exists = await db.collection("users").where("alias", "==", alias).get();
+    if (!exists.empty) {
+      alert("هذا الاسم مستخدم من قبل.");
+      await auth.signOut();
+      return;
+    }
+
+    await db.collection("users").doc(user.uid).set({
+      alias,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      points: 10
+    }, { merge: true });
+  }
+        
+      // ✅ 🔻 هون بتحطي اللي سألتي عنه:
+      if (userInfo) userInfo.textContent = `👤 ${alias}`;
+      if (subscribeBtn) {
+        subscribeBtn.textContent = "مشتركة ✅";
+        subscribeBtn.disabled = true;
+      }
+      if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+      await updateSubscriberCount();
+
+    } catch (e) {
+      console.error("فشل في جلب بيانات المستخدم:", e);
+    }
+        await updateSubscriberCount();
+        
+  } else {
+    if (userInfo) userInfo.textContent = "👤 زائر";
+    if (subscribeBtn) {
+      subscribeBtn.disabled = false;
+      subscribeBtn.textContent = "اشتركي الآن";
+    }
+    if (logoutBtn) logoutBtn.style.display = "none";
+
+    // 👻 عرض عدد الأرواح الشفقية للزائر كمان (اختياري)
+    await updateSubscriberCount();
+  }
+});
 
   // ========== تسجيل الخروج ==========
   const logoutBtn = document.getElementById("logoutBtn");
@@ -298,8 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((err) => console.error("فشل تسجيل Service Worker:", err));
   }
 
-  // ========== تشغيل أولي ==========
-  updateSubscriberCount();
+  
 
   // ========== دوال خارجية ==========
   window.updateUserPoints = updateUserPoints;
