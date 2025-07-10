@@ -227,7 +227,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
+<script src="/a-toxic-rose/rank-system.js"></script>
 <script>
 // ========== تهيئة Firebase ==========
 const firebaseConfig = {
@@ -366,6 +366,9 @@ auth.onAuthStateChanged(async user => {
       alias = await requestAlias(user.uid);
       if (!alias) return;
     }
+
+      // ✅ استدعاء تحديث النقاط والرتبة
+    await updatePointsAndRank(db, user.uid);
 
     if (userInfo) userInfo.textContent = `مرحباً، ${alias}`;
     updateSubscriberCount();
