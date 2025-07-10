@@ -542,14 +542,13 @@ document.addEventListener("DOMContentLoaded", () => {
 async function updateSubscriberCount() {
   try {
     const snapshot = await db.collection("users").get();
-    let count = 0;
-    snapshot.forEach(doc => {
-      if (doc.data().alias) count++;
-    });
+    const count = snapshot.size; // عدد كل الوثائق (المستخدمين)
     const countElem = document.getElementById("subscriberCount");
     if (countElem) countElem.textContent = `عدد الأرواح الشفقية: ${count}`;
+    console.log("📢 عدد المشتركين الإجمالي:", count);
   } catch (e) {
     console.warn("فشل في جلب عدد المشتركين", e);
+  }
   }
                                                                                }
   // ========== تسجيل Service Worker ==========
