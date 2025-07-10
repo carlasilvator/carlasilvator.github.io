@@ -538,16 +538,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ========== عدد الأرواح الشفقية ==========
-  async function updateSubscriberCount() {
-    try {
-      const snapshot = await db.collection("users").where("alias", ">=", " ").get();
-      const countElem = document.getElementById("subscriberCount");
-      if (countElem) countElem.textContent = `عدد الأرواح الشفقية: ${snapshot.size}`;
-    } catch (e) {
-      console.warn("فشل في جلب عدد المشتركين", e);
-    }
+  // ========== عدد الأرواح الشفقية ==========
+async function updateSubscriberCount() {
+  try {
+    const snapshot = await db.collection("users").get();
+    let count = 0;
+    snapshot.forEach(doc => {
+      if (doc.data().alias) count++;
+    });
+    const countElem = document.getElementById("subscriberCount");
+    if (countElem) countElem.textContent = `عدد الأرواح الشفقية: ${count}`;
+  } catch (e) {
+    console.warn("فشل في جلب عدد المشتركين", e);
   }
-
+                                                                               }
   // ========== تسجيل Service Worker ==========
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
