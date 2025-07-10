@@ -278,7 +278,7 @@
 <div id="userInfoDisplay"></div>
 
 <!-- عداد الأرواح -->
-<div id="subscriberCount">عدد الأرواح الشفقية:
+<div id="subscriberCount">عدد الأرواح الشفقية: 0</div>
 </div>
   </main>    
     
@@ -309,6 +309,256 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-messaging-compat.js"></script>
 
 <!-- سكربت الاشتراك -->
-<script src="subscribe-system.js" defer></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ========== Firebase Init ==========
+  if (typeof firebase === "undefined") {
+    console.error("Firebase غير محمّل.");
+    return;
+  }
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",
+    authDomain: "works-rawan.firebaseapp.com",
+    projectId: "works-rawan",
+    storageBucket: "works-rawan.appspot.com",
+    messagingSenderId: "986254083746",
+    appId: "1:986254083746:web:17f7db0389c94473f0b9fb"
+  };
+
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  let messaging = typeof firebase.messaging === "function" ? firebase.messaging() : null;
+  let currentUser = null;
+  let aliasPrompted = false;
+
+  const subscribeBtn = document.getElementById("subscribeBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userInfo = document.getElementById("userInfoDisplay");
+
+  const resetUserInfo = () => {
+    if (userInfo) userInfo.textContent = "👤 زائر";
+    if (subscribeBtn) {
+      subscribeBtn.disabled = false;
+      subscribeBtn.textContent = "اشتركي الآن";
+    }
+    if (logoutBtn) logoutBtn.style.display = "none";
+  };
+
+  if (userInfo) resetUserInfo();
+
+  // ========== عرض مودال الاسم المستعار ==========
+  function showAliasModal() {
+    return new Promise((resolve) => {
+      const modal = document.createElement("div");
+      modal.style.cssText = `
+        position: fixed; top:0; left:0; width:100%; height:100%;
+        background: rgba(0,0,0,0.75);
+        display:flex; justify-content:center; align-items:center;
+        z-index: 9999;
+      `;
+      modal.innerHTML = `
+        <div style="background:#0f172a; padding:20px; border-radius:8px; max-width: 320px; width: 90%; color:#cfefff; font-family: sans-serif;">
+          <h3 style="margin-top:0; margin-bottom:10px;">اختر اسمك المستعار</h3>
+          <input type="text" id="aliasInput" placeholder="الاسم المستعار" style="width:100%; padding:8px; border-radius:4px; border:none; font-size:1rem;" />
+          <div style="margin-top:10px; text-align:right;">
+            <button id="aliasCancel" style="margin-right:8px; padding:6px 12px; border:none; border-radius:4px; background:#f87171; color:#fff; cursor:pointer;">إلغاء</button>
+            <button id="aliasSubmit" style="padding:6px 12px; border:none; border-radius:4px; background:#38bdf8; color:#0f172a; cursor:pointer;">تأكيد</button>
+          </div>
+          <p id="aliasError" style="color:#f87171; margin-top:8px; display:none;"></p>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      const input = modal.querySelector("#aliasInput");
+      const submitBtn = modal.querySelector("#aliasSubmit");
+      const cancelBtn = modal.querySelector("#aliasCancel");
+      const errorP = modal.querySelector("#aliasError");
+
+      input.focus();
+
+      function cleanUp() {
+        modal.remove();
+        window.removeEventListener("keydown", onKeyDown);
+      }
+
+      function onKeyDown(e) {
+        if (e.key === "Escape") {
+          cleanUp();
+          resolve(null);
+        }
+      }
+
+      window.addEventListener("keydown", onKeyDown);
+
+      cancelBtn.onclick = () => {
+        cleanUp();
+        resolve(null);
+      };
+
+      submitBtn.onclick = async () => {
+        const val = input.value.trim();
+        const valid = /^[\u0600-\u06FFa-zA-Z0-9 _-]{2,20}$/.test(val);
+        if (!valid) {
+          errorP.style.display = "block";
+          errorP.textContent = "الاسم غير صالح. استخدم 2-20 حرفًا عربية أو إنجليزية أو أرقام.";
+          input.focus();
+          return;
+        }
+        cleanUp();
+        resolve(val);
+      };
+    });
+  }
+
+  // ========== زر الاشتراك ==========
+  if (subscribeBtn) {
+    subscribeBtn.onclick = async () => {
+      if (subscribeBtn.disabled) return;
+      subscribeBtn.disabled = true;
+      subscribeBtn.textContent = "...جاري الاشتراك";
+
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        const user = result.user;
+        currentUser = user;
+
+        let alias = null;
+        const doc = await db.collection("users").doc(user.uid).get();
+
+        if (doc.exists && doc.data().alias) {
+          alias = doc.data().alias;
+        } else {
+          aliasPrompted = true;
+          alias = await showAliasModal();
+          if (!alias) throw new Error("الاسم المستعار مطلوب");
+
+          const exists = await db.collection("users").where("alias", "==", alias).get();
+          if (!exists.empty) throw new Error("هذا الاسم مستخدم من قبل");
+
+          await db.collection("users").doc(user.uid).set({
+            alias,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            points: 10
+          }, { merge: true });
+        }
+
+        if (userInfo) userInfo.textContent = `👤 ${alias}`;
+        subscribeBtn.textContent = "مشتركة ✅";
+        subscribeBtn.disabled = true;
+        if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+        await requestNotificationPermission(user);
+        localStorage.setItem("subscribed", "true");
+        await updateSubscriberCount();
+      } catch (e) {
+        alert(e.message || "فشل الاشتراك.");
+        resetUserInfo();
+      }
+    };
+  }
+
+  // ========== حالة تسجيل الدخول ==========
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      currentUser = user;
+      try {
+        const doc = await db.collection("users").doc(user.uid).get();
+        const data = doc.data();
+        let alias = data?.alias;
+
+        if (!alias && !aliasPrompted) {
+          aliasPrompted = true;
+          alias = await showAliasModal();
+          if (!alias) return await auth.signOut();
+
+          const exists = await db.collection("users").where("alias", "==", alias).get();
+          if (!exists.empty) return await auth.signOut();
+
+          await db.collection("users").doc(user.uid).set({
+            alias,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            points: 10
+          }, { merge: true });
+        }
+
+        if (userInfo) userInfo.textContent = `👤 ${alias}`;
+        if (subscribeBtn) {
+          subscribeBtn.textContent = "مشتركة ✅";
+          subscribeBtn.disabled = true;
+        }
+        if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+        await updateSubscriberCount();
+      } catch (e) {
+        console.error("فشل في جلب بيانات المستخدم:", e);
+      }
+    } else {
+      resetUserInfo();
+      await updateSubscriberCount();
+    }
+  });
+
+  // ========== تسجيل الخروج ==========
+  if (logoutBtn) {
+    logoutBtn.onclick = () => auth.signOut().then(resetUserInfo);
+  }
+
+  // ========== إشعارات FCM ==========
+  async function requestNotificationPermission(user) {
+    try {
+      if (!messaging) return;
+
+      if (Notification.permission === "denied") return;
+
+      if (Notification.permission === "default") {
+        const permission = await Notification.requestPermission();
+        if (permission !== "granted") return;
+      }
+
+      if (!navigator.serviceWorker?.controller) return;
+
+      const token = await messaging.getToken({
+        vapidKey: "BHuo9yozD49Ozy1EjzzQ7LoiqhQyt5ya_galZamcc5yeJxYPZ-eJ8kv05ANrL94mHcUlhXvkmxNMp6s-5CncQq8"
+      });
+
+      if (token && user) {
+        const existing = localStorage.getItem("fcmToken");
+        if (existing !== token) {
+          localStorage.setItem("fcmToken", token);
+          await db.collection("users").doc(user.uid).set({ fcmToken: token }, { merge: true });
+        }
+      }
+    } catch (e) {
+      console.warn("فشل تفعيل الإشعارات:", e);
+    }
+  }
+
+  // ========== عدد الأرواح الشفقية ==========
+  async function updateSubscriberCount() {
+    try {
+      const snapshot = await db.collection("users").where("alias", ">=", " ").get();
+      const countElem = document.getElementById("subscriberCount");
+      if (countElem) countElem.textContent = `عدد الأرواح الشفقية: ${snapshot.size}`;
+    } catch (e) {
+      console.warn("فشل في جلب عدد المشتركين", e);
+    }
+  }
+
+  // ========== تسجيل Service Worker ==========
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then((reg) => console.log("Service Worker مسجل:", reg))
+      .catch((err) => console.error("فشل تسجيل Service Worker:", err));
+  }
+
+  // دوال مساعدة
+  window.updateUserPoints = updateSubscriberCount;
+  window.getCurrentUserId = () => currentUser?.uid || null;
+});
+</script>
 </body>    
 </html>   
