@@ -11,6 +11,23 @@ const firebaseConfig = {
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+const userCache = {};
+
+async function getUserData(userId) {
+  if (userCache[userId]) {
+    return userCache[userId];
+  }
+  try {
+    const doc = await db.collection('users').doc(userId).get();
+    if (!doc.exists) return null;
+    const data = doc.data();
+    userCache[userId] = data;
+    return data;
+  } catch (e) {
+    console.error("فشل جلب بيانات المستخدم", e);
+    return null;
+  }
+}
 
 let currentUser = null;
 const AUTHOR_UID = "YteRK2Jua3QlqKAHSLp5odRAVQK2"; // معرف روان الصحيح
