@@ -264,8 +264,14 @@
     
   <main class="follow-container">    
     <img src="https://i.ibb.co/zWRM2b7m/1de6ccc21de5e0914dac28ab320d17cd.jpg" alt="صورة آثير" class="profile-pic" loading="lazy" />    
-    <h1>آثيريات العنقاء</h1>     
-    
+    <h1>آثيريات العنقاء</h1>    
+    <button id="loginBtn">✨ اشتركي الآن</button>
+<button id="logoutBtn" style="display:none;">🚪 تسجيل الخروج</button>
+<div id="userInfo"></div>
+<div id="subscriberCount">عدد الأرواح الشفقية: 0</div>
+    <p id="subscriberCount" style="margin-top: 20px; font-size: 18px; color: var(--text-secondary); text-shadow: 0 0 10px var(--text-accent);">
+  عدد الأرواح الشفقية: ...
+    </p>
   </main>    
     
   <div class="intro-card">    
@@ -285,7 +291,173 @@
     
   <footer>    
     حقوق النشر محفوظة، وكل استخدام غير مرخص يعرض صاحبه للمساءلة القانونية — &copy; 2025    
-  </footer>    
+  </footer>  
 
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script>
+  // ========== تهيئة Firebase ==========  
+const firebaseConfig = {  
+  apiKey: "AIzaSyBtTc7yWNfNkG0oVSbpq0V9A6DHTgZoGBM",  
+  authDomain: "works-rawan.firebaseapp.com",  
+  projectId: "works-rawan",  
+  storageBucket: "works-rawan.appspot.com",  
+  messagingSenderId: "986254083746",  
+  appId: "1:986254083746:web:17f7db0389c94473f0b9fb"  
+};  
+  
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);  
+const auth = firebase.auth();  
+const db = firebase.firestore();  
+  
+let currentUser = null;  
+const AUTHOR_UID = "YteRK2Jua3QlqKAHSLp5odRAVQK2"; // معرف روان الصحيح  
+  
+const loginBtn = document.getElementById("loginBtn");  
+const logoutBtn = document.getElementById("logoutBtn");  
+const userInfo = document.getElementById("userInfo");  
+
+
+    // ====  دالة لجلب عدد المشتركين ====  
+
+async function updateSubscriberCount() {
+  try {
+    const snapshot = await db.collection("users").get();
+    const count = snapshot.size;
+    const countElem = document.getElementById("subscriberCount");
+    if (countElem) countElem.textContent = `عدد الأرواح الشفقية: ${count}`;
+  } catch (e) {
+    console.warn("فشل في جلب عدد المشتركين", e);
+  }
+}    
+    
+// ==== دالة لجلب الاسم المستعار ====  
+async function getAlias(uid) {  
+  try {  
+    const doc = await db.collection("users").doc(uid).get();  
+    return doc.exists ? doc.data().alias : null;  
+  } catch (e) {  
+    console.error("فشل في جلب الاسم المستعار", e);  
+    return null;  
+  }  
+}  
+// ==== دالة لجلب الاسم المستعار ====  
+async function getAlias(uid) {  
+  try {  
+    const doc = await db.collection("users").doc(uid).get();  
+    return doc.exists ? doc.data().alias : null;  
+  } catch (e) {  
+    console.error("فشل في جلب الاسم المستعار", e);  
+    return null;  
+  }  
+}  
+  
+// ==== دالة طلب الاسم المستعار باستخدام مودال HTML (بدلاً من prompt) ====  
+function showAliasModal() {  
+  return new Promise((resolve) => {  
+    const modal = document.createElement("div");  
+    modal.style.cssText = `  
+      position: fixed; top:0; left:0; width:100%; height:100%;  
+      background: rgba(0,0,0,0.75); display:flex; justify-content:center; align-items:center;  
+      z-index: 9999;  
+    `;  
+    modal.innerHTML = `  
+      <div style="background:#0f172a; padding:20px; border-radius:8px; max-width: 320px; width: 90%; color:#cfefff; font-family: sans-serif;">  
+        <h3 style="margin-top:0; margin-bottom:10px;">اختر اسمك المستعار</h3>  
+        <input type="text" id="aliasInput" placeholder="الاسم المستعار" style="width:100%; padding:8px; border-radius:4px; border:none; font-size:1rem;" />  
+        <div style="margin-top:10px; text-align:right;">  
+          <button id="aliasCancel" style="margin-right:8px; padding:6px 12px; border:none; border-radius:4px; background:#f87171; color:#fff; cursor:pointer;">إلغاء</button>  
+          <button id="aliasSubmit" style="padding:6px 12px; border:none; border-radius:4px; background:#38bdf8; color:#0f172a; cursor:pointer;">تأكيد</button>  
+        </div>  
+        <p id="aliasError" style="color:#f87171; margin-top:8px; display:none;"></p>  
+      </div>  
+    `;  
+  
+    document.body.appendChild(modal);  
+const input = modal.querySelector("#aliasInput");  
+    const submitBtn = modal.querySelector("#aliasSubmit");  
+    const cancelBtn = modal.querySelector("#aliasCancel");  
+    const errorP = modal.querySelector("#aliasError");  
+  
+    input.focus();  
+  
+    function cleanUp() {  
+      modal.remove();  
+      window.removeEventListener("keydown", onKeyDown);  
+    }  
+  
+    function onKeyDown(e) {  
+      if (e.key === "Escape") {  
+        cleanUp();  
+        resolve(null);  
+      }  
+    }  
+  
+    window.addEventListener("keydown", onKeyDown);  
+  
+    cancelBtn.onclick = () => {  
+      cleanUp();  
+      resolve(null);  
+    };  
+  
+    submitBtn.onclick = () => {  
+      const val = input.value.trim();  
+      if (val.length < 2) {  
+        errorP.style.display = "block";  
+        errorP.textContent = "الاسم المستعار قصير جداً، جرب مرة أخرى.";  
+        input.focus();  
+        return;  
+      }  
+      cleanUp();  
+      resolve(val);  
+    };  
+  });  
+}  
+async function requestAlias(uid) {  
+  const alias = await showAliasModal();  
+  if (!alias) {  
+    alert("الاسم المستعار مطلوب لتسجيل الدخول. سيتم تسجيل الخروج.");  
+    await auth.signOut();  
+    return null;  
+  }  
+  await db.collection("users").doc(uid).set({  
+    alias,  
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()  
+  });  
+  return alias;  
+}  
+  
+// ==== مراقبة حالة تسجيل الدخول ====  
+auth.onAuthStateChanged(async user => {  
+  currentUser = user;  
+  
+  if (user) {  
+    if (loginBtn) loginBtn.style.display = "none";  
+    if (logoutBtn) logoutBtn.style.display = "inline-block";  
+  
+    let alias = await getAlias(user.uid);  
+    if (!alias) {  
+      alias = await requestAlias(user.uid);  
+      if (!alias) return; // تم تسجيل الخروج داخل requestAlias  
+    }  
+if (userInfo) userInfo.textContent = `مرحباً، ${alias}`;  
+// ==== تسجيل الدخول ====  
+if (loginBtn) {  
+  loginBtn.onclick = () => {  
+    const provider = new firebase.auth.GoogleAuthProvider();  
+    auth.signInWithPopup(provider).catch(console.error);  
+  };  
+}  
+  
+// ==== تسجيل الخروج ====  
+if (logoutBtn) {  
+  logoutBtn.onclick = () => auth.signOut();  
+}  
+// ==== بدء العرض ====  
+document.addEventListener("DOMContentLoaded", () => {
+</script>
 </body>    
 </html>   
