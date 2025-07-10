@@ -243,6 +243,7 @@ function renderParagraphs(partId = 'toxic-part-1') {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           parentCommentId: null // تعليق رئيسي
         });
+        await addPoints(currentUser.uid, 5); // 5 نقاط للتعليق
 
         textarea.value = '';
         sendBtn.disabled = true;
@@ -427,6 +428,7 @@ if (isCurrentUser || isAuthor) {
                   timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                   parentCommentId: parentCommentId
                 });
+                await addPoints(currentUser.uid, 3); // 3 نقاط للرد
 
                 // إرسال إشعارات لكل من شاركوا في هذه السلسلة (حتى صاحب التعليق)
                 await notifyReplyRecipients(parentCommentId);
