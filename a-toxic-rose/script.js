@@ -327,31 +327,56 @@ comments.forEach(c => {
   }
 });
 
-          function renderComment(comment, isCurrentUser, isAuthor) {
-            const div = document.createElement('div');
-            div.className = 'comment-item';
-            div.style.cssText = `
-              margin-bottom:12px;
-              border-bottom:1px solid #334155;
-              padding:8px;
-              word-break: break-word;
-              background: ${isAuthor ? '#1e293b' : isCurrentUser ? '#0f172a' : 'transparent'};
-              border-right: ${isAuthor ? '4px solid #f43f5e' : isCurrentUser ? '3px solid #38bdf8' : 'none'};
-              position: relative;
-            `;
+          async function renderComment(comment, isCurrentUser, isAuthor) {
+  const userData = await getUserData(comment.userId);
 
-            div.innerHTML = `
-              <b style="color:${isAuthor ? '#f43f5e' : isCurrentUser ? '#7dd3fc' : '#a5b4fc'}">
-                ${sanitize(comment.alias)}${isAuthor ? ' (الكاتبة)' : isCurrentUser ? ' (أنت)' : ''}
-              </b><br>
-              ${sanitize(comment.text)}
-              <button class="reply-btn" style="position: absolute; top: 8px; left: 8px; background: transparent; border:none; color:#38bdf8; cursor:pointer; font-size: 0.9rem;">رد</button>
-            `;
+  // ألوان المجموعات حسب طلبك
+  const colors = {
+    "النبلاء": "gold",
+    "الفرسان": "royalblue",
+    "الغرباء": "saddlebrown"
+  };
+
+  const rankColor = colors[userData?.rankGroup] || "#a5b4fc";
+  const rankTitle = userData?.rank || "غير مصنّف";
+  const rankGroup = userData?.rankGroup || "مجهول";
+  const points = userData?.points || 0;
+
+  // 🔥 أنشئي div أولاً قبل تعديل خصائصه
+  const div = document.createElement('div');
+  div.className = 'comment-item';
+  div.style.cssText = `
+    margin-bottom:12px;
+    border-bottom:1px solid #334155;
+    padding:8px;
+    word-break: break-word;
+    background: ${isAuthor ? '#1e293b' : isCurrentUser ? '#0f172a' : 'transparent'};
+    border-right: ${isAuthor ? '4px solid #f43f5e' : isCurrentUser ? '3px solid #38bdf8' : 'none'};
+    position: relative;
+  `;
+
+  div.innerHTML = `
+    <div style="font-size: 0.75rem; color: ${rankColor}; font-weight: bold; margin-bottom: 2px; text-align:center;">
+      ${rankTitle}
+    </div>
+    <div style="font-weight: bold; color: ${isAuthor ? '#f43f5e' : isCurrentUser ? '#7dd3fc' : '#a5b4fc'}; text-align:center;">
+      ${sanitize(comment.alias)}${isAuthor ? ' (الكاتبة)' : isCurrentUser ? ' (أنت)' : ''}
+    </div>
+    <div style="font-size: 0.7rem; color: ${rankColor}; text-align:center; margin-bottom: 6px;">
+      ${rankGroup} (${points} نقاط)
+    </div>
+    <div style="padding: 4px 0;">
+      ${sanitize(comment.text)}
+    </div>
+    <button class="reply-btn" style="position: absolute; top: 8px; left: 8px; background: transparent; border:none; color:#38bdf8; cursor:pointer; font-size: 0.9rem;">رد</button>
+  `;
+
 
             // إضافة حدث زر الرد
             const replyBtn = div.querySelector('.reply-btn');
             replyBtn.onclick = () => {
-              showReplyBox(comment.id, div, paraId);
+              showReplyBox(comment.id, div, comment.paragraphId);
+              
             };
 
             // === زر حذف التعليق ===
@@ -506,7 +531,7 @@ if (isCurrentUser || isAuthor) {
   const isCurrentUser = currentUser && comment.userId === currentUser.uid;
   const isAuthor = comment.userId === AUTHOR_UID;
 
-  const commentDiv = renderComment(comment, isCurrentUser, isAuthor);
+  const commentDiv = await renderComment(comment, isCurrentUser, isAuthor); // ✅ HERE 😐
   commentDiv.style.marginLeft = `${depth * 20}px`;
   if (depth > 0) {
     commentDiv.style.background = '#18202e';
@@ -541,7 +566,7 @@ if (isCurrentUser || isAuthor) {
         const isCurrentUserReply = currentUser && reply.userId === currentUser.uid;
         const isAuthorReply = reply.userId === AUTHOR_UID;
 
-        const replyDiv = renderComment(reply, isCurrentUserReply, isAuthorReply);
+        const replyDiv = await renderComment(reply, isCurrentUserReply, isAuthorReply); // ✅ HERE 😐
         replyDiv.style.marginLeft = `${(depth + 1) * 20}px`;
         replyDiv.style.background = '#18202e';
         replyDiv.style.borderRight = isAuthorReply ? '4px solid #f43f5e' : isCurrentUserReply ? '3px solid #38bdf8' : 'none';
@@ -596,6 +621,31 @@ mainComments.forEach(comment => renderWithReplies(comment, 0));
   }
 }
 
+// ==== دالة إضافة نقاط للمستخدم ====
+async function addPoints(userId, points) {
+  try {
+    const userRef = db.collection("users").doc(userId);
+    await db.runTransaction(async (t) => {
+      const doc = await t.get(userRef);
+      if (!doc.exists) return;
+
+      const data = doc.data();
+      const newPoints = (data.points || 0) + points;
+      const createdAt = data.createdAt;
+
+      // حساب الرتبة تلقائيًا
+      const { rank, title, rankGroup } = calculateRank(newPoints, createdAt);
+
+      t.update(userRef, {
+        points: newPoints,
+        rank,
+        rankGroup
+      });
+    });
+  } catch (e) {
+    console.error("فشل في تحديث النقاط:", e);
+  }
+        }
 // ==== بدء العرض ====
 document.addEventListener("DOMContentLoaded", () => {
   renderParagraphs("toxic-part-1");
