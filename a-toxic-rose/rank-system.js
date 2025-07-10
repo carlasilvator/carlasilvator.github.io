@@ -1,6 +1,6 @@
 // ========== نظام الرتب ==========
 
-// 1. دالة حساب الرتبة
+// 1. دالة حساب الرتبة بناءً على عدد النقاط
 function calculateRank(points) {
   const ranks = [
     { min: 500, title: "👑 الملك/الملكة", group: "النبلاء" },
@@ -13,8 +13,8 @@ function calculateRank(points) {
     { min: 200, title: "🧭 الفارس", group: "الفرسان" },
     { min: 150, title: "🚩 متدرّب", group: "الغرباء" },
     { min: 100, title: "🧍 المواطن", group: "الغرباء" },
-    { min: 50, title: "💰 التاجر", group: "الغرباء" },
-    { min: 0, title: "🪦 المتشرّد", group: "الغرباء" },
+    { min: 50,  title: "💰 التاجر", group: "الغرباء" },
+    { min: 0,   title: "🪦 المتشرّد", group: "الغرباء" }
   ];
   for (const rank of ranks) {
     if (points >= rank.min) return rank;
@@ -22,7 +22,30 @@ function calculateRank(points) {
   return { title: "غير مصنّف", group: "مجهول" };
 }
 
-// 2. دالة تحديث النقاط والرتبة
+// 2. دالة إضافة عدد معين من النقاط وتحديث الرتبة
+async function addPoints(uid, amount = 1) {
+  const userRef = db.collection("users").doc(uid);
+
+  await db.runTransaction(async (tx) => {
+    const userDoc = await tx.get(userRef);
+    let data = userDoc.exists ? userDoc.data() : {};
+
+    let points = (data.points || 0) + amount;
+    const now = Date.now();
+
+    const rank = calculateRank(points);
+
+    tx.set(userRef, {
+      points,
+      lastActive: now,
+      lastPoints: (data.lastPoints || 0) + amount,
+      rank: rank.title,
+      rankGroup: rank.group,
+    }, { merge: true });
+  });
+}
+
+// 3. دالة تحديث النقاط اليومية (مثلاً عند تسجيل الدخول أو النشاط العام)
 async function updatePointsAndRank(uid) {
   const userRef = db.collection("users").doc(uid);
 
@@ -35,10 +58,10 @@ async function updatePointsAndRank(uid) {
     const lastActive = data.lastActive || now;
     const daysInactive = (now - lastActive) / (1000 * 60 * 60 * 24);
 
-    // زيادة نقطة
+    // إضافة نقطة نشاط عادية
     points += 1;
 
-    // خصم نقاط إذا خامل
+    // خصم نقاط للخاملين إذا لم يتجاوزوا عدد معين
     if (daysInactive >= 7 && (data.lastPoints || 0) < 20) {
       points = Math.max(0, points - 10);
     }
@@ -53,4 +76,16 @@ async function updatePointsAndRank(uid) {
       rankGroup: rank.group,
     }, { merge: true });
   });
-     }
+}
+
+// 4. دالة إحضار الرتبة الحالية لأي مستخدم
+async function getUserRank(uid) {
+  const doc = await db.collection("users").doc(uid).get();
+  if (!doc.exists) return null;
+
+  return {
+    rank: doc.data().rank,
+    group: doc.data().rankGroup,
+    points: doc.data().points || 0
+  };
+                          }
