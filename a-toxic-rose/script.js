@@ -527,7 +527,7 @@ if (isCurrentUser || isAuthor) {
             }
           }
 
-          function renderWithReplies(comment, depth = 0) {
+          async function renderWithReplies(comment, depth = 0) {
   const isCurrentUser = currentUser && comment.userId === currentUser.uid;
   const isAuthor = comment.userId === AUTHOR_UID;
 
@@ -560,7 +560,7 @@ if (isCurrentUser || isAuthor) {
 
     let shownCount = 0;
 
-    function loadMoreReplies() {
+    async function loadMoreReplies() {
       const nextReplies = replies.slice(shownCount, shownCount + 5);
       nextReplies.forEach(reply => {
         const isCurrentUserReply = currentUser && reply.userId === currentUser.uid;
